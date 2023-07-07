@@ -1,0 +1,19 @@
+extends Control
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
+
+signal update_clicks(diff)
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	get_node("h0/Buttons/Button").connect("pressed", self, "_on_a1_click")
+	pass # Replace with function body.
+
+func _on_a1_click():
+	emit_signal("update_clicks", 4)
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass

@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/MainScene.gd" type="Script" id=1]
+
+[node name="MainScene" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="v0" type="VSplitContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+split_offset = 50
+
+[node name="TopBar" type="HBoxContainer" parent="v0"]
+margin_right = 1024.0
+margin_bottom = 64.0
+
+[node name="Title" type="Label" parent="v0/TopBar"]
+margin_top = 25.0
+margin_right = 90.0
+margin_bottom = 39.0
+text = "TESTING TITLE"
+
+[node name="Stage0" type="MarginContainer" parent="v0"]
+margin_top = 76.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="Button" type="Button" parent="v0/Stage0"]
+margin_right = 122.0
+margin_bottom = 20.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Write some code"
