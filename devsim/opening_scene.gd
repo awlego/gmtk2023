@@ -83,10 +83,10 @@ func _on_Timer_timeout():
 	
 	
 	#RNG generate a bug
-	if rand_range(1, 100) > 90:
-		# generate a random location for the bug button
-		pf.generateProject("Bug " + str(count))
-		count += 1
+	#if rand_range(1, 100) > 90:
+	#	# TODO generate a random location for the bug button
+	#	pf.generateProject("Bug " + str(count))
+	#	count += 1
 	
 	if $VSplitContainer/HSplitContainer/EnergyMeter.value == 0:
 		tired = true
@@ -102,7 +102,7 @@ func _on_Drink_Coffee_pressed():
 	if sleeping == true:
 		return
 
-	main.update_money(-1)
+	main.update_money(-5)
 	$VSplitContainer/HSplitContainer/EnergyMeter.value = 100 - coffee_penalty
 	if coffee_penalty == 0:
 		coffee_penalty += 5
@@ -184,6 +184,14 @@ func _on_Study_pressed():
 func _on_Code_pressed():
 	if tired == true:
 		if rand_range(1, 100) > 5:
+			pf.generateProject("Bug " + str(count))
+			count += 1
 			return
+	if (rand_range(0,1) * len(pf.project_list)) > 20:
+		print("BUG! Nothing got done")
+		return
 	$VSplitContainer/GameProgress/Percent.value += 1*programming_skill
 	programming_skill += 0.0001
+	if rand_range(1, 100) < 5:
+		pf.generateProject("Bug " + str(count))
+		count += 1
