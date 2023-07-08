@@ -20,14 +20,12 @@ margin_right = 1024.0
 margin_bottom = 105.0
 
 [node name="MarginContainer" type="MarginContainer" parent="v0/TopBar"]
-margin_left = 10.0
-margin_top = 10.0
 margin_right = 400.0
 margin_bottom = 105.0
 
 [node name="Info" type="RichTextLabel" parent="v0/TopBar/MarginContainer"]
 margin_right = 400.0
-margin_bottom = 95.0
+margin_bottom = 105.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3

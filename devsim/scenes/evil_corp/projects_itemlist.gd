@@ -13,3 +13,4 @@ func _on_projects_item_selected(index):
 	remove_item(index)
 	get_parent().queue_sort()
 	print(index)
+
