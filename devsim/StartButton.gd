@@ -11,8 +11,8 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_StartButton_pressed():
-	get_tree().change_scene("res://Stage1.tscn")
-	pass # Replace with function body.
+	get_tree().change_scene("res://opening_scene.tscn")
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
