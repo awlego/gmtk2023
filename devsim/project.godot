@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Project",
 "language": "GDScript",
 "path": "res://scenes/evil_corp/Project.gd"
+}, {
+"base": "Button",
+"class": "ProjectButton",
+"language": "GDScript",
+"path": "res://scenes/project_button.gd"
 } ]
 _global_script_class_icons={
-"Project": ""
+"Project": "",
+"ProjectButton": ""
 }
 
 [application]
