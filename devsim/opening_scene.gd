@@ -13,7 +13,9 @@ var pf
 var main
 var first_sleep_appear = false
 var sleeping = true
+var tired = true
 var programming_skill = 0
+var coffee_penalty = 0
 
 var count = 0
 
@@ -85,6 +87,10 @@ func _on_Timer_timeout():
 		# generate a random location for the bug button
 		pf.generateProject("Bug " + str(count))
 		count += 1
+	
+	if $VSplitContainer/HSplitContainer/EnergyMeter.value == 0:
+		tired = true
+
 		
 	#$scenes/ProjectFactory.generateProject("Testing " + str(count))
 
@@ -92,11 +98,16 @@ func _on_Timer_timeout():
 
 
 func _on_Drink_Coffee_pressed():
+	tired = false
 	if sleeping == true:
 		return
 
 	main.update_money(-1)
-	$VSplitContainer/HSplitContainer/EnergyMeter.value = 100
+	$VSplitContainer/HSplitContainer/EnergyMeter.value = 100 - coffee_penalty
+	if coffee_penalty == 0:
+		coffee_penalty += 5
+	else:
+		coffee_penalty += 1
 	$VSplitContainer/HSplitContainer/EnergyMeter.show()
 	$VSplitContainer/HSplitContainer/Label.show()
 	$Timer.start()
@@ -138,6 +149,9 @@ func _on_Boot_Computer_pressed():
 func _on_HelloWorld_gui_input(event):
 	if sleeping == true:
 		return
+	if tired == true:
+		if rand_range(1, 100) > 70:
+			return
 	if $VSplitContainer/HSplitContainer/EnergyMeter.value == 0:
 		removed = true
 		$VSplitContainer/HSplitContainer2/HelloWorld.get_parent().remove_child($VSplitContainer/HSplitContainer2/HelloWorld)
@@ -146,12 +160,13 @@ func _on_HelloWorld_gui_input(event):
 		#$VSplitContainer/HSplitContainer2/HelloWorld.max_length = len($VSplitContainer/HSplitContainer2/HelloWorld.text)
 		#print($VSplitContainer/HSplitContainer2/HelloWorld.max_length)
 		#$VSplitContainer/HSplitContainer2/HelloWorld.max_length -= 1
-		
-		
+
 
 
 func _on_SleepButton_pressed():
 	sleeping = true
+	tired = false
+	coffee_penalty = 0
 	$SleepTimer.start()
 
 
@@ -160,9 +175,15 @@ func _on_SleepTimer_timeout():
 
 
 func _on_Study_pressed():
+	if tired == true:
+		if rand_range(1, 100) > 10:
+			return
 	programming_skill += 0.001
 
 
 func _on_Code_pressed():
+	if tired == true:
+		if rand_range(1, 100) > 5:
+			return
 	$VSplitContainer/GameProgress/Percent.value += 1*programming_skill
 	programming_skill += 0.0001
