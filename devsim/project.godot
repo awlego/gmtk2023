@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Panel",
+"class": "Employee",
+"language": "GDScript",
+"path": "res://scenes/Stage2/Employee.gd"
+} ]
+_global_script_class_icons={
+"Employee": ""
+}
+
 [application]
 
 config/name="devsim"
