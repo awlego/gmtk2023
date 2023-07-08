@@ -111,6 +111,59 @@ margin_right = 133.0
 margin_bottom = 20.0
 text = "Code"
 
+[node name="MusicNotes" type="HBoxContainer" parent="VSplitContainer/HBoxContainer2"]
+margin_left = 137.0
+margin_right = 210.0
+margin_bottom = 20.0
+
+[node name="Note1" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
+margin_top = 3.0
+margin_right = 7.0
+margin_bottom = 17.0
+text = "a"
+
+[node name="Note2" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
+margin_left = 11.0
+margin_top = 3.0
+margin_right = 19.0
+margin_bottom = 17.0
+text = "e"
+
+[node name="Note3" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
+margin_left = 23.0
+margin_top = 3.0
+margin_right = 31.0
+margin_bottom = 17.0
+text = "b"
+
+[node name="Note4" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
+margin_left = 35.0
+margin_top = 3.0
+margin_right = 43.0
+margin_bottom = 17.0
+text = "d"
+
+[node name="Note5" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
+margin_left = 47.0
+margin_top = 3.0
+margin_right = 54.0
+margin_bottom = 17.0
+text = "g"
+
+[node name="Note6" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
+margin_left = 58.0
+margin_top = 3.0
+margin_right = 65.0
+margin_bottom = 17.0
+text = "c"
+
+[node name="Note7" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
+margin_left = 69.0
+margin_top = 3.0
+margin_right = 73.0
+margin_bottom = 17.0
+text = "f"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VSplitContainer"]
 margin_top = 178.0
 margin_right = 1024.0

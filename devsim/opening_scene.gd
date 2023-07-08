@@ -7,9 +7,10 @@ extends Control
 var energy_meter
 var computer_boot_flag = 0
 var removed = false
-onready var removable = get_node("$VSplitContainer/HSplitContainer2/HelloWorld")
+#onready var removable = get_node("$VSplitContainer/HSplitContainer2/HelloWorld")
 var pf
-
+var asm
+var music_skill = 0.001
 var main
 var first_sleep_appear = false
 var sleeping = true
@@ -68,6 +69,9 @@ var coffee_phrases = [
 var personal_status = "Well Rested and Feeling Ready for Game Jam"
 
 var count = 0
+var sound_idx = 0
+var music_note_idx = 0
+var music_note_list = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -81,9 +85,12 @@ func _ready():
 	$VSplitContainer/HSplitContainer2/HelloWorld.hide()
 	$VSplitContainer/HSplitContainer2/HelloWorld.max_length = 20
 	pf = ProjectFactory.new()
+	asm = AudioStreamManager.new()
 	self.add_child(pf)
+	self.add_child(asm)
 	$VSplitContainer/HBoxContainer2/Art.hide()
 	$VSplitContainer/HBoxContainer2/Music.hide()
+	$VSplitContainer/HBoxContainer2/MusicNotes.hide()
 	$VSplitContainer/HBoxContainer2/Code.hide()
 	$VSplitContainer/HBoxContainer/Sleep.hide()
 	$VSplitContainer/HBoxContainer/Eat.hide()
@@ -92,6 +99,11 @@ func _ready():
 	sleeping = false
 	
 	$VSplitContainer/Status.text = personal_status
+	
+	var notes_holder = $VSplitContainer/HBoxContainer2/MusicNotes
+	music_note_list += (notes_holder.get_children())
+	music_note_list[music_note_idx].set("custom_colors/font_color", Color(0,1,0))
+	
 
 	#$HSplitContainer/EnergyMeter.value = 100
 	
@@ -142,12 +154,30 @@ func _on_Timer_timeout():
 	
 	if $VSplitContainer/HSplitContainer/EnergyMeter.value == 0:
 		$VSplitContainer/Status.text = "I really need a nap"
+		music_note_list[music_note_idx].set("custom_colors/font_color", Color(1,0,0))
 		tired = true
 
 		
 	#$scenes/ProjectFactory.generateProject("Testing " + str(count))
 
 	#print($ProjectFactory.project_list)
+
+func _input(event):
+	if event is InputEventKey:
+		if sleeping == true:
+			return
+		if tired == true:
+			return
+		if event.pressed and event.unicode != 0:
+			var typed_character = char(event.unicode)
+			if typed_character == music_note_list[music_note_idx].text:
+				asm.play("res://assets/sounds/" + str(sound_idx) + ".mp3")
+				$VSplitContainer/GameProgress/Percent.value += music_skill
+				music_skill += 0.0001
+				music_note_list[music_note_idx].set("custom_colors/font_color", Color(1,1,1))
+				music_note_idx = (music_note_idx + 1) % 7
+				sound_idx = (sound_idx + 1) % 56
+				music_note_list[music_note_idx].set("custom_colors/font_color", Color(0,1,0))
 
 
 func _on_Drink_Coffee_pressed():
@@ -175,9 +205,9 @@ func _on_Drink_Coffee_pressed():
 		$VSplitContainer/BootComputer.show()
 	if removed == true:
 		print('adding the child back')
-		print(removable)
-		$VSplitContainer/HSplitContainer2.add_child(removable)
-		$VSplitContainer/HSplitContainer2/HelloWorld.show()
+		#print(removable)
+		#$VSplitContainer/HSplitContainer2.add_child(removable)
+		#$VSplitContainer/HSplitContainer2/HelloWorld.show()
 
 func _on_WalkDesk_pressed():
 	$VSplitContainer/Status.text = "Time to get ready to play some video games"
@@ -200,11 +230,11 @@ func _on_Boot_Computer_pressed():
 	$VSplitContainer/HBoxContainer2/Music.show()
 	$VSplitContainer/HBoxContainer2/Code.show()
 	$VSplitContainer/HSplitContainer2/Label.show()
-	$VSplitContainer/HSplitContainer2/HelloWorld.show()
+	#$VSplitContainer/HSplitContainer2/HelloWorld.show()
+	$VSplitContainer/HBoxContainer2/MusicNotes.show()
 	
 	# TODO this is where I lay out the rest of the primary round 1 properties and things to track
 	# trigger game progress and bugs as well
-
 
 
 func _on_HelloWorld_gui_input(_event):
@@ -259,6 +289,14 @@ func _on_Code_pressed():
 		print("BUG! Nothing got done")
 		return
 	$VSplitContainer/GameProgress/Percent.value += 1*programming_skill
+	
+	if $VSplitContainer/GameProgress/Percent.value == 100:
+		$VSplitContainer/Status.text = "First game complete!!! \n Behold, Dwarven Dungeon!"
+		$VSplitContainer/GameProgress/GameCompletion2.text = "Second Game: Progress Percent"
+		$VSplitContainer/GameProgress/Percent.value = 0
+		# TODO show copies sold, trigger a new visual setup? (show dd and play music)
+		# add a buyable factory with stuff like textbooks and other stuff
+
 	programming_skill += 0.0001
 	if rand_range(1, 100) < 5 + $VSplitContainer/GameProgress/Percent.value*.5:
 		pf.generateProject("Bug " + str(count))
