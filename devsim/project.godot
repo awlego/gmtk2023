@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "ProjectButton",
 "language": "GDScript",
 "path": "res://scenes/project_button.gd"
+}, {
+"base": "VBoxContainer",
+"class": "ProjectFactory",
+"language": "GDScript",
+"path": "res://scenes/ProjectFactory.gd"
 } ]
 _global_script_class_icons={
 "Project": "",
-"ProjectButton": ""
+"ProjectButton": "",
+"ProjectFactory": ""
 }
 
 [application]
