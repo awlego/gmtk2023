@@ -43,7 +43,7 @@ func update_enjoy(hours):
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("v0/Stage0/Button").connect("pressed", self, "click")
+	var _unused = get_node("v0/Stage0/Button").connect("pressed", self, "click")
 	setup_warp()
 	title_node = get_node("v0/TopBar/Title")
 	money_node = get_node("v0/TopBar/Money")
@@ -56,16 +56,16 @@ func _ready():
 	pass # Replace with function body.
 
 func setup_warp():
-	get_node("v0/Stage0/WarpS1").connect("pressed", self, "warpS1")
-	get_node("v0/Stage0/WarpS2").connect("pressed", self, "warpS2")
-	get_node("v0/Stage0/WarpS3").connect("pressed", self, "warpS3")
-	get_node("v0/Stage0/WarpOpener").connect("pressed", self, "warpOpener")
+	var _unused = get_node("v0/Stage0/WarpS1").connect("pressed", self, "warpS1")
+	_unused = get_node("v0/Stage0/WarpS2").connect("pressed", self, "warpS2")
+	_unused = get_node("v0/Stage0/WarpS3").connect("pressed", self, "warpS3")
+	_unused = get_node("v0/Stage0/WarpOpener").connect("pressed", self, "warpOpener")
 
-func set_stage(stage):
+func set_stage(stage_to_set):
 	var v0 = get_node("v0")
 	if (v0.get_child_count() > 1):
 		v0.remove_child(v0.get_child(1))
-	v0.add_child(stage)
+	v0.add_child(stage_to_set)
 
 func warpS1():
 	clicks = 10
@@ -81,8 +81,8 @@ func warpS2():
 	
 func warpS3():
 	money =  100000000
-	var employees = 1000
-	var game_portfolio = 0
+	var _employees = 1000
+	var _game_portfolio = 0
 	update_title()
 	set_stage(stage3)
 

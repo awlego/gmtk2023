@@ -103,7 +103,7 @@ func _ready():
 
 func _on_Timer_timeout():
 	$VSplitContainer/HSplitContainer/EnergyMeter.value -= 1
-	var val = $VSplitContainer/HSplitContainer/EnergyMeter.value
+	var _val = $VSplitContainer/HSplitContainer/EnergyMeter.value
 	if $VSplitContainer/HSplitContainer/EnergyMeter.value < 50:
 		if first_sleep_appear == false:
 			first_sleep_appear = true
@@ -207,7 +207,7 @@ func _on_Boot_Computer_pressed():
 
 
 
-func _on_HelloWorld_gui_input(event):
+func _on_HelloWorld_gui_input(_event):
 	if sleeping == true:
 		return
 	if tired == true:

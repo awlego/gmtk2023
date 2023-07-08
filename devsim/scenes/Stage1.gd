@@ -4,7 +4,7 @@ var main
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("h0/Buttons/Button").connect("pressed", self, "_on_a1_click")
+	var _unused = get_node("h0/Buttons/Button").connect("pressed", self, "_on_a1_click")
 	pass # Replace with function body.
 
 func _on_a1_click():

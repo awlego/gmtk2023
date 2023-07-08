@@ -22,8 +22,9 @@ func _ready():
 	
 func _on_a1_click():
 	main.update_money(1)
+	
 
-func _do_action(project):
+func _do_action(_project):
 	pass
 
 func _on_projects_item_selected(index):
