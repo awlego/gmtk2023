@@ -8,6 +8,7 @@ var energy_meter
 var computer_boot_flag = 0
 var removed = false
 onready var removable = get_node("$VSplitContainer/HSplitContainer2/HelloWorld")
+var pf
 
 var count = 0
 
@@ -20,6 +21,8 @@ func _ready():
 	$VSplitContainer/HSplitContainer2/Label.hide()
 	$VSplitContainer/HSplitContainer2/HelloWorld.hide()
 	$VSplitContainer/HSplitContainer2/HelloWorld.max_length = 20
+	pf = ProjectFactory.new()
+	self.add_child(pf)
 
 	#$HSplitContainer/ProgressBar.value = 100
 	
@@ -31,10 +34,12 @@ func _ready():
 
 func _on_Timer_timeout():
 	$VSplitContainer/HSplitContainer/ProgressBar.value -= 1
-
-	$ProjectFactory.generateProject("Testing " + str(count))
+	#var pf = get_node("../scenes/ProjectFactory")
+	
+	pf.generateProject("Testing " + str(count))
+	#$scenes/ProjectFactory.generateProject("Testing " + str(count))
 	count += 1
-	print($ProjectFactory.project_list)
+	#print($ProjectFactory.project_list)
 
 
 func _on_Drink_Coffee_pressed():
