@@ -22,6 +22,8 @@ func setupButtonParams(text, v, v2, v3, index):
 	idx = index
 
 func doButton():
+	# if sleeping == true:
+	# return
 	var count = 0
 	for b in self.get_parent().project_list:
 		if b == self:

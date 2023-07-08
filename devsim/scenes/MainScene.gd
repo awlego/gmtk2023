@@ -48,6 +48,7 @@ func _ready():
 	title_node = get_node("v0/TopBar/Title")
 	money_node = get_node("v0/TopBar/Money")
 	enjoy_node = get_node("v0/TopBar/Hours")
+	stage_opener.main = self
 	stage1.main = self
 	stage2.main = self
 	stage3.main = self

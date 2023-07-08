@@ -13,9 +13,9 @@ func _ready():
 
 
 func generateProject(input_string):
-	print(input_string)
+	#print(input_string)
 	var new_project = ProjectButton.new()
-	print(len(project_list))
+	#print(len(project_list))
 	new_project.setupButtonParams(input_string, 1, 2, 3, len(project_list))
 	#new_project.pressed.connect(new_project.doButton)
 	#new_project.pressed(funcref(new_project, "doButton"))
