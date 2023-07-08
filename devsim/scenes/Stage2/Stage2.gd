@@ -2,6 +2,8 @@ extends Control
 
 const Employee = preload("res://scenes/Stage2/Employee.tscn")
 
+var main
+
 var employees = []
 var art_progress = 0
 var design_progress = 0

@@ -13,9 +13,27 @@ _global_script_classes=[ {
 "class": "Employee",
 "language": "GDScript",
 "path": "res://scenes/Stage2/Employee.gd"
+}, {
+"base": "Node",
+"class": "Project",
+"language": "GDScript",
+"path": "res://scenes/evil_corp/Project.gd"
+}, {
+"base": "Button",
+"class": "ProjectButton",
+"language": "GDScript",
+"path": "res://scenes/project_button.gd"
+}, {
+"base": "VBoxContainer",
+"class": "ProjectFactory",
+"language": "GDScript",
+"path": "res://scenes/ProjectFactory.gd"
 } ]
 _global_script_class_icons={
-"Employee": ""
+"Employee": "",
+"Project": "",
+"ProjectButton": "",
+"ProjectFactory": ""
 }
 
 [application]

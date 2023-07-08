@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://opening_scene.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ProjectFactory.gd" type="Script" id=2]
+
+[node name="opening_scene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="VSplitContainer" type="VBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 601.0
+
+[node name="WalkDesk" type="Button" parent="VSplitContainer"]
+margin_right = 126.0
+margin_bottom = 20.0
+size_flags_horizontal = 0
+text = "Walk over to desk"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VSplitContainer"]
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 38.0
+
+[node name="Label" type="Label" parent="VSplitContainer/HSplitContainer"]
+margin_right = 42.0
+margin_bottom = 14.0
+text = "Energy"
+
+[node name="ProgressBar" type="ProgressBar" parent="VSplitContainer/HSplitContainer"]
+margin_left = 54.0
+margin_right = 1024.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 100, 14 )
+
+[node name="DrinkCoffee" type="Button" parent="VSplitContainer"]
+margin_top = 42.0
+margin_right = 89.0
+margin_bottom = 62.0
+size_flags_horizontal = 0
+text = "Drink coffee"
+
+[node name="BootComputer" type="Button" parent="VSplitContainer"]
+margin_top = 66.0
+margin_right = 126.0
+margin_bottom = 86.0
+size_flags_horizontal = 0
+text = "Turn on computer"
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="VSplitContainer"]
+margin_top = 90.0
+margin_right = 288.0
+margin_bottom = 114.0
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="VSplitContainer/HSplitContainer2"]
+margin_top = 5.0
+margin_right = 126.0
+margin_bottom = 19.0
+text = "print(\"Hello World\")"
+
+[node name="HelloWorld" type="LineEdit" parent="VSplitContainer/HSplitContainer2"]
+margin_left = 138.0
+margin_right = 288.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 150, 20 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ProjectFactory" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+
+[connection signal="pressed" from="VSplitContainer/WalkDesk" to="." method="_on_WalkDesk_pressed"]
+[connection signal="pressed" from="VSplitContainer/DrinkCoffee" to="." method="_on_Drink_Coffee_pressed"]
+[connection signal="pressed" from="VSplitContainer/BootComputer" to="." method="_on_Boot_Computer_pressed"]
+[connection signal="gui_input" from="VSplitContainer/HSplitContainer2/HelloWorld" to="." method="_on_HelloWorld_gui_input"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

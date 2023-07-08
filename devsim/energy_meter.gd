@@ -1,17 +1,18 @@
-extends Button
+extends Node2D
 
 
 # Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var energy_meter
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-func _on_StartButton_pressed():
-	get_tree().change_scene("res://opening_scene.tscn")
+	print("We are here")
+	energy_meter = TextureProgress.new()
+	energy_meter.max_value = 100
+	energy_meter.value = 100
+	energy_meter.show()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

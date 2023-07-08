@@ -52,20 +52,26 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Write some code"
 
-[node name="WarpS1" type="Button" parent="v0/Stage0"]
+[node name="WarpOpener" type="Button" parent="v0/Stage0"]
 margin_top = 24.0
 margin_right = 122.0
 margin_bottom = 44.0
-text = "Stage 1"
+text = "Opener"
 
-[node name="WarpS2" type="Button" parent="v0/Stage0"]
+[node name="WarpS1" type="Button" parent="v0/Stage0"]
 margin_top = 48.0
 margin_right = 122.0
 margin_bottom = 68.0
-text = "Stage 2"
+text = "Stage 1"
 
-[node name="WarpS3" type="Button" parent="v0/Stage0"]
+[node name="WarpS2" type="Button" parent="v0/Stage0"]
 margin_top = 72.0
 margin_right = 122.0
 margin_bottom = 92.0
+text = "Stage 2"
+
+[node name="WarpS3" type="Button" parent="v0/Stage0"]
+margin_top = 96.0
+margin_right = 122.0
+margin_bottom = 116.0
 text = "Stage 3"

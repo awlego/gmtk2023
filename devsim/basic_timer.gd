@@ -1,4 +1,4 @@
-extends Button
+extends Timer
 
 
 # Declare member variables here. Examples:
@@ -10,8 +10,6 @@ extends Button
 func _ready():
 	pass # Replace with function body.
 
-func _on_StartButton_pressed():
-	get_tree().change_scene("res://opening_scene.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
