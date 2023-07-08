@@ -2,6 +2,8 @@ extends MarginContainer
 var stage1_preload = preload("res://scenes/Stage1.tscn")
 var stage1 = stage1_preload.instance()
 var stage0
+var stage3_preload = preload("res://scenes/evil_corp/evil_corp.tscn")
+var stage3 = stage3_preload.instance()
 
 # Declare member variables here.
 var clicks = 0
@@ -43,11 +45,13 @@ func _ready():
 	money_node = get_node("v0/TopBar/Money")
 	enjoy_node = get_node("v0/TopBar/Hours")
 	stage1.main = self
+	stage3.main = self
 	stage0 = get_node("v0/Stage0")
 	pass # Replace with function body.
 
 func setup_warp():
 	get_node("v0/Stage0/WarpS1").connect("pressed", self, "warpS1")
+	get_node("v0/Stage0/WarpS3").connect("pressed", self, "warpS3")
 
 func set_stage(stage):
 	var v0 = get_node("v0")
@@ -59,6 +63,14 @@ func warpS1():
 	clicks = 10
 	update_title()
 	set_stage(stage1)
+	
+func warpS3():
+	money =  100000000
+	var employees = 1000
+	var game_portfolio = 0
+	update_title()
+	set_stage(stage3)
+	
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
