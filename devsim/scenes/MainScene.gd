@@ -4,6 +4,8 @@ var stage1 = stage1_preload.instance()
 var stage0
 var stage3_preload = preload("res://scenes/evil_corp/evil_corp.tscn")
 var stage3 = stage3_preload.instance()
+var stage_opener_preload = preload("res://opening_scene.tscn")
+var stage_opener = stage_opener_preload.instance()
 
 # Declare member variables here.
 var clicks = 0
@@ -52,6 +54,7 @@ func _ready():
 func setup_warp():
 	get_node("v0/Stage0/WarpS1").connect("pressed", self, "warpS1")
 	get_node("v0/Stage0/WarpS3").connect("pressed", self, "warpS3")
+	get_node("v0/Stage0/WarpOpener").connect("pressed", self, "warpOpener")
 
 func set_stage(stage):
 	var v0 = get_node("v0")
@@ -70,7 +73,9 @@ func warpS3():
 	var game_portfolio = 0
 	update_title()
 	set_stage(stage3)
-	
+
+func warpOpener():
+	set_stage(stage_opener)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
