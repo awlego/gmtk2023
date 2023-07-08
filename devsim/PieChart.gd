@@ -14,9 +14,35 @@ var colors = {
 }
 
 var font = preload("res://assets/UIFont.tres")
+var debug = true
+onready var legend_container
+onready var legend_background
 
 func _ready():
+	legend_container = get_node("Container/LegendContainer")
+	legend_background = get_node("Container/ColorRect")
 	update_pie_chart()
+
+func update_legend():
+	# First, remove all existing legend labels
+	for child in legend_container.get_children():
+		child.queue_free()
+		
+	# Then, create a new Label for each company and add it to the legend container
+	for company in data:
+		var label = Label.new()
+		label.text = company
+		label.add_color_override("font_color", colors[company])
+		legend_container.add_child(label)
+	
+	# Define the margin
+	var margin = Vector2(10, 10)  # 10 pixel margin on all sides
+	
+#	legend_container.rect_min_size += 2 * margin
+#	legend_container.rect_position += margin
+#
+	legend_background.color = Color(0.5, 0.5, 0.5, 0.5)  # semi-transparent black
+	legend_background.rect_min_size = Vector2(100, 300)
 
 func _draw():
 	var total_value = 0
@@ -49,6 +75,8 @@ func _draw():
 		draw_line(center, line_end, Color.black, 4.0)
 
 		start_angle += arc_angle
+	
+	update_legend()
 
 func update_pie_chart():
 	# Update the data as necessary, then call update() to redraw the pie chart
@@ -59,16 +87,17 @@ func update_pie_chart():
 	
 var i = 0
 func _on_Timer_timeout():
-	if (i % 2) == 0:
-		data["Company1"] = rand_range(1, 50)
-		data["Company2"] = rand_range(1, 50)
-		data["Company3"] = rand_range(1, 50)
-		data["Company4"] = rand_range(1, 50)
-	else:
-		data["Company1"] = rand_range(1, 50)
-		data["Company2"] = rand_range(1, 50)
-		data["Company3"] = rand_range(1, 50)
-		data["Company4"] = 0
-	i += 1
-	update()
+	if debug == true:
+		if (i % 2) == 0:
+			data["Company1"] = rand_range(1, 50)
+			data["Company2"] = rand_range(1, 50)
+			data["Company3"] = rand_range(1, 50)
+			data.erase("Company4")
+		else:
+			data["Company1"] = rand_range(1, 50)
+			data["Company2"] = rand_range(1, 50)
+			data["Company3"] = rand_range(1, 50)
+			data["Company4"] = rand_range(1, 50)
+		i += 1
+		update()
 
