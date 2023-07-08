@@ -64,7 +64,7 @@ func _ready():
 
 func _on_a1_click():
 	main.update_money(1)
-	_generate_project(moneyProjectFactory, project4, true)
+
 
 func _do_action(_project):
 	pass
