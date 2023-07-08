@@ -13,9 +13,14 @@ script = ExtResource( 1 )
 margin_right = 1024.0
 margin_bottom = 601.0
 
-[node name="GameProgress" type="HSplitContainer" parent="VSplitContainer"]
+[node name="Status" type="Label" parent="VSplitContainer"]
 margin_right = 1024.0
 margin_bottom = 14.0
+
+[node name="GameProgress" type="HSplitContainer" parent="VSplitContainer"]
+margin_top = 18.0
+margin_right = 1024.0
+margin_bottom = 32.0
 
 [node name="GameCompletion2" type="Label" parent="VSplitContainer/GameProgress"]
 margin_right = 186.0
@@ -28,16 +33,16 @@ margin_right = 1024.0
 margin_bottom = 14.0
 
 [node name="WalkDesk" type="Button" parent="VSplitContainer"]
-margin_top = 18.0
+margin_top = 36.0
 margin_right = 126.0
-margin_bottom = 38.0
+margin_bottom = 56.0
 size_flags_horizontal = 0
 text = "Walk over to desk"
 
 [node name="HSplitContainer" type="HSplitContainer" parent="VSplitContainer"]
-margin_top = 42.0
+margin_top = 60.0
 margin_right = 1024.0
-margin_bottom = 56.0
+margin_bottom = 74.0
 
 [node name="Label" type="Label" parent="VSplitContainer/HSplitContainer"]
 margin_right = 42.0
@@ -53,23 +58,23 @@ size_flags_horizontal = 0
 script = ExtResource( 3 )
 
 [node name="DrinkCoffee" type="Button" parent="VSplitContainer"]
-margin_top = 60.0
+margin_top = 78.0
 margin_right = 89.0
-margin_bottom = 80.0
+margin_bottom = 98.0
 size_flags_horizontal = 0
 text = "Drink coffee"
 
 [node name="BootComputer" type="Button" parent="VSplitContainer"]
-margin_top = 84.0
+margin_top = 102.0
 margin_right = 126.0
-margin_bottom = 104.0
+margin_bottom = 122.0
 size_flags_horizontal = 0
 text = "Turn on computer"
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="VSplitContainer"]
-margin_top = 108.0
+margin_top = 126.0
 margin_right = 288.0
-margin_bottom = 132.0
+margin_bottom = 150.0
 size_flags_horizontal = 0
 
 [node name="Label" type="Label" parent="VSplitContainer/HSplitContainer2"]
@@ -85,9 +90,9 @@ margin_bottom = 24.0
 rect_min_size = Vector2( 150, 20 )
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VSplitContainer"]
-margin_top = 136.0
+margin_top = 154.0
 margin_right = 1024.0
-margin_bottom = 156.0
+margin_bottom = 174.0
 
 [node name="Art" type="Button" parent="VSplitContainer/HBoxContainer2"]
 margin_right = 31.0
@@ -107,9 +112,9 @@ margin_bottom = 20.0
 text = "Code"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VSplitContainer"]
-margin_top = 160.0
+margin_top = 178.0
 margin_right = 1024.0
-margin_bottom = 180.0
+margin_bottom = 198.0
 
 [node name="Sleep" type="Button" parent="VSplitContainer/HBoxContainer"]
 margin_right = 47.0

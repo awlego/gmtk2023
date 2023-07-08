@@ -16,6 +16,56 @@ var sleeping = true
 var tired = true
 var programming_skill = 0
 var coffee_penalty = 0
+var coffee_phrases = [
+"Sipping on some lovely coffee",
+"Really need my energy back",
+"Go Beans Go",
+"Never Sleep Again!",
+"Is this really still working?",
+"Ah, the perfect morning brew.",
+"A sip of liquid motivation.",
+"Coffee, my faithful companion.",
+"Embracing the caffeine's embrace.",
+"Fueling my day, one sip at a time.",
+"Awake and alive with every drop.",
+"Coffee: the elixir of productivity.",
+"Inhaling the aroma, exhaling the stress.",
+"Life's challenges, meet my coffee-fueled resolve.",
+"Savoring the warmth, embracing the energy.",
+"A burst of flavor, a surge of focus.",
+"Coffee coursing through my veins.",
+"This mug holds the secrets of my ambition.",
+"One sip closer to conquering the day.",
+"My morning ritual, my caffeinated escape.",
+"The world awakens as I take a sip.",
+"Brewing dreams, one cup at a time.",
+"Coffee: the nectar of early mornings.",
+"Savoring the black gold, feeling alive.",
+"Awake, alert, and ready to conquer.",
+"Be like coffee, bitter",
+"Bitter salvation in a cup.",
+"Grim determination fueled by coffee.",
+"Finding solace in the depths of this brew.",
+"Each sip, a respite from life's burdens.",
+"Embracing the darkness, one caffeine fix at a time.",
+"Coffee: the anchor that keeps me afloat.",
+"Warding off exhaustion with every bitter gulp.",
+"In this cup, a temporary escape from reality.",
+"Brewing resilience to face the day's challenges.",
+"Dark elixir, fortifying my spirit.",
+"Amidst chaos, coffee brings me back to center.",
+"Waking up to the embrace of bitter salvation.",
+"Black coffee, a shield against the world's woes.",
+"Nourishing my weary soul with each caffeine infusion.",
+"Finding strength in the depths of this dark potion.",
+"Coffee, my ally in the battle against weariness.",
+"In this cup, I find the courage to persevere.",
+"Savoring the bitterness, finding beauty in the struggle.",
+"A shot of determination, coursing through my veins.",
+"Amidst adversity, coffee stands as my constant companion."
+]
+
+var personal_status = "Well Rested and Feeling Ready for Game Jam"
 
 var count = 0
 
@@ -40,6 +90,8 @@ func _ready():
 	$VSplitContainer/HBoxContainer/Study.hide()
 	$VSplitContainer/HBoxContainer/Socialize.hide()
 	sleeping = false
+	
+	$VSplitContainer/Status.text = personal_status
 
 	#$HSplitContainer/EnergyMeter.value = 100
 	
@@ -89,6 +141,7 @@ func _on_Timer_timeout():
 	#	count += 1
 	
 	if $VSplitContainer/HSplitContainer/EnergyMeter.value == 0:
+		$VSplitContainer/Status.text = "I really need a nap"
 		tired = true
 
 		
@@ -98,6 +151,12 @@ func _on_Timer_timeout():
 
 
 func _on_Drink_Coffee_pressed():
+	# Play coffee drinking sound
+	var coffee_text = coffee_phrases[rand_range(0,len(coffee_phrases))]
+	#Coffee with good friends is one of life's true delights
+	$VSplitContainer/Status.text = coffee_text
+	#$VSplitContainer/Status.text = "Sipping on that lovely coffee"
+	# generate a list of coffee comments and rng them
 	tired = false
 	if sleeping == true:
 		return
@@ -107,7 +166,7 @@ func _on_Drink_Coffee_pressed():
 	if coffee_penalty == 0:
 		coffee_penalty += 5
 	else:
-		coffee_penalty += 1
+		coffee_penalty += 2
 	$VSplitContainer/HSplitContainer/EnergyMeter.show()
 	$VSplitContainer/HSplitContainer/Label.show()
 	$Timer.start()
@@ -121,6 +180,7 @@ func _on_Drink_Coffee_pressed():
 		$VSplitContainer/HSplitContainer2/HelloWorld.show()
 
 func _on_WalkDesk_pressed():
+	$VSplitContainer/Status.text = "Time to get ready to play some video games"
 	if sleeping == true:
 		return
 	$VSplitContainer/WalkDesk.hide()
@@ -128,6 +188,7 @@ func _on_WalkDesk_pressed():
 
 
 func _on_Boot_Computer_pressed():
+	$VSplitContainer/Status.text = "Today, you will MAKE the game, others will play"
 	if sleeping == true:
 		return
 	$VSplitContainer/BootComputer.hide()
@@ -164,6 +225,7 @@ func _on_HelloWorld_gui_input(event):
 
 
 func _on_SleepButton_pressed():
+	$VSplitContainer/Status.text = "zzzzzz..."
 	sleeping = true
 	tired = false
 	coffee_penalty = 0
@@ -171,17 +233,23 @@ func _on_SleepButton_pressed():
 
 
 func _on_SleepTimer_timeout():
+	$VSplitContainer/Status.text = "I'm up, I'm up"
 	sleeping = false
+	$VSplitContainer/HSplitContainer/EnergyMeter.value = 100
+	
 
 
 func _on_Study_pressed():
+	$VSplitContainer/Status.text = "Ugh, this is brutal"
 	if tired == true:
 		if rand_range(1, 100) > 10:
 			return
+	$VSplitContainer/HSplitContainer/EnergyMeter.value -= rand_range(0,5)
 	programming_skill += 0.001
 
 
 func _on_Code_pressed():
+	$VSplitContainer/Status.text = "Clickety clack"
 	if tired == true:
 		if rand_range(1, 100) > 5:
 			pf.generateProject("Bug " + str(count))
@@ -192,6 +260,6 @@ func _on_Code_pressed():
 		return
 	$VSplitContainer/GameProgress/Percent.value += 1*programming_skill
 	programming_skill += 0.0001
-	if rand_range(1, 100) < 5:
+	if rand_range(1, 100) < 5 + $VSplitContainer/GameProgress/Percent.value*.5:
 		pf.generateProject("Bug " + str(count))
 		count += 1
