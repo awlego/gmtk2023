@@ -19,6 +19,11 @@ var title_node
 var money_node
 var enjoy_node
 
+onready var info_text = get_node("v0/TopBar/MarginContainer/Info")
+onready var typing_speed_timer = get_node("v0/TopBar/MarginContainer/Info/TypingSpeed")
+var text = "This is some text that will be typed out letter by letter."
+var textIndex = 0
+	
 func click():
 	clicks += 1
 	update_title()
@@ -46,14 +51,19 @@ func _ready():
 	var _unused = get_node("v0/Stage0/Button").connect("pressed", self, "click")
 	setup_warp()
 	title_node = get_node("v0/TopBar/Title")
-	money_node = get_node("v0/TopBar/Money")
-	enjoy_node = get_node("v0/TopBar/Hours")
+	money_node = get_node("v0/TopBar/VBoxContainer/Money")
+	enjoy_node = get_node("v0/TopBar/VBoxContainer/Hours")
 	stage_opener.main = self
 	stage1.main = self
 	stage2.main = self
 	stage3.main = self
 	stage0 = get_node("v0/Stage0")
-	pass # Replace with function body.
+	
+	info_text.margin_left = 10
+	info_text.margin_top = 10
+	info_text.bbcode_text = ""
+	typing_speed_timer.start()
+
 
 func setup_warp():
 	var _unused = get_node("v0/Stage0/WarpS1").connect("pressed", self, "warpS1")
@@ -88,8 +98,12 @@ func warpS3():
 
 func warpOpener():
 	set_stage(stage_opener)
-	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_TypingSpeed_timeout():	
+	if textIndex < len(text):
+		# Append the next character to the label's text
+		info_text.bbcode_text += text[textIndex]
+		info_text.percent_visible = 1.0  # Ensure the label is fully visible
+		textIndex += 1
+	else:
+		typing_speed_timer.stop()

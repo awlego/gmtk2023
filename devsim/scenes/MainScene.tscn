@@ -19,26 +19,68 @@ split_offset = 50
 margin_right = 1024.0
 margin_bottom = 105.0
 
+[node name="MarginContainer" type="MarginContainer" parent="v0/TopBar"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 400.0
+margin_bottom = 105.0
+
+[node name="Info" type="RichTextLabel" parent="v0/TopBar/MarginContainer"]
+margin_right = 400.0
+margin_bottom = 95.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "info 1
+info 2
+congrats player
+rub a dub du asldkfjasldkfja;sldkjfalskdjfaslkfja;lsdkfja;sld"
+text = "info 1
+info 2
+congrats player
+rub a dub du asldkfjasldkfja;sldkjfalskdjfaslkfja;lsdkfja;sld"
+
+[node name="TypingSpeed" type="Timer" parent="v0/TopBar/MarginContainer/Info"]
+wait_time = 0.05
+autostart = true
+
+[node name="Control" type="Control" parent="v0/TopBar"]
+margin_left = 404.0
+margin_right = 536.0
+margin_bottom = 105.0
+size_flags_horizontal = 3
+
 [node name="Title" type="Label" parent="v0/TopBar"]
+margin_left = 540.0
 margin_top = 25.0
-margin_right = 154.0
+margin_right = 694.0
 margin_bottom = 80.0
 custom_fonts/font = ExtResource( 2 )
 text = "Dev Sim"
+align = 1
 
-[node name="Hours" type="Label" parent="v0/TopBar"]
-margin_left = 158.0
-margin_top = 45.0
-margin_right = 348.0
-margin_bottom = 59.0
+[node name="Control2" type="Control" parent="v0/TopBar"]
+margin_left = 698.0
+margin_right = 830.0
+margin_bottom = 105.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="v0/TopBar"]
+margin_left = 834.0
+margin_right = 1024.0
+margin_bottom = 105.0
+
+[node name="Hours" type="Label" parent="v0/TopBar/VBoxContainer"]
+margin_right = 190.0
+margin_bottom = 14.0
 text = "Hours of gameplay enjoyed: 0"
 
-[node name="Money" type="Label" parent="v0/TopBar"]
-margin_left = 352.0
-margin_top = 45.0
-margin_right = 392.0
-margin_bottom = 59.0
-text = "$1000"
+[node name="Money" type="Label" parent="v0/TopBar/VBoxContainer"]
+margin_top = 18.0
+margin_right = 190.0
+margin_bottom = 32.0
+text = "Money: $1000"
 
 [node name="Stage0" type="GridContainer" parent="v0"]
 margin_top = 117.0
@@ -75,3 +117,5 @@ margin_top = 96.0
 margin_right = 122.0
 margin_bottom = 116.0
 text = "Stage 3"
+
+[connection signal="timeout" from="v0/TopBar/MarginContainer/Info/TypingSpeed" to="." method="_on_TypingSpeed_timeout"]
