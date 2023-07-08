@@ -1,5 +1,4 @@
 extends VBoxContainer
-
 class_name ProjectFactory
 
 # Declare member variables here. Examples:
