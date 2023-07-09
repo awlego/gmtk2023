@@ -140,9 +140,10 @@ func _ready():
 	}
 	
 	innovation_projects_dict = {
-		1: Project.new("Use Lootboxes", "", false, 0, 100, 2, 3, self, "_dummy_callback", []),
-		2: Project.new("Use Lootboxes", "", false, 0, 100, 2, 3, self, "_dummy_callback", []),
-		3: Project.new("Use Lootboxes", "", false, 0, 100, 2, 3, self, "_dummy_callback", []),
+		1: Project.new("Use Lootboxes", "", false, 0, 500, 2, 3, self, "_dummy_callback", []),
+		2: Project.new("Setup subscriptions", "", false, 0, 700, 2, 3, self, "_dummy_callback", []),
+		3: Project.new("Monetize betas", "", false, 0, 400, 2, 3, self, "_dummy_callback", []),
+		4: Project.new("AI Artists", "", false, 0, 1000, 2, 3, self, "_dummy_callback", []),
 	}
 	
 	money_projects_dict = {
@@ -159,6 +160,8 @@ func _ready():
 	projectsNode.add_research_project(marketing_projects_dict[1])
 	projectsNode.add_money_project(money_projects_dict[1])
 	projectsNode.add_money_project(acquire_projects_dict[1])
+	for i in innovation_projects_dict:
+		projectsNode.add_research_project(innovation_projects_dict[i])
 
 
 func _roombas():
