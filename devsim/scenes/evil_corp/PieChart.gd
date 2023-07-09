@@ -77,8 +77,8 @@ func _draw():
 
 func update_pie_chart():
 	# Update the data as necessary, then call update() to redraw the pie chart
-	for company_name in company_names:
-		data[company_name] += rand_range(-5, 5) 
+	for company_name in data.keys():
+		data[company_name] = data[company_name] + 1
 	update()
 	
 var i = 0
@@ -95,5 +95,5 @@ func _on_Timer_timeout():
 			data["Company3"] = rand_range(1, 50)
 			data["Company4"] = rand_range(1, 50)
 		i += 1
-		update()
+	update()
 
