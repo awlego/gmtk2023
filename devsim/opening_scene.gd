@@ -378,12 +378,13 @@ func _on_Study_pressed():
 	if rand_range(1, 100) > 80:
 		main.announce("This textbook is the worst")
 	if tired == true:
-		main.announce("Yaaaawwwwwnnnn, so tired")
+		main.announce("Yaaaawwwwwnnnn, so tired, can't study now.")
 		if rand_range(1, 100) > 10:
 			programming_skill -= 0.005
 			return
 	$VSplitContainer/HSplitContainer/EnergyMeter.value -= rand_range(0,5)
-	programming_skill += 0.001
+	programming_skill += 0.01
+	main.announce("I feel like I've leveled up!")
 
 var code_counter = 0
 func _on_Code_pressed():

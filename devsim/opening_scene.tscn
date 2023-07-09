@@ -274,7 +274,7 @@ margin_right = 50.0
 margin_bottom = 300.0
 text = "Music"
 
-[node name="Coding" type="VSplitContainer" parent="VSplitContainer/HBoxContainer2"]
+[node name="Coding" type="VBoxContainer" parent="VSplitContainer/HBoxContainer2"]
 margin_right = 150.0
 margin_bottom = 318.0
 
@@ -285,9 +285,9 @@ rect_min_size = Vector2( 150, 150 )
 text = "Code"
 
 [node name="Study" type="Button" parent="VSplitContainer/HBoxContainer2/Coding"]
-margin_top = 162.0
+margin_top = 154.0
 margin_right = 150.0
-margin_bottom = 312.0
+margin_bottom = 304.0
 rect_min_size = Vector2( 150, 150 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
