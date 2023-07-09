@@ -99,7 +99,7 @@ func warpS3():
 
 func warpOpener():
 	set_stage(stage_opener)
-
+	
 func _on_TypingSpeed_timeout():	
 	if textIndex < len(text):
 		# Append the next character to the label's text

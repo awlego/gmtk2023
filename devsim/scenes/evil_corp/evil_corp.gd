@@ -49,7 +49,7 @@ var game_names = {
 	"Missile Association": 0
 }
 
-rating_dict = {
+var rating_dict = {
 	"A+": 100,
 	"A": 20,
 	"A-": 12,
@@ -88,12 +88,13 @@ func _pick_title(my_dictionary):
 	return str(random_key) + " " + str(my_dictionary[random_key])
 	
 func _create_new_game():
-	var title = pick_title(game_names)
-	var rating = valid_ratings[int(randi() % len(valid_ratings))] # todo weight this when you buy ratings and by employee happiness
-	var time_left = int(randi() % 120 * advertising_multiplier * game_addictiveness)
-	var earning = str(rating_dict[rating] * randi() % 100 * 10000)
-	gamePortfolio.create_game({title, time_left, rating, earning})
-	announce("Congratulations on releasing " + title + "!")
+	pass
+#	var title = pick_title(game_names)
+#	var rating = valid_ratings[int(randi() % len(valid_ratings))] # todo weight this when you buy ratings and by employee happiness
+#	var time_left = int(randi() % 120 * advertising_multiplier * game_addictiveness)
+#	var earning = str(rating_dict[rating] * randi() % 100 * 10000)
+#	gamePortfolio.create_game({title, time_left, rating, earning})
+#	announce("Congratulations on releasing " + title + "!")
 	
 func _main_loop():
 	var profit = _calculate_profit()
