@@ -23,8 +23,8 @@ var r_project2 = Project.new("Acquire company A", "project description", false, 
 var r_project3 = Project.new("Acquire company B", "project description", false, 0, 2, 3)
 var r_project4 = Project.new("Acquire company C", "project description", false, 0, 3, 4)
 
-onready var researchProjectsContainer = get_node("VBoxContainer/ResearchContainer/ResearchProjects")
-onready var moneyProjectsContainer = get_node("VBoxContainer/ResearchContainer/MoneyProjects")
+onready var researchProjectsContainer = get_node("PanelContainer/VBoxContainer/ResearchContainer/ResearchProjects")
+onready var moneyProjectsContainer = get_node("PanelContainer/VBoxContainer/ResearchContainer/MoneyProjects")
 
 func _generate_project(factory, project, money=true, callback_obj=null, callback=null, callback_args=[]):
 	var button_text = ""

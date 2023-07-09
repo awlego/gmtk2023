@@ -1,16 +1,21 @@
 extends PanelContainer
 
 var data = {
-	"Company1": 30,
-	"Company2": 20,
-	"Company3": 50
+	"Your Company": 10,
+	"Digital Crafts": 10,
+	"Pebblestar Games": 15,
+	"Youbiwork": 25,
+	"Mischievous Hound": 40
 }
 
+var company_names = ["Your Company", "Digital Crafts", "Pebblestar Games", "Youbiwork", "Mischievous Hound"]
+
 var colors = {
-	"Company1": Color(1, 0, 0, 1),  # red
-	"Company2": Color(0, 1, 0, 1),  # green
-	"Company3": Color(0, 0, 1, 1),  # blue
-	"Company4": Color(0, 1, 1, 1)   # cyan
+	"Your Company": Color(1, 0, 0, 1),  # red
+	"Digital Crafts": Color(0, 1, 0, 1),  # green
+	"Pebblestar Games": Color(1, .7, 0, 1),  # orange
+	"Youbiwork": Color(0, 1, 1, 1),   # cyan
+	"Mischievous Hound": Color(1, 1, 0, 1)   # yellow
 }
 
 var font = preload("res://assets/UIFont.tres")
@@ -68,26 +73,27 @@ func _draw():
 	
 	update_legend()
 
+
+
 func update_pie_chart():
 	# Update the data as necessary, then call update() to redraw the pie chart
-	data["Company1"] = rand_range(1, 50)
-	data["Company2"] = rand_range(1, 50)
-	data["Company3"] = rand_range(1, 50)
+	for company_name in data.keys():
+		data[company_name] = data[company_name] + 1
 	update()
 	
-#var i = 0
-#func _on_Timer_timeout():
-#	if debug == true:
-#		if (i % 2) == 0:
-#			data["Company1"] = rand_range(1, 50)
-#			data["Company2"] = rand_range(1, 50)
-#			data["Company3"] = rand_range(1, 50)
-#			data.erase("Company4")
-#		else:
-#			data["Company1"] = rand_range(1, 50)
-#			data["Company2"] = rand_range(1, 50)
-#			data["Company3"] = rand_range(1, 50)
-#			data["Company4"] = rand_range(1, 50)
-#		i += 1
-#		update()
+var i = 0
+func _on_Timer_timeout():
+	if debug == true:
+		if (i % 2) == 0:
+			data["Company1"] = rand_range(1, 50)
+			data["Company2"] = rand_range(1, 50)
+			data["Company3"] = rand_range(1, 50)
+			data.erase("Company4")
+		else:
+			data["Company1"] = rand_range(1, 50)
+			data["Company2"] = rand_range(1, 50)
+			data["Company3"] = rand_range(1, 50)
+			data["Company4"] = rand_range(1, 50)
+		i += 1
+	update()
 

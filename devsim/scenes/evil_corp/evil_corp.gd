@@ -12,6 +12,7 @@ onready var numEmployeesWindow
 onready var advertisingEffectivenessWindow
 onready var employeeHappinessWindow
 onready var projectsNode
+onready var pieChart
 
 var game_names = {
 	"The Ancient Parchments": 0,
@@ -83,6 +84,7 @@ var new_game_progess
 var marketing_projects_dict = {}
 var money_projects_dict = {}
 var acquire_projects_dict = {}
+var innovation_projects_dict = {}
 
 var marketing_counter = 1
 func _update_marketing(value):
@@ -91,9 +93,18 @@ func _update_marketing(value):
 	advertising_bonus += value
 	if marketing_projects_dict.has(marketing_counter):
 		projectsNode.add_research_project(marketing_projects_dict[marketing_counter])
-	
+		
+func _company_buyout(company_name):
+	main.announce("Congratulations on buyout out " + company_name + "!")
+	main.announce("Now there is even less competition.")
+	pieChart.data['Your Company'] += pieChart.data[company_name] 
+	pieChart.data.erase(company_name)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	main.money = 100000000
+	main.announce("Congratulations on your IPO, you're now worth $100,000,000")
+	
 	add_child(main_loop_timer)
 	main_loop_timer.set_wait_time(1)  # Fire every second
 	main_loop_timer.connect("timeout", self, "_on_Timer_timeout")
@@ -101,6 +112,7 @@ func _ready():
 	
 	gamePortfolio = get_node("Game Portfolio")
 	projectsNode = get_node("Projects")
+	pieChart = get_node("PieChart")
 	resourceAllocation = get_node("ResourceAllocation/ResourceAllocation")
 	newGameProgressBar = get_node("PanelContainer2/vcode/GameProgress")
 	innovationPointsWindow = get_node("PanelContainer/VBoxContainer/InnovationPoints")
@@ -127,23 +139,27 @@ func _ready():
 		6: Project.new("AR & VR Ads", "", false, 0, 600, 2, 3, self, "_update_marketing", [1.0]),
 	}
 	
+	innovation_projects_dict = {
+		1: Project.new("Use Lootboxes", "", false, 0, 100, 2, 3, self, "_dummy_callback", []),
+		2: Project.new("Use Lootboxes", "", false, 0, 100, 2, 3, self, "_dummy_callback", []),
+		3: Project.new("Use Lootboxes", "", false, 0, 100, 2, 3, self, "_dummy_callback", []),
+	}
+	
 	money_projects_dict = {
 		1: Project.new("Repurpose Roombas", "", false, 0, 0, 2, 3, self, "_roombas", []),
 	}
 	
 	acquire_projects_dict = {
-		1: Project.new("Acquire Digital Crafts", "", false, 1000000, 0, 2, 3, self, "_dummy_callback", []),
-		2: Project.new("Acquire Pebblestar Games", "", false, 30000000, 0, 2, 3, self, "_dummy_callback", []),
-		3: Project.new("Acquire Youbiwork", "", false, 100000000, 0, 2, 3, self, "_dummy_callback", []),
-		4: Project.new("Acquire Mischievous Hound", "", false, 70000000, 0, 2, 3, self, "_dummy_callback", []),
+		1: Project.new("Acquire Digital Crafts", "", false, 3000000000, 0, 2, 3, self, "_company_buyout", ["Digital Crafts"]),
+		2: Project.new("Acquire Pebblestar Games", "", false, 10000000000, 0, 2, 3, self, "_company_buyout", ["Pebblestar Games"]),
+		3: Project.new("Acquire Youbiwork", "", false, 100000000000, 0, 2, 3, self, "_company_buyout", ["Youbiwork"]),
+		4: Project.new("Acquire Mischievous Hound", "", false, 7000000000000, 0, 2, 3, self, "_company_buyout", ["Mischievous Hound"]),
 	}
 	
 	projectsNode.add_research_project(marketing_projects_dict[1])
 	projectsNode.add_money_project(money_projects_dict[1])
 	projectsNode.add_money_project(acquire_projects_dict[1])
-#	projectsNode.add_money_project(acquire_projects_dict[2])
-#	projectsNode.add_money_project(acquire_projects_dict[3])
-#	projectsNode.add_money_project(acquire_projects_dict[4])
+
 
 func _roombas():
 	for child in main.get_children():
@@ -215,12 +231,31 @@ func _check_research_resources():
 		else:
 			project.disabled = false
 	for project in projectsNode.get_active_money_projects():
-		if project.innovation_cost > innovationPoints:
-			if project.money_cost > main.money:
-				project.disabled = true
-			else:
-				project.disabled = false
-			
+		if project.money_cost > main.money:
+			project.disabled = true
+		else:
+			project.disabled = false
+
+func _update_pie_chart():
+	pieChart.update_pie_chart()
+	
+var company2added = false
+var company3added = false
+var company4added = false
+func _check_for_new_projects():
+	if main.money > acquire_projects_dict[2].money_cost / 2 and company2added == false:
+		projectsNode.add_money_project(acquire_projects_dict[2])
+		company2added = true
+	if main.money > acquire_projects_dict[3].money_cost / 2 and company3added == false:
+		projectsNode.add_money_project(acquire_projects_dict[3])
+		company3added = true
+	if main.money > acquire_projects_dict[4].money_cost / 2 and company4added == false:
+		projectsNode.add_money_project(acquire_projects_dict[4])
+		company4added = true
+
+func _update_advertising():
+	pass
+
 func _main_loop():
 	var profit = _calculate_profit()
 	_update_game_development_progress()
@@ -230,10 +265,13 @@ func _main_loop():
 	_update_employee_happiness()
 	_update_company_size()
 	_update_innovation()
+	_update_advertising()
 
 	_check_research_resources()
 	
-#	_update_pie_chart()
+	_update_pie_chart()
+	
+	_check_for_new_projects()
 	main.update_money(profit)
 	
 func _on_Timer_timeout():
