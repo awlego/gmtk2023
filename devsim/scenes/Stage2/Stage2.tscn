@@ -147,6 +147,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 8 )
 
+[node name="Label" type="Label" parent="m/v/CardContainer/v/h/CoffeeRoom"]
+margin_top = 4.0
+margin_right = 40.0
+margin_bottom = 18.0
+
 [node name="Training" type="Panel" parent="m/v/CardContainer/v/h"]
 margin_left = 342.0
 margin_right = 681.0
