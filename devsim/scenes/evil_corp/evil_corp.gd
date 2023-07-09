@@ -3,6 +3,9 @@ extends Control
 var main
 
 onready var timer = Timer.new()
+onready var newGameProgressBar
+onready var resourceAllocation 
+onready var gamePortfolio
 
 var num_employees = 1000
 
@@ -62,10 +65,12 @@ var rating_dict = {
 
 var valid_ratings = rating_dict.keys()
 
-onready var gamePortfolio
+
 
 var game_addictiveness = 1
 var advertising_multiplier = 1
+
+var new_game_progess
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -75,6 +80,8 @@ func _ready():
 	timer.start()
 	
 	gamePortfolio = get_node("Game Portfolio")
+	resourceAllocation = get_node("ResourceAllocation")
+	newGameProgressBar = get_node("PanelContainer2/vcode/GameProgress")
 	
 func _calculate_profit():
 	var earnings = gamePortfolio._calculate_total_earnings()
@@ -96,9 +103,18 @@ func _create_new_game():
 ##	gamePortfolio.create_game({title, time_left, rating, earning})
 #	announce("Congratulations on releasing " + title + "!")
 	
+func _update_game_development_progress():
+	var new_game_progress = 0.0001 * resourceAllocation.points_in_resources[0] * num_employees
+	newGameProgressBar.value += new_game_progress
+	if newGameProgressBar.value >= 100:
+		_create_new_game()
+		newGameProgressBar.value = 0
+	
 func _main_loop():
 	var profit = _calculate_profit()
+	_update_game_development_progress()
 	main.update_money(profit)
+	
 	
 func _on_Timer_timeout():
 	_main_loop()
