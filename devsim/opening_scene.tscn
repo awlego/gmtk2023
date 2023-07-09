@@ -7,6 +7,37 @@
 [ext_resource path="res://drawing_canvas.gd" type="Script" id=5]
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://drawing_line.gd" type="Script" id=7]
+[ext_resource path="res://assets/backgrounds/CoffeeMug.png" type="Texture" id=8]
+[sub_resource type="Animation" id=1]
+resource_name = "CoffeeUp"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 512, 920 ), Vector2( 512, 557 ), Vector2( 512, 910 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 512, 920 ) ]
+}
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.0156863, 0.54902, 0.941176, 1 )
@@ -315,6 +346,14 @@ script = ExtResource( 2 )
 [node name="SleepTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="CoffeeMug" type="Sprite" parent="."]
+position = Vector2( 512, 920 )
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CoffeeMug"]
+anims/CoffeeUp = SubResource( 1 )
+anims/RESET = SubResource( 2 )
 
 [node name="CoffeeMug" type="Sprite" parent="."]
 position = Vector2( 512, 920 )
