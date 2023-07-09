@@ -80,8 +80,13 @@ var BASE_EMPLOYEE_HAPPINESS_DECLINE = -.004
 
 var new_game_progess
 
-func _update_marketing():
-	advertising_bonus += 0.1
+var marketing_projects_dict = {}
+var marketing_counter = 1
+func _update_marketing(value):
+	marketing_counter += 1
+	advertising_bonus += value
+	if marketing_projects_dict.has(marketing_counter):
+		projectsNode.add_research_project(marketing_projects_dict[marketing_counter])
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -107,14 +112,23 @@ func _ready():
 	_create_new_game()
 	
 	_update_game_development_progress(0)
+		
+	marketing_projects_dict = {
+		1: Project.new("Billboard Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.1]),
+		2: Project.new("Programmatic Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.2]),
+		3: Project.new("Data-Driving Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.3]),
+		4: Project.new("Social Media Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.5]),
+		5: Project.new("Mobile Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.7]),
+		6: Project.new("AR & VR Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [1.0]),
+	}
 	
-	var r_project = Project.new("Use billboards", "", false, 0, 100, 2, 3, self, "_update_marketing")
-	projectsNode.add_research_project(r_project)
+	projectsNode.add_research_project(marketing_projects_dict[1])
+
 	
 func _update_status_window():
 	innovationPointsWindow.text = "Innvation Points: " + str(innovationPoints)
 	numEmployeesWindow.text = "Company Size: " + str(num_employees) + " employees"
-	advertisingEffectivenessWindow.text = "Advertising bonus: " + str(advertising_bonus) + "%"
+	advertisingEffectivenessWindow.text = "Advertising bonus: " + str(advertising_bonus*100) + "%"
 	employeeHappinessWindow.text = "Employee happiness: " + str(employeeHappiness * 100) + "%"
 
 func _calculate_profit():
