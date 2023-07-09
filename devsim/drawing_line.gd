@@ -3,6 +3,7 @@ extends Line2D
 var texture_rect
 
 func _ready():
+	print(self.width)
 	texture_rect = get_parent().get_parent().get_parent()
 
 func _draw():

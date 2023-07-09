@@ -100,6 +100,7 @@ func _ready():
 	$VSplitContainer/HBoxContainer2/Art.hide()
 	$VSplitContainer/HBoxContainer2/Music.hide()
 	$VSplitContainer/HBoxContainer2/MusicNotes.hide()
+	$VSplitContainer/HBoxContainer2/TextureRect.hide()
 	$VSplitContainer/HBoxContainer2/Code.hide()
 	$VSplitContainer/HBoxContainer/Sleep.hide()
 	$VSplitContainer/HBoxContainer/Eat.hide()
@@ -253,10 +254,10 @@ func _on_Boot_Computer_pressed():
 	#$VSplitContainer/HSplitContainer2/Label.show()
 	#$VSplitContainer/HSplitContainer2/HelloWorld.show()
 	$VSplitContainer/HBoxContainer2/MusicNotes.show()
-	print("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
+	#print("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
 	$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
 	#$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture.set_scale(Vector2(0.2, 0.2))
-
+	$VSplitContainer/HBoxContainer2/TextureRect.show()
 	# TODO this is where I lay out the rest of the primary round 1 properties and things to track
 	# trigger game progress and bugs as well
 

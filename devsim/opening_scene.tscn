@@ -5,7 +5,7 @@
 [ext_resource path="res://EnergyMeter.gd" type="Script" id=3]
 [ext_resource path="res://assets/backgrounds/keyboard_one_octave.png" type="Texture" id=4]
 [ext_resource path="res://drawing_canvas.gd" type="Script" id=5]
-[ext_resource path="res://icon.png" type="Texture" id=6]
+[ext_resource path="res://assets/backgrounds/BlueJam_0.png" type="Texture" id=6]
 [ext_resource path="res://drawing_line.gd" type="Script" id=7]
 [ext_resource path="res://assets/backgrounds/CoffeeMug.png" type="Texture" id=8]
 
@@ -214,7 +214,7 @@ text = "Code"
 
 [node name="MusicNotes" type="HBoxContainer" parent="VSplitContainer/HBoxContainer2"]
 margin_left = 137.0
-margin_right = 414.0
+margin_right = 337.0
 margin_bottom = 300.0
 
 [node name="Keys" type="TextureRect" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
@@ -225,6 +225,7 @@ texture = ExtResource( 4 )
 expand = true
 
 [node name="Note7" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
+visible = false
 margin_left = 204.0
 margin_top = 143.0
 margin_right = 208.0
@@ -232,50 +233,56 @@ margin_bottom = 157.0
 text = "f"
 
 [node name="Note6" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
-margin_left = 212.0
+visible = false
+margin_left = 204.0
 margin_top = 143.0
-margin_right = 219.0
+margin_right = 211.0
 margin_bottom = 157.0
 text = "c"
 
 [node name="Note1" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
-margin_left = 223.0
+visible = false
+margin_left = 204.0
 margin_top = 143.0
-margin_right = 230.0
+margin_right = 211.0
 margin_bottom = 157.0
 text = "a"
 
 [node name="Note2" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
-margin_left = 234.0
+visible = false
+margin_left = 204.0
 margin_top = 143.0
-margin_right = 242.0
+margin_right = 212.0
 margin_bottom = 157.0
 text = "e"
 
 [node name="Note3" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
-margin_left = 246.0
+visible = false
+margin_left = 204.0
 margin_top = 143.0
-margin_right = 254.0
+margin_right = 212.0
 margin_bottom = 157.0
 text = "b"
 
 [node name="Note4" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
-margin_left = 258.0
+visible = false
+margin_left = 204.0
 margin_top = 143.0
-margin_right = 266.0
+margin_right = 212.0
 margin_bottom = 157.0
 text = "d"
 
 [node name="Note5" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
-margin_left = 270.0
+visible = false
+margin_left = 204.0
 margin_top = 143.0
-margin_right = 277.0
+margin_right = 211.0
 margin_bottom = 157.0
 text = "g"
 
 [node name="TextureRect" type="TextureRect" parent="VSplitContainer/HBoxContainer2"]
-margin_left = 418.0
-margin_right = 718.0
+margin_left = 341.0
+margin_right = 641.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 300, 300 )
 texture = ExtResource( 6 )
@@ -288,7 +295,7 @@ script = ExtResource( 5 )
 
 [node name="Line2D" type="Line2D" parent="VSplitContainer/HBoxContainer2/TextureRect/CanvasLayer/Node2d"]
 visible = false
-width = 6.0
+width = 8.0
 default_color = Color( 0.6, 0.376471, 0.376471, 1 )
 script = ExtResource( 7 )
 

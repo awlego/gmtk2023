@@ -3,13 +3,14 @@ extends Node2D
 var drawing = false
 var last_position
 var brush_color = Color(1, 0, 0)  # Default brush color is red
+#var brush_color = Color(0.38671875, 0.2345375, 0.2345375)
 var line_node: Line2D
 
 
 func _ready():
 	line_node = $Line2D
 	#line_node = Line2D.new()
-	line_node.width = 5
+	line_node.width = 10
 	line_node.default_color = Color(0.38671875, 0.2345375, 0.2345375)
 
 	add_child(line_node)
@@ -43,4 +44,4 @@ func draw_lin():
 			count += 1
 			var rect = self.get_parent().get_parent().get_global_rect()
 			if rect.has_point(points[i]) and rect.has_point(points[i+1]):
-				draw_line(points[i], points[i + 1], brush_color, 2.0)
+				draw_line(points[i], points[i + 1], brush_color, 5.0)
