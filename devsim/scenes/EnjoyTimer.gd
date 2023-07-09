@@ -3,7 +3,7 @@ class_name EnjoyTimer
 
 var enjoy_remaining = 1
 var main
-var earn_money_ratio = 0.1
+var earn_money_ratio = 0.3
 
 func _init(enjoytime, mainsc):
 	enjoy_remaining = enjoytime

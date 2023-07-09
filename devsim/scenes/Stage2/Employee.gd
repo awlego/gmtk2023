@@ -1,7 +1,8 @@
 extends Panel
 
-
 class_name Employee
+
+signal my_gui_input
 const WIDTH = 150
 const HEIGHT = 200
 const names = [
@@ -47,7 +48,7 @@ func randomize_me():
 	job = randi() % jobs.size()
 	salary = randi() % 30000 + 20000
 	needs = [rand100(), rand100(), rand100()]
-	need_growth = [rand100(), rand100(), rand100()]
+	need_growth = [min(90, rand100()), min(90, rand100()), min(90, rand100())]
 	update_happiness()
 	#get_node("m0/v0/Info/Job").text = _to_string()
 	#colorize()
@@ -123,7 +124,7 @@ func _to_string():
 	return s
 
 func _gui_input(event):
-	emit_signal("gui_input", event, self)
+	emit_signal("my_gui_input", event, self)
 
 func make_children_ignore_mouse(node):
 	if node == null:
