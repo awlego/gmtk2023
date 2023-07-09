@@ -59,6 +59,8 @@ func _per_second():
 		randaccess.remove(ii)
 		var room = e.get_parent().name
 		e.tick()
+		if (randi() % 1000 == 0):
+			main.announce(e.comment(main.player_name, main.company_name))
 		totalskill += e.skill
 		if (cjs > 0) && (room != "CoffeeRoom") && (e.needs[0] > 0):
 			cjs -= 1
