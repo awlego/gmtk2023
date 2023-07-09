@@ -49,13 +49,20 @@ func _process(delta):
 func _per_second():
 	occupants = {"CardContainer": 0, "CoffeeRoom": 0, "Training": 0, "SocialRoom": 0}
 	var cjs = coffee_jockeys
+	var roos = roomba
 	var randaccess = range(employees.size())
-	for e in employees:
+	for i in range(employees.size()):
+		var ii = randi() % randaccess.size()
+		var e = employees[randaccess[ii]]
+		randaccess.remove(ii)
 		var room = e.get_parent().name
 		if (cjs > 0) && (room != "CoffeeRoom") && (e.needs[0] > 0):
 			cjs -= 1
 			e.needs[0] -= 1
 			pay_for_coffee(20)
+		if (roos > 0) && (e.needs[1] > 0):
+			roos -= 1
+			e.needs[1] -= 1
 		e.tick()
 		if room == "CardContainer":
 			progress[e.job] += (e.skill * e.happiness) * 0.0001
