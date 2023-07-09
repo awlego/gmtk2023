@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://opening_scene.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ProjectFactory.gd" type="Script" id=2]
@@ -8,6 +8,13 @@
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://drawing_line.gd" type="Script" id=7]
 [ext_resource path="res://assets/backgrounds/CoffeeMug.png" type="Texture" id=8]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.0156863, 0.54902, 0.941176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.376471, 0.6, 0.376471, 1 )
+
 [sub_resource type="Animation" id=1]
 resource_name = "CoffeeUp"
 length = 1.5
@@ -38,18 +45,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 512, 920 ) ]
 }
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.0156863, 0.54902, 0.941176, 1 )
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.376471, 0.376471, 1 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.376471, 0.376471, 0.6, 1 )
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.376471, 0.6, 0.376471, 1 )
 
 [node name="opening_scene" type="Control"]
 anchor_right = 1.0
@@ -102,7 +97,6 @@ align = 1
 margin_top = 26.0
 margin_right = 338.0
 margin_bottom = 40.0
-custom_styles/fg = SubResource( 1 )
 
 [node name="v2" type="VSplitContainer" parent="VSplitContainer/H"]
 margin_left = 342.0
@@ -120,7 +114,6 @@ align = 1
 margin_top = 26.0
 margin_right = 339.0
 margin_bottom = 40.0
-custom_styles/fg = SubResource( 2 )
 
 [node name="v3" type="VSplitContainer" parent="VSplitContainer/H"]
 margin_left = 685.0
@@ -355,10 +348,10 @@ texture = ExtResource( 8 )
 anims/CoffeeUp = SubResource( 1 )
 anims/RESET = SubResource( 2 )
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CoffeeMug"]
+
 [node name="CoffeeMug" type="Sprite" parent="."]
 position = Vector2( 512, 920 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CoffeeMug"]
 
 [connection signal="pressed" from="VSplitContainer/WalkDesk" to="." method="_on_WalkDesk_pressed"]
 [connection signal="pressed" from="VSplitContainer/DrinkCoffee" to="." method="_on_Drink_Coffee_pressed"]
