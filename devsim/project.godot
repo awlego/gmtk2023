@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Stage2/Employee.gd"
 }, {
+"base": "Timer",
+"class": "EnjoyTimer",
+"language": "GDScript",
+"path": "res://scenes/EnjoyTimer.gd"
+}, {
+"base": "Button",
+"class": "GrimButton",
+"language": "GDScript",
+"path": "res://GrimButton.gd"
+}, {
 "base": "Node",
 "class": "Project",
 "language": "GDScript",
@@ -37,6 +47,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AudioStreamManager": "",
 "Employee": "",
+"EnjoyTimer": "",
+"GrimButton": "",
 "Project": "",
 "ProjectButton": "",
 "ProjectFactory": ""
