@@ -1,9 +1,41 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://opening_scene.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ProjectFactory.gd" type="Script" id=2]
 [ext_resource path="res://EnergyMeter.gd" type="Script" id=3]
 [ext_resource path="res://assets/backgrounds/keyboard_one_octave.png" type="Texture" id=4]
+[ext_resource path="res://assets/backgrounds/CoffeeMug.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "CoffeeUp"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 512, 920 ), Vector2( 512, 557 ), Vector2( 512, 910 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 512, 920 ) ]
+}
 
 [node name="opening_scene" type="Control"]
 anchor_right = 1.0
@@ -220,6 +252,14 @@ script = ExtResource( 2 )
 [node name="SleepTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="CoffeeMug" type="Sprite" parent="."]
+position = Vector2( 512, 920 )
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CoffeeMug"]
+anims/CoffeeUp = SubResource( 1 )
+anims/RESET = SubResource( 2 )
 
 [connection signal="pressed" from="VSplitContainer/WalkDesk" to="." method="_on_WalkDesk_pressed"]
 [connection signal="pressed" from="VSplitContainer/DrinkCoffee" to="." method="_on_Drink_Coffee_pressed"]

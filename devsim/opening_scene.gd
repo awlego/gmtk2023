@@ -75,6 +75,7 @@ var music_note_list = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	$VSplitContainer/GameProgress/GameCompletion2.hide()
 	$VSplitContainer/GameProgress/Percent.hide()
 	$VSplitContainer/HSplitContainer/EnergyMeter.hide()
@@ -214,6 +215,11 @@ func _on_Drink_Coffee_pressed():
 		#print(removable)
 		#$VSplitContainer/HSplitContainer2.add_child(removable)
 		#$VSplitContainer/HSplitContainer2/HelloWorld.show()
+		
+	#hopefully calls the coffee animation.  Unhide the sprite. call the animation. hide the sprite
+	$CoffeeMug/AnimationPlayer.play("CoffeeUp")
+	
+	
 
 func _on_WalkDesk_pressed():
 	$VSplitContainer/Status.text = "Time to get ready to play some video games"
