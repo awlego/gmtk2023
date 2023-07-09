@@ -20,13 +20,13 @@ margin_right = 1024.0
 margin_bottom = 105.0
 
 [node name="MarginContainer" type="MarginContainer" parent="v0/TopBar"]
-margin_right = 400.0
+margin_right = 500.0
 margin_bottom = 105.0
 
 [node name="Info" type="RichTextLabel" parent="v0/TopBar/MarginContainer"]
-margin_right = 400.0
+margin_right = 500.0
 margin_bottom = 105.0
-rect_min_size = Vector2( 400, 0 )
+rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
@@ -44,22 +44,22 @@ wait_time = 0.05
 autostart = true
 
 [node name="Control" type="Control" parent="v0/TopBar"]
-margin_left = 404.0
-margin_right = 536.0
+margin_left = 504.0
+margin_right = 586.0
 margin_bottom = 105.0
 size_flags_horizontal = 3
 
 [node name="Title" type="Label" parent="v0/TopBar"]
-margin_left = 540.0
+margin_left = 590.0
 margin_top = 25.0
-margin_right = 694.0
+margin_right = 744.0
 margin_bottom = 80.0
 custom_fonts/font = ExtResource( 2 )
 text = "Dev Sim"
 align = 1
 
 [node name="Control2" type="Control" parent="v0/TopBar"]
-margin_left = 698.0
+margin_left = 748.0
 margin_right = 830.0
 margin_bottom = 105.0
 size_flags_horizontal = 3

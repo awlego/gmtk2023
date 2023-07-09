@@ -112,7 +112,6 @@ func _remove_dead_games():
 				rows_to_delete.append(game_row_index)
 				
 	for row in rows_to_delete:
-		print("Deleting row: ", row)
 		_remove_row(row)
 
 func _update_times():

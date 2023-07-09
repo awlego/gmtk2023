@@ -11,8 +11,6 @@ func _ready():
 
 func hook_up_buttons():
 	for i in range(NUM_RESOURCES):
-		print(get_node('Resource ' + str(i + 1)))
-		print(get_node('Resource ' + str(i + 1)).get_node("Increment"))
 		var _unused = get_node('Resource ' + str(i + 1)).get_node("Increment").connect("pressed", self, "_on_increment_button_pressed", [i])
 		_unused = get_node('Resource ' + str(i + 1)).get_node("Decrement").connect("pressed", self, "_on_decrement_button_pressed", [i])
 		

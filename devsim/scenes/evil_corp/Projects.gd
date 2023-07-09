@@ -36,8 +36,6 @@ func _generate_project(factory, project, money=true):
 
 func _setup_money_projects():
 	moneyProjectFactory = ProjectFactory.new()
-	print(moneyProjectFactory)
-	print(moneyProjectsContainer)
 	moneyProjectsContainer.add_child(moneyProjectFactory)
 	
 	_generate_project(moneyProjectFactory, project1, true)

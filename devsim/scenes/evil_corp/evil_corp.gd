@@ -93,7 +93,7 @@ func _create_new_game():
 #	var rating = valid_ratings[int(randi() % len(valid_ratings))] # todo weight this when you buy ratings and by employee happiness
 #	var time_left = int(randi() % 120 * advertising_multiplier * game_addictiveness)
 #	var earning = str(rating_dict[rating] * randi() % 100 * 10000)
-#	gamePortfolio.create_game({title, time_left, rating, earning})
+##	gamePortfolio.create_game({title, time_left, rating, earning})
 #	announce("Congratulations on releasing " + title + "!")
 	
 func _main_loop():
