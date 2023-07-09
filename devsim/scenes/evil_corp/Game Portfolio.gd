@@ -96,7 +96,7 @@ func _time_int_to_string(int_time):
 	return string_time
 	
 func _time_string_to_int(string_time):
-	print(string_time)
+#	print(string_time)
 	var parts = string_time.split(":")
 	var minutes = int(parts[0])
 	var seconds = int(parts[1])
