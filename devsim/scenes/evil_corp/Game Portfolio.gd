@@ -29,10 +29,10 @@ func _ready():
 			child.text = HEADERS[i]
 			i += 1
 			
-	_add_game(game_entry1)
-	_add_game(game_entry2)
-	_add_game(game_entry3)
-	_add_game(game_entry4)
+#	_add_game(game_entry1)
+#	_add_game(game_entry2)
+#	_add_game(game_entry3)
+#	_add_game(game_entry4)
 	
 #	_remove_row(1)
 
