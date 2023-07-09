@@ -164,52 +164,10 @@ margin_bottom = 150.0
 size_flags_horizontal = 0
 text = "Walk over to desk"
 
-[node name="BootComputer" type="Button" parent="VSplitContainer"]
-margin_top = 130.0
-margin_right = 126.0
-margin_bottom = 150.0
-size_flags_horizontal = 0
-text = "Turn on computer"
-
-[node name="itchio" type="Button" parent="VSplitContainer"]
-visible = false
-margin_top = 178.0
-margin_right = 1024.0
-margin_bottom = 198.0
-text = "Brew Coffee"
-
-[node name="Play" type="Button" parent="VSplitContainer"]
-visible = false
-margin_top = 178.0
-margin_right = 1024.0
-margin_bottom = 198.0
-text = "Brew Coffee"
-
-[node name="Make" type="Button" parent="VSplitContainer"]
-visible = false
-margin_top = 178.0
-margin_right = 1024.0
-margin_bottom = 198.0
-text = "Brew Coffee"
-
-[node name="Godot" type="Button" parent="VSplitContainer"]
-visible = false
-margin_top = 178.0
-margin_right = 1024.0
-margin_bottom = 198.0
-text = "Brew Coffee"
-
-[node name="DrinkCoffee" type="Button" parent="VSplitContainer"]
-margin_top = 154.0
-margin_right = 89.0
-margin_bottom = 174.0
-size_flags_horizontal = 0
-text = "Drink coffee"
-
 [node name="HSplitContainer" type="HSplitContainer" parent="VSplitContainer"]
-margin_top = 178.0
+margin_top = 130.0
 margin_right = 1024.0
-margin_bottom = 192.0
+margin_bottom = 144.0
 
 [node name="Label" type="Label" parent="VSplitContainer/HSplitContainer"]
 margin_right = 42.0
@@ -223,6 +181,32 @@ margin_bottom = 14.0
 rect_min_size = Vector2( 100, 14 )
 size_flags_horizontal = 0
 script = ExtResource( 3 )
+
+[node name="CoffeeSleepBox" type="HSplitContainer" parent="VSplitContainer"]
+margin_top = 148.0
+margin_right = 1024.0
+margin_bottom = 168.0
+
+[node name="DrinkCoffee" type="Button" parent="VSplitContainer/CoffeeSleepBox"]
+margin_right = 100.0
+margin_bottom = 60.0
+size_flags_horizontal = 0
+text = "Drink coffee"
+
+[node name="Sleep" type="Button" parent="VSplitContainer/CoffeeSleepBox"]
+margin_left = 101.0
+margin_right = 201.0
+margin_bottom = 60.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Sleep"
+
+[node name="BootComputer" type="Button" parent="VSplitContainer"]
+margin_top = 172.0
+margin_right = 221.0
+margin_bottom = 192.0
+size_flags_horizontal = 0
+text = "Time to get started on this game"
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="VSplitContainer"]
 margin_top = 196.0
@@ -248,25 +232,37 @@ margin_right = 1024.0
 margin_bottom = 524.0
 
 [node name="Art" type="Button" parent="VSplitContainer/HBoxContainer2"]
+visible = false
 margin_right = 31.0
 margin_bottom = 300.0
 text = "Art"
 
 [node name="Music" type="Button" parent="VSplitContainer/HBoxContainer2"]
-margin_left = 35.0
-margin_right = 85.0
+visible = false
+margin_right = 50.0
 margin_bottom = 300.0
 text = "Music"
 
-[node name="Code" type="Button" parent="VSplitContainer/HBoxContainer2"]
-margin_left = 89.0
-margin_right = 133.0
+[node name="Coding" type="VSplitContainer" parent="VSplitContainer/HBoxContainer2"]
+margin_right = 47.0
 margin_bottom = 300.0
+
+[node name="Code" type="Button" parent="VSplitContainer/HBoxContainer2/Coding"]
+margin_right = 150.0
+margin_bottom = 150.0
 text = "Code"
 
+[node name="Study" type="Button" parent="VSplitContainer/HBoxContainer2/Coding"]
+margin_top = 32.0
+margin_right = 150.0
+margin_bottom = 182.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Study"
+
 [node name="MusicNotes" type="HBoxContainer" parent="VSplitContainer/HBoxContainer2"]
-margin_left = 137.0
-margin_right = 337.0
+margin_left = 51.0
+margin_right = 251.0
 margin_bottom = 300.0
 
 [node name="Keys" type="TextureRect" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
@@ -333,8 +329,8 @@ margin_bottom = 157.0
 text = "g"
 
 [node name="TextureRect" type="TextureRect" parent="VSplitContainer/HBoxContainer2"]
-margin_left = 341.0
-margin_right = 641.0
+margin_left = 255.0
+margin_right = 555.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 300, 300 )
 texture = ExtResource( 6 )
@@ -352,36 +348,21 @@ default_color = Color( 0.6, 0.376471, 0.376471, 1 )
 script = ExtResource( 7 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VSplitContainer"]
-margin_top = 528.0
+visible = false
+margin_top = 552.0
 margin_right = 1024.0
-margin_bottom = 548.0
-
-[node name="Sleep" type="Button" parent="VSplitContainer/HBoxContainer"]
-margin_right = 47.0
-margin_bottom = 20.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Sleep"
+margin_bottom = 572.0
 
 [node name="Eat" type="Button" parent="VSplitContainer/HBoxContainer"]
-margin_left = 51.0
-margin_right = 82.0
+margin_right = 31.0
 margin_bottom = 20.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Eat"
 
-[node name="Study" type="Button" parent="VSplitContainer/HBoxContainer"]
-margin_left = 86.0
-margin_right = 133.0
-margin_bottom = 20.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Study"
-
 [node name="Socialize" type="Button" parent="VSplitContainer/HBoxContainer"]
-margin_left = 137.0
-margin_right = 205.0
+margin_left = 35.0
+margin_right = 103.0
 margin_bottom = 20.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -422,11 +403,11 @@ anims/BookUp = SubResource( 5 )
 
 [connection signal="pressed" from="VSplitContainer/StartFlow" to="." method="_on_StartFlow_pressed"]
 [connection signal="pressed" from="VSplitContainer/WalkDesk" to="." method="_on_WalkDesk_pressed"]
+[connection signal="pressed" from="VSplitContainer/CoffeeSleepBox/DrinkCoffee" to="." method="_on_Drink_Coffee_pressed"]
+[connection signal="pressed" from="VSplitContainer/CoffeeSleepBox/Sleep" to="." method="_on_SleepButton_pressed"]
 [connection signal="pressed" from="VSplitContainer/BootComputer" to="." method="_on_Boot_Computer_pressed"]
-[connection signal="pressed" from="VSplitContainer/DrinkCoffee" to="." method="_on_Drink_Coffee_pressed"]
 [connection signal="gui_input" from="VSplitContainer/HSplitContainer2/HelloWorld" to="." method="_on_HelloWorld_gui_input"]
-[connection signal="pressed" from="VSplitContainer/HBoxContainer2/Code" to="." method="_on_Code_pressed"]
-[connection signal="pressed" from="VSplitContainer/HBoxContainer/Sleep" to="." method="_on_SleepButton_pressed"]
-[connection signal="pressed" from="VSplitContainer/HBoxContainer/Study" to="." method="_on_Study_pressed"]
+[connection signal="pressed" from="VSplitContainer/HBoxContainer2/Coding/Code" to="." method="_on_Code_pressed"]
+[connection signal="pressed" from="VSplitContainer/HBoxContainer2/Coding/Study" to="." method="_on_Study_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="SleepTimer" to="." method="_on_SleepTimer_timeout"]
