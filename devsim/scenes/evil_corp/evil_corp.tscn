@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/evil_corp/evil_corp.gd" type="Script" id=1]
 [ext_resource path="res://assets/backgrounds/jeshoots-com-hN3t9Wj-bNs-unsplash.jpg" type="Texture" id=2]
@@ -7,10 +7,17 @@
 [ext_resource path="res://scenes/evil_corp/ResourceAllocation.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/evil_corp/Game Portfolio.tscn" type="PackedScene" id=6]
 
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.376471, 0.6, 0.376471, 1 )
+
 [node name="evil_corp" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+
+[node name="NumEmployees" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
 
 [node name="Background" type="TextureRect" parent="."]
 margin_right = 40.0
@@ -25,19 +32,42 @@ margin_right = 316.0
 margin_bottom = 292.0
 
 [node name="PieChart" parent="." instance=ExtResource( 3 )]
-margin_left = 570.0
-margin_top = 3.0
-margin_right = 943.0
-margin_bottom = 259.0
+margin_left = 568.0
+margin_top = 49.0
+margin_right = 941.0
+margin_bottom = 305.0
 
-[node name="PanelContainer" parent="." instance=ExtResource( 5 )]
-margin_left = 13.0
-margin_top = 30.0
-margin_right = 165.0
-margin_bottom = 202.0
+[node name="ResourceAllocation" parent="." instance=ExtResource( 5 )]
+margin_left = 88.0
+margin_top = 63.0
+margin_right = 240.0
+margin_bottom = 235.0
 
 [node name="Game Portfolio" parent="." instance=ExtResource( 6 )]
-margin_left = 571.0
-margin_top = 261.0
-margin_right = 838.0
-margin_bottom = 307.0
+margin_left = 570.0
+margin_top = 311.0
+margin_right = 837.0
+margin_bottom = 357.0
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 46.0
+
+[node name="vcode" type="VBoxContainer" parent="PanelContainer2"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PanelContainer2/vcode"]
+margin_right = 1010.0
+margin_bottom = 14.0
+text = "New Game Development Progress"
+align = 1
+
+[node name="GameProgress" type="ProgressBar" parent="PanelContainer2/vcode"]
+margin_top = 18.0
+margin_right = 1010.0
+margin_bottom = 32.0
+custom_styles/fg = SubResource( 1 )

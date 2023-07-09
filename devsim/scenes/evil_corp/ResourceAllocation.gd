@@ -25,7 +25,6 @@ func update_points_labels():
 	for i in range(NUM_RESOURCES):
 		var s = 'Resource ' + str(i + 1) + '/Resource Points'
 		var node = get_node(s)
-		print(s, node)
 		node.text = resource_names[i] + ": " + str(points_in_resources[i])
 
 

@@ -2,7 +2,10 @@ extends Control
 
 var main
 
-onready var timer = Timer.new()
+onready var main_loop_timer = Timer.new()
+onready var newGameProgressBar
+onready var resourceAllocation 
+onready var gamePortfolio
 
 var num_employees = 1000
 
@@ -62,19 +65,25 @@ var rating_dict = {
 
 var valid_ratings = rating_dict.keys()
 
-onready var gamePortfolio
+
 
 var game_addictiveness = 1
 var advertising_multiplier = 1
 
+var new_game_progess
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_child(timer)
-	timer.set_wait_time(1)  # Fire every second
-	timer.connect("timeout", self, "_on_Timer_timeout")
-	timer.start()
+	add_child(main_loop_timer)
+	main_loop_timer.set_wait_time(1)  # Fire every second
+	main_loop_timer.connect("timeout", self, "_on_Timer_timeout")
+	main_loop_timer.start()
 	
 	gamePortfolio = get_node("Game Portfolio")
+	resourceAllocation = get_node("ResourceAllocation/ResourceAllocation")
+	newGameProgressBar = get_node("PanelContainer2/vcode/GameProgress")
+	
+	_update_game_development_progress(94)
 	
 func _calculate_profit():
 	var earnings = gamePortfolio._calculate_total_earnings()
@@ -83,21 +92,35 @@ func _calculate_profit():
 
 func _pick_title(my_dictionary):
 	var keys = my_dictionary.keys()
+#	randomize()
 	var random_key = keys[randi() % keys.size()]
 	my_dictionary[random_key] += 1
 	return str(random_key) + " " + str(my_dictionary[random_key])
 	
 func _create_new_game():
-	pass
-#	var title = pick_title(game_names)
-#	var rating = valid_ratings[int(randi() % len(valid_ratings))] # todo weight this when you buy ratings and by employee happiness
-#	var time_left = int(randi() % 120 * advertising_multiplier * game_addictiveness)
-#	var earning = str(rating_dict[rating] * randi() % 100 * 10000)
-##	gamePortfolio.create_game({title, time_left, rating, earning})
-#	announce("Congratulations on releasing " + title + "!")
+	var title = _pick_title(game_names)
+	var rating = valid_ratings[int(randi() % len(valid_ratings))] # todo weight this when you buy ratings and by employee happiness
+	var time_left = int(randi() % 120 * advertising_multiplier * game_addictiveness)
+	var earning = str(rating_dict[rating] * randi() % 100 * 10000)
+	gamePortfolio.create_game({game_title=title, time_left=time_left, rating=rating, earning=earning})
+	main.announce("Congratulations on releasing " + title + "!")
+	
+func _update_game_development_progress(override=0):
+#	print("1: ", resourceAllocation)
+#	print("2: ", resourceAllocation.points_in_resources)
+	var new_game_progress = 0.0001 * resourceAllocation.points_in_resources[0] * num_employees
+	newGameProgressBar.value += new_game_progress
+	
+	if override != 0:
+		newGameProgressBar.value = override
+	
+	if newGameProgressBar.value >= 100:
+		_create_new_game()
+		newGameProgressBar.value = 0
 	
 func _main_loop():
 	var profit = _calculate_profit()
+	_update_game_development_progress()
 	main.update_money(profit)
 	
 func _on_Timer_timeout():
