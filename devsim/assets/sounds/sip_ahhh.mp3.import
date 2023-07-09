@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/sip_ahhh.mp3-e00066d953f6cb47bf6c7ec814e77051.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/sip_ahhh.mp3"
+dest_files=[ "res://.import/sip_ahhh.mp3-e00066d953f6cb47bf6c7ec814e77051.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

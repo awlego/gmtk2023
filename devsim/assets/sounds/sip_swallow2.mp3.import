@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/sip_swallow2.mp3-6ec481007ee095a25e3d5a192da8d98d.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/sip_swallow2.mp3"
+dest_files=[ "res://.import/sip_swallow2.mp3-6ec481007ee095a25e3d5a192da8d98d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

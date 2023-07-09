@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/clink.mp3-85d2efca637bd92261045fad74fc3d84.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/clink.mp3"
+dest_files=[ "res://.import/clink.mp3-85d2efca637bd92261045fad74fc3d84.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

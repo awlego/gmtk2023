@@ -199,8 +199,19 @@ func _input(event):
 				sound_idx = (sound_idx + 1) % 56
 				music_note_list[music_note_idx].set("custom_colors/font_color", Color(0,1,0))
 
+var coffee_sounds = [
+"clink.mp3",
+"clinck2sip_swallow2.mp3",
+"sip_swallow.mp3",
+"ahhh.mp3",
+"sip_ahhh.mp3"
+]
 
 func _on_Drink_Coffee_pressed():
+	var which = rand_range(0, len(coffee_sounds))
+	var coffee_noise = coffee_sounds[which]
+	
+	asm.play("res://assets/sounds/" + coffee_noise)
 	# Play coffee drinking sound
 	var coffee_text = coffee_phrases[rand_range(0,len(coffee_phrases))]
 	#Coffee with good friends is one of life's true delights
@@ -342,6 +353,8 @@ func _on_StartFlow_pressed():
 		$VSplitContainer/StartFlow.text = "Brew Coffee"
 		# effect (sound and animation for coffee)
 	elif start_flow == 1:
+		#sound of coffee brew
+		asm.play("res://assets/sounds/full_percolate.mp3")
 		$VSplitContainer/StartFlow.text = "Walk over to desk"
 
 	elif start_flow == 2:
