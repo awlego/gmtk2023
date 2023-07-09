@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/MainScene.gd" type="Script" id=1]
 [ext_resource path="res://assets/UIFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/UI24Font.tres" type="DynamicFont" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0941176, 0.00784314, 0.00784314, 1 )
 
 [node name="MainScene" type="MarginContainer"]
 anchor_right = 1.0
@@ -13,20 +17,53 @@ script = ExtResource( 1 )
 [node name="v0" type="VSplitContainer" parent="."]
 margin_right = 1024.0
 margin_bottom = 768.0
-split_offset = 50
+dragger_visibility = 1
 
-[node name="TopBar" type="HBoxContainer" parent="v0"]
+[node name="TopBar" type="Panel" parent="v0"]
 margin_right = 1024.0
-margin_bottom = 105.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
 
-[node name="MarginContainer" type="MarginContainer" parent="v0/TopBar"]
-margin_right = 500.0
-margin_bottom = 105.0
+[node name="v" type="HBoxContainer" parent="v0/TopBar"]
+margin_right = 1024.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Info" type="RichTextLabel" parent="v0/TopBar/MarginContainer"]
-margin_right = 500.0
-margin_bottom = 105.0
-rect_min_size = Vector2( 500, 0 )
+[node name="s0" type="Control" parent="v0/TopBar/v"]
+margin_right = 5.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="Title" type="Label" parent="v0/TopBar/v"]
+margin_left = 9.0
+margin_right = 163.0
+margin_bottom = 100.0
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 2 )
+text = "Dev Sim"
+align = 1
+valign = 1
+
+[node name="s1" type="Control" parent="v0/TopBar/v"]
+margin_left = 167.0
+margin_right = 172.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="MarginContainer" type="MarginContainer" parent="v0/TopBar/v"]
+margin_left = 176.0
+margin_right = 663.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Info" type="RichTextLabel" parent="v0/TopBar/v/MarginContainer"]
+margin_right = 487.0
+margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
@@ -39,51 +76,49 @@ info 2
 congrats player
 rub a dub du asldkfjasldkfja;sldkjfalskdjfaslkfja;lsdkfja;sld"
 
-[node name="TypingSpeed" type="Timer" parent="v0/TopBar/MarginContainer/Info"]
-wait_time = 0.05
+[node name="TypingSpeed" type="Timer" parent="v0/TopBar/v/MarginContainer/Info"]
+wait_time = 0.02
 autostart = true
 
-[node name="Control" type="Control" parent="v0/TopBar"]
-margin_left = 504.0
-margin_right = 586.0
-margin_bottom = 105.0
-size_flags_horizontal = 3
+[node name="s2" type="Control" parent="v0/TopBar/v"]
+margin_left = 667.0
+margin_right = 672.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 5, 0 )
 
-[node name="Title" type="Label" parent="v0/TopBar"]
-margin_left = 590.0
-margin_top = 25.0
-margin_right = 744.0
-margin_bottom = 80.0
-custom_fonts/font = ExtResource( 2 )
-text = "Dev Sim"
-align = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="v0/TopBar/v"]
+margin_left = 676.0
+margin_right = 1015.0
+margin_bottom = 100.0
+size_flags_vertical = 3
+alignment = 1
 
-[node name="Control2" type="Control" parent="v0/TopBar"]
-margin_left = 748.0
-margin_right = 830.0
-margin_bottom = 105.0
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="v0/TopBar"]
-margin_left = 834.0
-margin_right = 1024.0
-margin_bottom = 105.0
-
-[node name="Hours" type="Label" parent="v0/TopBar/VBoxContainer"]
-margin_right = 190.0
-margin_bottom = 14.0
+[node name="Hours" type="Label" parent="v0/TopBar/v/VBoxContainer"]
+margin_top = 14.0
+margin_right = 339.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 3 )
 text = "Hours of gameplay enjoyed: 0"
 
-[node name="Money" type="Label" parent="v0/TopBar/VBoxContainer"]
-margin_top = 18.0
-margin_right = 190.0
-margin_bottom = 32.0
+[node name="Money" type="Label" parent="v0/TopBar/v/VBoxContainer"]
+margin_top = 52.0
+margin_right = 339.0
+margin_bottom = 86.0
+custom_fonts/font = ExtResource( 3 )
 text = "Money: $1000"
 
+[node name="s3" type="Control" parent="v0/TopBar/v"]
+margin_left = 1019.0
+margin_right = 1024.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 5, 0 )
+
 [node name="Stage0" type="GridContainer" parent="v0"]
-margin_top = 117.0
+margin_top = 112.0
 margin_right = 1024.0
 margin_bottom = 768.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="v0/Stage0"]
 margin_right = 122.0
@@ -116,4 +151,4 @@ margin_right = 122.0
 margin_bottom = 116.0
 text = "Stage 3"
 
-[connection signal="timeout" from="v0/TopBar/MarginContainer/Info/TypingSpeed" to="." method="_on_TypingSpeed_timeout"]
+[connection signal="timeout" from="v0/TopBar/v/MarginContainer/Info/TypingSpeed" to="." method="_on_TypingSpeed_timeout"]
