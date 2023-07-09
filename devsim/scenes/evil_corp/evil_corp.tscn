@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/evil_corp/evil_corp.gd" type="Script" id=1]
 [ext_resource path="res://assets/backgrounds/jeshoots-com-hN3t9Wj-bNs-unsplash.jpg" type="Texture" id=2]
 [ext_resource path="res://scenes/evil_corp/PieChart.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/evil_corp/Projects.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/evil_corp/ResourceAllocation.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/evil_corp/Game Portfolio.tscn" type="PackedScene" id=6]
 
 [node name="evil_corp" type="Control"]
 anchor_right = 1.0
@@ -17,25 +18,26 @@ margin_bottom = 40.0
 rect_scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 2 )
 
-[node name="clicker" type="Button" parent="."]
-margin_right = 82.0
-margin_bottom = 20.0
-text = "Get Money"
-
 [node name="Projects" parent="." instance=ExtResource( 4 )]
-margin_left = 555.0
-margin_top = 288.0
-margin_right = 855.0
-margin_bottom = 328.0
+margin_left = 16.0
+margin_top = 252.0
+margin_right = 316.0
+margin_bottom = 292.0
 
 [node name="PieChart" parent="." instance=ExtResource( 3 )]
-margin_left = 654.0
-margin_top = 7.0
-margin_right = 1027.0
-margin_bottom = 263.0
+margin_left = 570.0
+margin_top = 3.0
+margin_right = 943.0
+margin_bottom = 259.0
 
 [node name="PanelContainer" parent="." instance=ExtResource( 5 )]
 margin_left = 13.0
 margin_top = 30.0
 margin_right = 165.0
 margin_bottom = 202.0
+
+[node name="Game Portfolio" parent="." instance=ExtResource( 6 )]
+margin_left = 571.0
+margin_top = 261.0
+margin_right = 838.0
+margin_bottom = 307.0
