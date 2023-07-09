@@ -4,7 +4,7 @@ onready var grid = $VBoxContainer/GridContainer
 
 var HEADERS = ["Game Title", "Time til Obsolete", "Critic Rating", "$ / sec"]
 
-var game_entry1 = {game_title="Battlefield", time_left="03:20", rating="B", earning="$1000"}
+var game_entry1 = {game_title="Battlefield", time_left="00:07", rating="B", earning="$1000"}
 var game_entry2 = {game_title="Battlefield2", time_left="00:10", rating="B", earning="$1000"}
 var game_entry3 = {game_title="Battlefield3", time_left="00:05", rating="B", earning="$1000"}
 var game_entry4 = {game_title="Battlefield4", time_left="00:20", rating="B", earning="$1000"}
@@ -66,10 +66,11 @@ func _add_game(game):
 			grid.add_child(text)
 			
 func _remove_row(row_index):
-	var num_rows = grid.get_child_count() / 7 / 2 + 1 - 1
+	var num_rows = grid.get_child_count() / 14 + 1
+	print(num_rows)
 	var children = grid.get_children()
 	for i in range(grid.get_child_count()):
-		if (row_index * 7 + 14 <= i) and (i < (row_index+2) * 7 + 14):
+		if (row_index * 14 <= i) and (i < (row_index+1) * 14):
 			var child = children[i]
 			grid.remove_child(child)
 
@@ -87,8 +88,25 @@ func _time_string_to_int(string_time):
 	return total_seconds
 			
 func _calculate_row_index(i):
-	return i % 7 * 2
+	return (i / 14)
 	
+	
+func _remove_dead_games():
+	var children = grid.get_children()
+	var rows_to_delete = []
+	for i in range(grid.get_child_count()):
+		if i % 14 == 2 and i > 13:
+			var child = children[i]
+			var remaining_time = child.text
+			var int_time = _time_string_to_int(remaining_time)			
+			if int_time <= 0:
+				var game_row_index = _calculate_row_index(i)
+				rows_to_delete.append(game_row_index)
+				
+	for row in rows_to_delete:
+		print("Deleting row: ", row)
+		_remove_row(row)
+
 func _update_times():
 	var children = grid.get_children()
 	for i in range(grid.get_child_count()):
@@ -96,18 +114,12 @@ func _update_times():
 			var child = children[i]
 			var remaining_time = child.text
 			var int_time = _time_string_to_int(remaining_time) - 1
-			if int_time <= 0:
-				var game_row_index = _calculate_row_index(i)
-				print(game_row_index)
-				_remove_row(game_row_index)
-			child.text = _time_int_to_string(int_time)
+			child.text = _time_int_to_string(int_time)	
+			
+func _on_Timer_timeout():
+	_remove_dead_games()
+	_update_times()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-
-func _on_Timer_timeout():
-	print("timer")
-	_update_times()
-
