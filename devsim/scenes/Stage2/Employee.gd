@@ -12,14 +12,65 @@ const names = [
 	"Gabriel", "Lily", "Caleb", "Victoria", "Isaac", "Hannah", "Nathan", "Avery", "Liam", "Scarlett",
    # Continue adding more names...
 ]
-const boss_phrases = [
-	" thinks 'delegating' means 'avoiding work'.",
-	"'s management style is 'confuse and conquer'.",
-	"'s decision-making process involves a magic 8-ball.",
-	"'s coffee addiction is their only reliable source of energy.",
-	"'s management technique involves excessive 'whistling'.",
-	"'s office plants are better taken care of than the employees."
+const phrases = [
+	"$player_name$ thinks 'delegating' means 'avoiding work'.",
+	"$player_name$'s management style is 'confuse and conquer'.",
+	"$player_name$'s decision-making process involves a magic 8-ball.",
+	"$player_name$'s coffee addiction is their only reliable source of energy.",
+	"$player_name$'s management technique involves excessive 'whistling'.",
+	"$player_name$'s office plants are better taken care of than the employees.","$player_name$ thinks Ctrl+Z works in real life too.",
+	"We call $player_name$ the 'Bug Generator' because every time they touch the code, new bugs appear.",
+	"$player_name$'s coding skills are like a game with permadeath – one wrong move and everything crashes.",
+	"$player_name$ once asked us to implement a 'Ctrl+Alt+Del' feature in our game. We had to explain it doesn't work that way.",
+	"$player_name$ loves deadlines so much that they once said, 'The game is due yesterday.'",
+	"$player_name$'s favorite motivational quote is, 'Code first, ask questions later... or never.'",
+	"$player_name$'s favorite game genre is 'Microtransactions: The Simulator.'",
+	"$player_name$ always says, 'There's no such thing as a 'small' change. Let's rewrite the entire codebase.'",
+	"$player_name$ believes in the power of 'just one more feature'... until it becomes a never-ending list.",
+	"When we suggest using an engine for our game, $player_name$ says, 'Why use an engine when you have a steam-powered PC?'",
+	"$player_name$'s code is so optimized, it runs at the speed of dial-up internet.",
+	"$player_name$ once tried to motivate us by saying, 'Remember, bugs are just undocumented features!'",
+	"$player_name$ insists that the best way to test a game is by asking their grandma to play it. She doesn't even know what a joystick is.",
+	"$player_name$ believes 'compiling' means printing out the code and stapling it together.",
+	"$player_name$ once said, 'Debugging is for weaklings. Real programmers ship it and let the users find the bugs.'",
+	"When we complain about crunch time, $player_name$ says, 'But look at all the overtime pay you're not getting!'",
+	"$player_name$ has a special talent for breaking things that were already working perfectly fine.",
+	"$player_name$ thinks 'pixel art' refers to art made by an artist named Pixel.",
+	"$player_name$'s coding style is like a mad scientist's handwriting – impossible to decipher.",
+	"When we asked for better hardware, $player_name$ said, 'Just overclock your brains.'",
+	"$player_name$ once said, 'We don't need playtesting. The game is perfectly balanced... said no one ever.'",
+	"$player_name$'s favorite coding comment is '// TODO: I'll fix this later. Maybe.'",
+	"$player_name$'s idea of version control is renaming files with 'v1', 'v2', 'v3'...",
+	"$player_name$ once said, 'The key to success in game development is Ctrl+C, Ctrl+V, and a lot of coffee.'",
+	"$player_name$ loves spaghetti... code, that is.",
+	"When we suggest adding multiplayer to our game, $player_name$ says, 'Just add more players. Problem solved!'",
+	"We need to optimize the rendering pipeline.",
+	"Let's schedule a playtest session for next week.",
+	"The level design needs some adjustments for better player flow.",
+	"We should consider adding more particle effects to enhance visuals.",
+	"It's time to start working on the multiplayer integration.",
+	"The UI needs a redesign to improve user experience.",
+	"We have a tight deadline, so let's prioritize bug fixing.",
+	"We should implement a save/load system for player progress.",
+	"The sound effects for weapon fire need to be more impactful.",
+	"Let's brainstorm ideas for new enemy types and behaviors.",
+	"We need to localize the game for international markets.",
+	"The animation transitions are not smooth enough; let's polish them.",
+	"We should add a tutorial to help new players understand the game mechanics.",
+	"Let's create a roadmap for future updates and DLC content.",
+	"The boss battle needs to be more challenging; let's increase its difficulty.",
+	"We should improve the loading times for better player engagement.",
+	"The game's performance on low-end devices needs optimization.",
+	"We should hire a concept artist to create more visually appealing assets.",
+	"Let's organize a team-building event to boost morale.",
+	"We need to improve the game's accessibility options for players with disabilities."
 ]
+
+func comment(player_name="Boss", company_name="this company"):
+	var phrase = phrases[randi() % phrases.size()]
+	phrase = phrase.replace("$player_name$", player_name)
+	phrase = phrase.replace("$company_name$", company_name)
+	return ename + ": " + phrase
 func get_random_name():
 	return names[randi() % names.size()]
 func rand100():
