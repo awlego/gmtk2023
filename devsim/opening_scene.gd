@@ -74,6 +74,12 @@ var music_note_idx = 0
 var music_note_list = []
 
 var games_made_counter = 0
+var games_sold = 0
+var marketing_bonus = 0
+
+var artist_hired = true
+var musician_hired = true
+var dev_hired = true
 
 onready var art_progress = $VSplitContainer/H/v1/Art
 onready var music_progress = $VSplitContainer/H/v2/Music
@@ -127,7 +133,10 @@ func _ready():
 	music_note_list.pop_front()
 	#print(music_note_list)
 	#$HSplitContainer/EnergyMeter.value = 100
-
+	$HireArt.hide()
+	$HireMusic.hide()
+	$HireCode.hide()
+	$Stage2Jump.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -135,6 +144,20 @@ func _process(delta):
 		if games_made_counter == 0:
 			$VSplitContainer/Status.text = "First game complete!!! \n Behold, Dwarven Dungeon!"
 			$VSplitContainer/GameProgress/GameCompletion2.text = "Next Game: Progress Percent"
+		elif games_made_counter == 1:
+			main.update_money(5000)
+		elif games_made_counter == 2:
+			main.update_money(25000)
+			$HireArt.show()
+		elif games_made_counter == 3:
+			main.update_money(40000)
+			$HireMusic.show()
+		elif games_made_counter == 4:
+			main.update_money(65000)
+			$HireCode.show()
+		elif games_made_counter == 5:
+			main.update_money(80000)
+			$Stage2Jump.show()
 			# TODO add a total games made counter
 			# also change your title to published developer
 			# TODO show copies sold, trigger a new visual setup? (show dd and play music)
@@ -149,6 +172,7 @@ func _process(delta):
 		tired = true
 	else:
 		tired = false
+	
 
 
 func _on_Timer_timeout():
@@ -180,6 +204,13 @@ func _on_Timer_timeout():
 		# Set the Texture as the background of the ProgressBar
 		#progressbar.background = texture
 		#print("Hello5")
+	if artist_hired == true:
+		art_progress.value += .125
+	if musician_hired == true:
+		music_progress.value += .1
+	if dev_hired == true:
+		code_progress.value += .1
+	game_progress.value = art_progress.value + music_progress.value + code_progress.value
 	#var pf = get_node("../scenes/ProjectFactory")
 	
 	
@@ -456,4 +487,27 @@ func _on_StartFlow_pressed():
 		$VSplitContainer/CoffeeSleepBox/DrinkCoffee.show()
 		
 	start_flow += 1
-		
+
+
+func _on_HireArt_pressed():
+	if main.money > 25000:
+		main.update_money(-25000)
+		artist_hired = true
+		$HireArt.hide()
+
+func _on_HireMusic_pressed():
+	if main.money > 30000:
+		main.update_money(-30000)
+		musician_hired = true
+		$HireMusic.hide()
+
+func _on_HireCode_pressed():
+	if main.money > 40000:
+		main.update_money(-40000)
+		dev_hired = true
+		$HireCode.hide()
+
+
+func _on_Stage2Jump_pressed():
+	main.moveToStage2()
+
