@@ -49,7 +49,7 @@ var game_names = {
 	"Missile Association": 0
 }
 
-rating_dict = {
+var rating_dict = {
 	"A+": 100,
 	"A": 20,
 	"A-": 12,
