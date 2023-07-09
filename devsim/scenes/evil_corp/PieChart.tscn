@@ -56,4 +56,4 @@ margin_top = 7.0
 margin_right = 7.0
 margin_bottom = 98.0
 
-[connection signal="timeout" from="VBoxContainer/HBoxContainer/PieChart/Timer" to="VBoxContainer/HBoxContainer/PieChart" method="_on_Timer_timeout"]
+[connection signal="timeout" from="VBoxContainer/HBoxContainer/PieChart/Timer" to="." method="_on_Timer_timeout"]
