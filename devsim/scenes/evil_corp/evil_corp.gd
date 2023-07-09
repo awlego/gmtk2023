@@ -132,10 +132,10 @@ func _ready():
 	}
 	
 	acquire_projects_dict = {
-		1: Project.new("Acquire Digital Crafts", "", true, 1000000, 0, 2, 3, self, "_dummy_callback", []),
-		2: Project.new("Acquire Pebblestar Games", "", true, 30000000, 0, 2, 3, self, "_dummy_callback", []),
-		3: Project.new("Acquire Youbiwork", "", true, 100000000, 0, 2, 3, self, "_dummy_callback", []),
-		4: Project.new("Acquire Mischievous Hound", "", true, 70000000, 0, 2, 3, self, "_dummy_callback", []),
+		1: Project.new("Acquire Digital Crafts", "", false, 1000000, 0, 2, 3, self, "_dummy_callback", []),
+		2: Project.new("Acquire Pebblestar Games", "", false, 30000000, 0, 2, 3, self, "_dummy_callback", []),
+		3: Project.new("Acquire Youbiwork", "", false, 100000000, 0, 2, 3, self, "_dummy_callback", []),
+		4: Project.new("Acquire Mischievous Hound", "", false, 70000000, 0, 2, 3, self, "_dummy_callback", []),
 	}
 	
 	projectsNode.add_research_project(marketing_projects_dict[1])
@@ -209,12 +209,18 @@ func _update_innovation():
 	innovationPoints += resourceAllocation.points_in_resources[0] * (float(randi() % 10) / 10)
 
 func _check_research_resources():
-	for project in projectsNode.get_active_projects():
+	for project in projectsNode.get_active_research_projects():
 		if project.innovation_cost > innovationPoints:
 			project.disabled = true
 		else:
 			project.disabled = false
-	
+	for project in projectsNode.get_active_money_projects():
+		if project.innovation_cost > innovationPoints:
+			if project.money_cost > main.money:
+				project.disabled = true
+			else:
+				project.disabled = false
+			
 func _main_loop():
 	var profit = _calculate_profit()
 	_update_game_development_progress()

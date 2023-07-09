@@ -52,14 +52,17 @@ func _setup_research_projects():
 #	_generate_project(researchProjectFactory, r_project3, false)
 #	_generate_project(researchProjectFactory, r_project4, false)
 
-func get_active_projects():
+func get_active_research_projects():
 	return researchProjectFactory.get_children()
+	
+func get_active_money_projects():
+	return moneyProjectFactory.get_children()
 
 func add_research_project(project):
 	_generate_project(researchProjectFactory, project, false, project.callback_obj, project.callback, project.callback_args)
 	
 func add_money_project(project):
-	_generate_project(moneyProjectFactory, project, false, project.callback_obj, project.callback, project.callback_args)
+	_generate_project(moneyProjectFactory, project, true, project.callback_obj, project.callback, project.callback_args)
 	
 	
 func _setup_projects():
