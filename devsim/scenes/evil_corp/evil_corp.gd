@@ -11,6 +11,7 @@ onready var innovationPointsWindow
 onready var numEmployeesWindow
 onready var advertisingEffectivenessWindow
 onready var employeeHappinessWindow
+onready var projectsNode
 
 var game_names = {
 	"The Ancient Parchments": 0,
@@ -65,6 +66,8 @@ var rating_dict = {
 	"C": 1,
 	"F": 0.5,
 }
+# var project1 = Project.new(title="", text="",complete=false, money_cost=0, research_cost=0, project_index=0, project_unlocks=0,callback=null)
+
 
 var valid_ratings = rating_dict.keys()
 
@@ -77,6 +80,14 @@ var BASE_EMPLOYEE_HAPPINESS_DECLINE = -.004
 
 var new_game_progess
 
+var marketing_projects_dict = {}
+var marketing_counter = 1
+func _update_marketing(value):
+	marketing_counter += 1
+	advertising_bonus += value
+	if marketing_projects_dict.has(marketing_counter):
+		projectsNode.add_research_project(marketing_projects_dict[marketing_counter])
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_child(main_loop_timer)
@@ -85,6 +96,7 @@ func _ready():
 	main_loop_timer.start()
 	
 	gamePortfolio = get_node("Game Portfolio")
+	projectsNode = get_node("Projects")
 	resourceAllocation = get_node("ResourceAllocation/ResourceAllocation")
 	newGameProgressBar = get_node("PanelContainer2/vcode/GameProgress")
 	innovationPointsWindow = get_node("PanelContainer/VBoxContainer/InnovationPoints")
@@ -100,11 +112,23 @@ func _ready():
 	_create_new_game()
 	
 	_update_game_development_progress(0)
+		
+	marketing_projects_dict = {
+		1: Project.new("Billboard Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.1]),
+		2: Project.new("Programmatic Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.2]),
+		3: Project.new("Data-Driving Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.3]),
+		4: Project.new("Social Media Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.5]),
+		5: Project.new("Mobile Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.7]),
+		6: Project.new("AR & VR Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [1.0]),
+	}
+	
+	projectsNode.add_research_project(marketing_projects_dict[1])
+
 	
 func _update_status_window():
 	innovationPointsWindow.text = "Innvation Points: " + str(innovationPoints)
 	numEmployeesWindow.text = "Company Size: " + str(num_employees) + " employees"
-	advertisingEffectivenessWindow.text = "Advertising bonus: " + str(advertising_bonus) + "%"
+	advertisingEffectivenessWindow.text = "Advertising bonus: " + str(advertising_bonus*100) + "%"
 	employeeHappinessWindow.text = "Employee happiness: " + str(employeeHappiness * 100) + "%"
 
 func _calculate_profit():
@@ -123,14 +147,14 @@ func _create_new_game():
 	var title = _pick_title(game_names)
 	var rating = valid_ratings[int(randi() % len(valid_ratings))] # todo weight this when you buy ratings and by employee happiness
 	var time_left = int(randi() % 120 * (1+advertising_bonus) * game_addictiveness)
-	var earning = "$" + str(rating_dict[rating] * (randi() % 100 * 10000))
+	var earning = "$" + str(rating_dict[rating] * (randi() % 100 * 100000))
 	gamePortfolio.create_game({game_title=title, time_left=time_left, rating=rating, earning=earning})
 	main.announce("Congratulations on releasing " + title + "!")
 	
 func _update_game_development_progress(override=0):
 #	print("1: ", resourceAllocation)
 #	print("2: ", resourceAllocation.points_in_resources)
-	var new_game_progress = 0.0001 * resourceAllocation.points_in_resources[0] * num_employees
+	var new_game_progress = 0.0001 * resourceAllocation.points_in_resources[0] * num_employees * employeeHappiness
 	newGameProgressBar.value += new_game_progress
 	
 	if override != 0:
@@ -145,6 +169,8 @@ func _update_market_share():
 	
 func _update_employee_happiness():
 	employeeHappiness += BASE_EMPLOYEE_HAPPINESS_DECLINE + 0.001 * resourceAllocation.points_in_resources[3]
+	employeeHappiness = max(0, employeeHappiness)
+	employeeHappiness = min(employeeHappiness, 1)
 	
 func _update_company_size():
 	num_employees += resourceAllocation.points_in_resources[1]
@@ -162,7 +188,7 @@ func _main_loop():
 	_update_employee_happiness()
 	_update_company_size()
 	_update_innovation()
-	
+
 	main.update_money(profit)
 	
 func _on_Timer_timeout():

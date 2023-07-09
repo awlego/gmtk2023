@@ -35,9 +35,10 @@ func _draw():
 	#print("draw called?")
 	draw_lin()
 	
+var point_overload_count = 0
 func draw_lin():
 	var point_count = line_node.get_point_count()
-	print(point_count)
+	#print(point_count)
 	if point_count > 1:
 		var points = line_node.get_points()
 		
@@ -52,13 +53,13 @@ func draw_lin():
 				did_draw = true
 
 		if did_draw == true:
-			scene.art_progress.value += .000075 * point_count
+			scene.art_progress.value += .000085 * point_count * (scene.games_made_counter+1)
 			scene.game_progress.value = scene.art_progress.value + scene.music_progress.value + scene.code_progress.value
 				
 
 
-	if point_count > 500:
-		line_node.clear_points()
-		pic_idx = (pic_idx + 1) % 23
-		self.get_parent().get_parent().texture = load("res://assets/backgrounds/BlueJam_" + str(pic_idx) + ".png")
+		if point_count > 500 - point_overload_count * (scene.games_made_counter + 1):
+			line_node.clear_points()
+			pic_idx = (pic_idx + 1) % 23
+			self.get_parent().get_parent().texture = load("res://assets/backgrounds/BlueJam_" + str(pic_idx) + ".png")
 		

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/short_percolate.mp3-8497cb0d8699a6522c0687b3baa10f4d.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/short_percolate.mp3"
+dest_files=[ "res://.import/short_percolate.mp3-8497cb0d8699a6522c0687b3baa10f4d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
