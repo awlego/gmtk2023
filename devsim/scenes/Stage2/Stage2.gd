@@ -53,15 +53,38 @@ func _per_second():
 		elif room == "CoffeeRoom":
 			pay_for_coffee(10)
 			occupants["CoffeeRoom"] += 1
-			$Animations/CoffeeSprite1/AnimationPlayer1.play("InCoffeeRoom")
 		elif room == "Training":
 			main.update_money(-100)
 			occupants["Training"] += 1
-			$Animations/AnimatedSprite.show()
-			$Animations/AnimatedSprite.play("flip")
 		elif room == "SocialRoom":
 			occupants["SocialRoom"] += 1
 		main.update_money(-1 * e.salary / 365)
+	
+	#controlling animations based on room dictionary.
+	if occupants["CoffeeRoom"] > 0:
+		$Animations/CoffeeSprite1.show()
+		$Animations/CoffeeSprite2.show()
+		$Animations/CoffeeSprite3.show()
+		$Animations/CoffeeSprite1/AnimationPlayer1.play("InCoffeeRoom")
+	else:
+		$Animations/CoffeeSprite1.hide()
+		$Animations/CoffeeSprite2.hide()
+		$Animations/CoffeeSprite3.hide()
+	if occupants["Training"] > 0:
+		$Animations/AnimatedSprite.show()
+		$Animations/AnimatedSprite.play("flip")
+	else:
+		$Animations/AnimatedSprite.hide()
+	if occupants["SocialRoom"]:
+		$Animations/WordBubble1.show()
+		$Animations/WordBubble2.show()
+		$Animations/WordBubble3.show()
+		$Animations/WordBubble3/AnimationPlayer.play("BreakRoomWords")
+	else:
+		$Animations/WordBubble1.hide()
+		$Animations/WordBubble2.hide()
+		$Animations/WordBubble3.hide()
+	
 		
 	print(occupants)
 	if progress.min() >= 100:
