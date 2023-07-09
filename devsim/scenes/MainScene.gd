@@ -88,6 +88,7 @@ func warpS2():
 	money = 100000
 	clicks = 10000
 	#update_title()
+	update_title("Studio Dgnt")
 	update_money(0)
 	set_stage(stage2)
 	
