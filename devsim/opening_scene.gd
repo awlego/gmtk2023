@@ -136,7 +136,9 @@ func _ready():
 	$HireArt.hide()
 	$HireMusic.hide()
 	$HireCode.hide()
+	$SetStudio.hide()
 	$Stage2Jump.hide()
+	$Company.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -157,7 +159,7 @@ func _process(delta):
 			$HireCode.show()
 		elif games_made_counter == 5:
 			main.update_money(80000)
-			$Stage2Jump.show()
+			$SetStudio.show()
 			# TODO add a total games made counter
 			# also change your title to published developer
 			# TODO show copies sold, trigger a new visual setup? (show dd and play music)
@@ -444,9 +446,12 @@ func _on_StartFlow_pressed():
 		$VSplitContainer/StartFlow.text = "Login to itch.io"
 		
 	elif start_flow == 4:
+		if len($VSplitContainer/login_itch/LineEdit.text) <1:
+			main.announce("Can't log into itch without my username")
+			return
 		main.player_name = $VSplitContainer/login_itch/LineEdit.text
 		main.announce("Username: ctrl-alt-delicious")
-		main.announce("Password: xxxxxxxxxxxxxxxxx")
+		main.announce("Password: mmmmmmmmmmmmmmmmmm")
 		# happy effect goes here
 		$VSplitContainer/Status.text = "Title: Player"
 		$VSplitContainer/StartFlow.text = "Play Game"
@@ -510,6 +515,21 @@ func _on_HireCode_pressed():
 		$HireCode.hide()
 
 
+func _on_SetStudio_pressed():
+	#show line edit and label for company name
+	$Company.show()
+	$Stage2Jump.show()
+
+
+
+
 func _on_Stage2Jump_pressed():
+	if len($Company/LineEdit.text) <1:
+		main.announce("This new game studio definitely needs a name")
+		return
+	main.company_name = $Company/LineEdit.text
+	main.update_title($Company/LineEdit.text)
+	$Company.hide()
 	main.moveToStage2()
+
 

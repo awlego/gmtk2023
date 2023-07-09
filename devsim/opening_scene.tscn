@@ -455,12 +455,33 @@ margin_right = 945.0
 margin_bottom = 83.0
 text = "Hire a developer: $40,000"
 
+[node name="SetStudio" type="Button" parent="."]
+margin_left = 391.0
+margin_top = 15.0
+margin_right = 629.0
+margin_bottom = 35.0
+text = "Start a Video Game Studio: $50,000"
+
 [node name="Stage2Jump" type="Button" parent="."]
 margin_left = 391.0
 margin_top = 15.0
 margin_right = 629.0
 margin_bottom = 35.0
 text = "Start a Video Game Studio: $50,000"
+
+[node name="Company" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Company"]
+margin_right = 376.0
+margin_bottom = 14.0
+text = "Please choose a name for your fledgling videogame studio!"
+
+[node name="LineEdit" type="LineEdit" parent="Company"]
+margin_top = 18.0
+margin_right = 376.0
+margin_bottom = 42.0
 
 [connection signal="pressed" from="VSplitContainer/StartFlow" to="." method="_on_StartFlow_pressed"]
 [connection signal="pressed" from="VSplitContainer/WalkDesk" to="." method="_on_WalkDesk_pressed"]
@@ -475,4 +496,5 @@ text = "Start a Video Game Studio: $50,000"
 [connection signal="pressed" from="HireArt" to="." method="_on_HireArt_pressed"]
 [connection signal="pressed" from="HireMusic" to="." method="_on_HireMusic_pressed"]
 [connection signal="pressed" from="HireCode" to="." method="_on_HireCode_pressed"]
+[connection signal="pressed" from="SetStudio" to="." method="_on_SetStudio_pressed"]
 [connection signal="pressed" from="Stage2Jump" to="." method="_on_Stage2Jump_pressed"]
