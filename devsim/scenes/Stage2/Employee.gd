@@ -75,7 +75,12 @@ func tick():
 			if skill > 110:
 				skill = 110
 	elif parent == "SocialRoom":
-		needs[2] -= (get_parent().get_child_count() - 1) * 10
+		var bonus = -10
+		for i in get_parent().get_children():
+			if i.get_class() == self.get_class():
+				bonus += 10
+		bonus = max(0, bonus)
+		needs[2] -= bonus
 	
 	for i in range(needs.size()):
 		if needs[i] < 0:

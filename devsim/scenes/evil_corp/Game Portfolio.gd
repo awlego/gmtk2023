@@ -2,12 +2,12 @@ extends PanelContainer
 
 onready var grid = $VBoxContainer/GridContainer
 
-var HEADERS = ["Game Title", "Time til Obsolete", "Critic Rating", "$ / sec"]
+var HEADERS = ["Game Title", "Time Left", "Critic Rating", "$ / sec"]
 
-var game_entry1 = {game_title="Battlefield", time_left="00:07", rating="B", earning="$1000"}
-var game_entry2 = {game_title="Battlefield2", time_left="00:10", rating="B", earning="$1000"}
-var game_entry3 = {game_title="Battlefield3", time_left="00:05", rating="B", earning="$1000"}
-var game_entry4 = {game_title="Battlefield4", time_left="00:20", rating="B", earning="$1000"}
+var game_entry1 = {game_title="Battlefield", time_left="04:07", rating="A", earning="$100000"}
+var game_entry2 = {game_title="Battlefield2", time_left="02:10", rating="B", earning="$50000"}
+var game_entry3 = {game_title="Battlefield3", time_left="01:05", rating="C", earning="$20000"}
+var game_entry4 = {game_title="(In Development)", time_left="03:20", rating="?", earning="0"}
 
 onready var timer = Timer.new()
 
@@ -90,7 +90,15 @@ func _time_string_to_int(string_time):
 func _calculate_row_index(i):
 	return (i / 14)
 	
-	
+func _calculate_total_earnings():
+	var children = grid.get_children()
+	var earnings = 0
+	for i in range(grid.get_child_count()):
+		if i % 14 == 6 and i > 13:
+			var child = children[i]
+			earnings += int(child.text)
+	return earnings
+		
 func _remove_dead_games():
 	var children = grid.get_children()
 	var rows_to_delete = []

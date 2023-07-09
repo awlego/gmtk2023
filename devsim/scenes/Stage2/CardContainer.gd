@@ -45,7 +45,10 @@ func input(event, card):
 						new_parent = $v/h/Training
 				if parent != new_parent:
 					parent.remove_child(card)
-					draggedCard.rect_position.y = 10
+					if (new_parent != self):
+						draggedCard.rect_position.y = 10
+					else:
+						draggedCard.rect_position.y += parent.rect_global_position.y - new_parent.rect_global_position.y
 					new_parent.add_child(card)
 					draggedCard.rect_position.x += parent.rect_position.x - new_parent.rect_position.x
 #					if self != new_parent:

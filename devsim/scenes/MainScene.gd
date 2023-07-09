@@ -1,4 +1,5 @@
 extends MarginContainer
+const EnjoyTimer = preload("res://scenes/EnjoyTimer.gd")
 var stage1_preload = preload("res://scenes/Stage1.tscn")
 var stage1 = stage1_preload.instance()
 var stage2_preload = preload("res://scenes/Stage2/Stage2.tscn")
@@ -44,7 +45,7 @@ func update_money(diff):
 
 func update_enjoy(hours):
 	hours_enjoyed += hours
-	enjoy_node.text = hours_message + str(hours)
+	enjoy_node.text = hours_message + str(hours_enjoyed)
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
