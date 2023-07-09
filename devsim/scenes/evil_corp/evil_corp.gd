@@ -81,8 +81,12 @@ var BASE_EMPLOYEE_HAPPINESS_DECLINE = -.004
 var new_game_progess
 
 var marketing_projects_dict = {}
+var money_projects_dict = {}
+var acquire_projects_dict = {}
+
 var marketing_counter = 1
 func _update_marketing(value):
+	innovationPoints -= 100*marketing_counter # THIS IS VERY HACKY
 	marketing_counter += 1
 	advertising_bonus += value
 	if marketing_projects_dict.has(marketing_counter):
@@ -112,21 +116,40 @@ func _ready():
 	_create_new_game()
 	
 	_update_game_development_progress(0)
+	_check_research_resources()
 		
 	marketing_projects_dict = {
 		1: Project.new("Billboard Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.1]),
-		2: Project.new("Programmatic Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.2]),
-		3: Project.new("Data-Driving Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.3]),
-		4: Project.new("Social Media Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.5]),
-		5: Project.new("Mobile Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [0.7]),
-		6: Project.new("AR & VR Ads", "", false, 0, 100, 2, 3, self, "_update_marketing", [1.0]),
+		2: Project.new("Programmatic Ads", "", false, 0, 200, 2, 3, self, "_update_marketing", [0.2]),
+		3: Project.new("Data-Driving Ads", "", false, 0, 300, 2, 3, self, "_update_marketing", [0.3]),
+		4: Project.new("Social Media Ads", "", false, 0, 400, 2, 3, self, "_update_marketing", [0.5]),
+		5: Project.new("Mobile Ads", "", false, 0, 500, 2, 3, self, "_update_marketing", [0.7]),
+		6: Project.new("AR & VR Ads", "", false, 0, 600, 2, 3, self, "_update_marketing", [1.0]),
+	}
+	
+	money_projects_dict = {
+		1: Project.new("Repurpose Roombas", "", false, 0, 0, 2, 3, self, "_dummy_callback", []),
+	}
+	
+	acquire_projects_dict = {
+		1: Project.new("Acquire Digital Crafts", "", true, 1000000, 0, 2, 3, self, "_dummy_callback", []),
+		2: Project.new("Acquire Pebblestar Games", "", true, 30000000, 0, 2, 3, self, "_dummy_callback", []),
+		3: Project.new("Acquire Youbiwork", "", true, 100000000, 0, 2, 3, self, "_dummy_callback", []),
+		4: Project.new("Acquire Mischievous Hound", "", true, 70000000, 0, 2, 3, self, "_dummy_callback", []),
 	}
 	
 	projectsNode.add_research_project(marketing_projects_dict[1])
+	projectsNode.add_money_project(money_projects_dict[1])
+	projectsNode.add_money_project(acquire_projects_dict[1])
+#	projectsNode.add_money_project(acquire_projects_dict[2])
+#	projectsNode.add_money_project(acquire_projects_dict[3])
+#	projectsNode.add_money_project(acquire_projects_dict[4])
 
+func _dummy_callback():
+	pass
 	
 func _update_status_window():
-	innovationPointsWindow.text = "Innvation Points: " + str(innovationPoints)
+	innovationPointsWindow.text = "Innovation Points: " + str(innovationPoints)
 	numEmployeesWindow.text = "Company Size: " + str(num_employees) + " employees"
 	advertisingEffectivenessWindow.text = "Advertising bonus: " + str(advertising_bonus*100) + "%"
 	employeeHappinessWindow.text = "Employee happiness: " + str(employeeHappiness * 100) + "%"
@@ -177,8 +200,15 @@ func _update_company_size():
 	# todo show employee cost to the player
 	
 func _update_innovation():
-	innovationPoints += resourceAllocation.points_in_resources[0] * (randi() % 100)
+	innovationPoints += resourceAllocation.points_in_resources[0] * (float(randi() % 10) / 10)
 
+func _check_research_resources():
+	for project in projectsNode.get_active_projects():
+		if project.innovation_cost > innovationPoints:
+			project.disabled = true
+		else:
+			project.disabled = false
+	
 func _main_loop():
 	var profit = _calculate_profit()
 	_update_game_development_progress()
@@ -189,8 +219,14 @@ func _main_loop():
 	_update_company_size()
 	_update_innovation()
 
+	_check_research_resources()
+	
+#	_update_pie_chart()
 	main.update_money(profit)
 	
 func _on_Timer_timeout():
 	_main_loop()
 	
+func _process(_delta):
+	# not sure this actually gets called every frame
+	_check_research_resources()

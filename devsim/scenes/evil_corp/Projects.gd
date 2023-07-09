@@ -32,7 +32,7 @@ func _generate_project(factory, project, money=true, callback_obj=null, callback
 		button_text = project.title + " ($" + str(project.money_cost) + ")"
 	else:
 		button_text = project.title + " (" + str(project.research_cost) + " Innovation Points)"
-	factory.generateProject(button_text, Vector2(100, 50), callback_obj, callback, callback_args)
+	factory.generateProject(button_text, Vector2(100, 50), callback_obj, callback, callback_args, project.money_cost, project.research_cost)
 
 func _setup_money_projects():
 	moneyProjectFactory = ProjectFactory.new()
@@ -52,8 +52,15 @@ func _setup_research_projects():
 #	_generate_project(researchProjectFactory, r_project3, false)
 #	_generate_project(researchProjectFactory, r_project4, false)
 
+func get_active_projects():
+	return researchProjectFactory.get_children()
+
 func add_research_project(project):
 	_generate_project(researchProjectFactory, project, false, project.callback_obj, project.callback, project.callback_args)
+	
+func add_money_project(project):
+	_generate_project(moneyProjectFactory, project, false, project.callback_obj, project.callback, project.callback_args)
+	
 	
 func _setup_projects():
 	_setup_money_projects()

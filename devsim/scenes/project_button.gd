@@ -8,17 +8,21 @@ class_name ProjectButton
 var callback_function
 var callback_object
 var callback_args
+var money_cost
+var innovation_cost
 var idx
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-func setupButtonParams(text, callback_obj, callback, args, index):
+func setupButtonParams(text, callback_obj, callback, args, index, m_cost, i_cost):
 	self.text = text
 	callback_object = callback_obj
 	callback_function = callback
 	callback_args = args
+	money_cost = m_cost
+	innovation_cost = i_cost
 	idx = index
 
 func doButton():	
