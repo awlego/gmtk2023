@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://opening_scene.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ProjectFactory.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/backgrounds/BlueJam_0.png" type="Texture" id=6]
 [ext_resource path="res://drawing_line.gd" type="Script" id=7]
 [ext_resource path="res://assets/backgrounds/CoffeeMug.png" type="Texture" id=8]
+[ext_resource path="res://assets/backgrounds/open_book.png" type="Texture" id=9]
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.0156863, 0.54902, 0.941176, 1 )
@@ -44,6 +45,22 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 512, 920 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "BookUp"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
 }
 
 [node name="opening_scene" type="Control"]
@@ -133,17 +150,66 @@ margin_right = 339.0
 margin_bottom = 40.0
 custom_styles/fg = SubResource( 3 )
 
-[node name="WalkDesk" type="Button" parent="VSplitContainer"]
+[node name="StartFlow" type="Button" parent="VSplitContainer"]
 margin_top = 106.0
-margin_right = 126.0
+margin_right = 1024.0
 margin_bottom = 126.0
+text = "Get out of bed"
+
+[node name="WalkDesk" type="Button" parent="VSplitContainer"]
+visible = false
+margin_top = 130.0
+margin_right = 126.0
+margin_bottom = 150.0
 size_flags_horizontal = 0
 text = "Walk over to desk"
 
-[node name="HSplitContainer" type="HSplitContainer" parent="VSplitContainer"]
+[node name="BootComputer" type="Button" parent="VSplitContainer"]
 margin_top = 130.0
+margin_right = 126.0
+margin_bottom = 150.0
+size_flags_horizontal = 0
+text = "Turn on computer"
+
+[node name="itchio" type="Button" parent="VSplitContainer"]
+visible = false
+margin_top = 178.0
 margin_right = 1024.0
-margin_bottom = 144.0
+margin_bottom = 198.0
+text = "Brew Coffee"
+
+[node name="Play" type="Button" parent="VSplitContainer"]
+visible = false
+margin_top = 178.0
+margin_right = 1024.0
+margin_bottom = 198.0
+text = "Brew Coffee"
+
+[node name="Make" type="Button" parent="VSplitContainer"]
+visible = false
+margin_top = 178.0
+margin_right = 1024.0
+margin_bottom = 198.0
+text = "Brew Coffee"
+
+[node name="Godot" type="Button" parent="VSplitContainer"]
+visible = false
+margin_top = 178.0
+margin_right = 1024.0
+margin_bottom = 198.0
+text = "Brew Coffee"
+
+[node name="DrinkCoffee" type="Button" parent="VSplitContainer"]
+margin_top = 154.0
+margin_right = 89.0
+margin_bottom = 174.0
+size_flags_horizontal = 0
+text = "Drink coffee"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VSplitContainer"]
+margin_top = 178.0
+margin_right = 1024.0
+margin_bottom = 192.0
 
 [node name="Label" type="Label" parent="VSplitContainer/HSplitContainer"]
 margin_right = 42.0
@@ -157,20 +223,6 @@ margin_bottom = 14.0
 rect_min_size = Vector2( 100, 14 )
 size_flags_horizontal = 0
 script = ExtResource( 3 )
-
-[node name="DrinkCoffee" type="Button" parent="VSplitContainer"]
-margin_top = 148.0
-margin_right = 89.0
-margin_bottom = 168.0
-size_flags_horizontal = 0
-text = "Drink coffee"
-
-[node name="BootComputer" type="Button" parent="VSplitContainer"]
-margin_top = 172.0
-margin_right = 126.0
-margin_bottom = 192.0
-size_flags_horizontal = 0
-text = "Turn on computer"
 
 [node name="HSplitContainer2" type="HSplitContainer" parent="VSplitContainer"]
 margin_top = 196.0
@@ -360,9 +412,18 @@ anims/RESET = SubResource( 2 )
 [node name="CoffeeMug" type="Sprite" parent="."]
 position = Vector2( 512, 920 )
 
+[node name="OpenBook" type="Sprite" parent="."]
+position = Vector2( 792, 722 )
+scale = Vector2( 0.288125, 0.422644 )
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OpenBook"]
+anims/BookUp = SubResource( 5 )
+
+[connection signal="pressed" from="VSplitContainer/StartFlow" to="." method="_on_StartFlow_pressed"]
 [connection signal="pressed" from="VSplitContainer/WalkDesk" to="." method="_on_WalkDesk_pressed"]
-[connection signal="pressed" from="VSplitContainer/DrinkCoffee" to="." method="_on_Drink_Coffee_pressed"]
 [connection signal="pressed" from="VSplitContainer/BootComputer" to="." method="_on_Boot_Computer_pressed"]
+[connection signal="pressed" from="VSplitContainer/DrinkCoffee" to="." method="_on_Drink_Coffee_pressed"]
 [connection signal="gui_input" from="VSplitContainer/HSplitContainer2/HelloWorld" to="." method="_on_HelloWorld_gui_input"]
 [connection signal="pressed" from="VSplitContainer/HBoxContainer2/Code" to="." method="_on_Code_pressed"]
 [connection signal="pressed" from="VSplitContainer/HBoxContainer/Sleep" to="." method="_on_SleepButton_pressed"]

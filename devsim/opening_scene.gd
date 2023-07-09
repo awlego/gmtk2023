@@ -109,6 +109,11 @@ func _ready():
 	sleeping = false
 	
 	$VSplitContainer/Status.text = personal_status
+	main.announce("Wake up....")
+	main.announce("Another day of videogames!.")
+	main.announce("The newest game jam just ended, so many things to play!.")
+	# :D
+	# TODO add happy face here (or happy stat)
 	
 	var notes_holder = $VSplitContainer/HBoxContainer2/MusicNotes
 	music_note_list += (notes_holder.get_children())
@@ -118,7 +123,6 @@ func _ready():
 	music_note_list.pop_front()
 	print(music_note_list)
 	#$HSplitContainer/EnergyMeter.value = 100
-	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -227,7 +231,7 @@ func _on_Drink_Coffee_pressed():
 		
 	#hopefully calls the coffee animation.  Unhide the sprite. call the animation. hide the sprite
 	$CoffeeMug/AnimationPlayer.play("CoffeeUp")
-	
+	$OpenBook/AnimationPlayer.play("BookUp")
 	
 
 func _on_WalkDesk_pressed():
@@ -328,3 +332,71 @@ func _on_Code_pressed():
 	if rand_range(1, 100) < 5 + $VSplitContainer/GameProgress/Percent.value*.5:
 		pf.generateProject("Bug " + str(count))
 		count += 1
+
+
+
+
+var start_flow = 0
+func _on_StartFlow_pressed():
+	if start_flow == 0:
+		$VSplitContainer/StartFlow.text = "Brew Coffee"
+		# effect (sound and animation for coffee)
+	elif start_flow == 1:
+		$VSplitContainer/StartFlow.text = "Walk over to desk"
+
+	elif start_flow == 2:
+		$VSplitContainer/StartFlow.text = "Boot Computer"
+
+		# set a timer to sleep here so you have to wait
+
+	elif start_flow == 3:
+		main.announce("Booting....")
+		main.announce("Boot complete")
+		$VSplitContainer/StartFlow.text = "Login to itch.io"
+		
+	elif start_flow == 4:
+		main.announce("Username: ctrl-alt-delicious")
+		main.announce("Password: xxxxxxxxxxxxxxxxx")
+		# happy effect goes here
+		$VSplitContainer/Status.text = "Title: Player"
+		$VSplitContainer/StartFlow.text = "Play Game"
+		
+	elif start_flow == 5:
+		#$VSplitContainer/StartFlow.text = ""
+		main.announce("Loading....")
+		main.announce("Error!, Couldn't load game.")
+		
+	elif start_flow == 6:
+		#$VSplitContainer/StartFlow.text = ""
+		main.announce("Loading....")
+		main.announce("Error!, Couldn't load game.")
+		
+	elif start_flow == 7:
+		#$VSplitContainer/StartFlow.text = ""
+		main.announce("Loading....")
+		main.announce("Error!, Couldn't load game.")
+		main.announce("Error!, Couldn't load.")
+		main.announce("Error!, Couldn't lo.")
+		main.announce("Error!.")
+		$VSplitContainer/StartFlow.text = "Game"
+
+	elif start_flow == 8:
+		$VSplitContainer/StartFlow.text = "Make Game"
+		main.announce("Uhhh....")
+		main.announce("What !?!?!.")
+		main.announce("$#*^$#@@.")
+
+	elif start_flow == 9:
+		main.announce("Fine.")
+		$VSplitContainer/Status.text = "Title: Coerced Developer"
+		$VSplitContainer/StartFlow.text = "Install Godot"
+
+	elif start_flow == 10:
+		main.announce("Installing.")
+		# beach ball animation or spinning godot logo
+		main.announce("Install complete.")
+		$VSplitContainer/StartFlow.hide()
+		$VSplitContainer/DrinkCoffee.show()
+		
+	start_flow += 1
+		
