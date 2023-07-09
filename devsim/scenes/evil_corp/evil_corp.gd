@@ -12,6 +12,7 @@ onready var numEmployeesWindow
 onready var advertisingEffectivenessWindow
 onready var employeeHappinessWindow
 onready var projectsNode
+onready var pieChart
 
 var game_names = {
 	"The Ancient Parchments": 0,
@@ -101,6 +102,7 @@ func _ready():
 	
 	gamePortfolio = get_node("Game Portfolio")
 	projectsNode = get_node("Projects")
+	pieChart = get_node("PieChart")
 	resourceAllocation = get_node("ResourceAllocation/ResourceAllocation")
 	newGameProgressBar = get_node("PanelContainer2/vcode/GameProgress")
 	innovationPointsWindow = get_node("PanelContainer/VBoxContainer/InnovationPoints")
@@ -220,7 +222,10 @@ func _check_research_resources():
 				project.disabled = true
 			else:
 				project.disabled = false
-			
+
+func _update_pie_chart():
+	pieChart.update_pie_chart()
+	
 func _main_loop():
 	var profit = _calculate_profit()
 	_update_game_development_progress()
@@ -233,7 +238,7 @@ func _main_loop():
 
 	_check_research_resources()
 	
-#	_update_pie_chart()
+	_update_pie_chart()
 	main.update_money(profit)
 	
 func _on_Timer_timeout():

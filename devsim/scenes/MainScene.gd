@@ -10,7 +10,8 @@ var stage3 = stage3_preload.instance()
 var stage_opener_preload = preload("res://opening_scene.tscn")
 var stage_opener = stage_opener_preload.instance()
 
-# Declare member variables here.
+var player_name = "DZ"
+var company_name = "Pampers Hrvatska"
 var clicks = 0
 var stage = 0
 var hours_enjoyed = 0
