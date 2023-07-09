@@ -23,7 +23,7 @@ var INFO_TEXT_MAX_LINES = 5
 
 onready var info_text = get_node("v0/TopBar/v/MarginContainer/Info")
 onready var typing_speed_timer = get_node("v0/TopBar/v/MarginContainer/Info/TypingSpeed")
-var announcement_window_text = "This is some text that will be typed out letter by letter."
+var announcement_window_text = "...."
 var announcement_index = 0
 	
 func click():
@@ -79,6 +79,9 @@ func set_stage(stage_to_set):
 		v0.remove_child(v0.get_child(1))
 	v0.add_child(stage_to_set)
 
+func moveToStage2():
+	set_stage(stage2)
+
 func warpS1():
 	clicks = 10
 	#update_title()
@@ -88,6 +91,7 @@ func warpS2():
 	money = 100000
 	clicks = 10000
 	#update_title()
+	update_title("Studio Dgnt")
 	update_money(0)
 	set_stage(stage2)
 	
