@@ -29,10 +29,10 @@ func _ready():
 			child.text = HEADERS[i]
 			i += 1
 			
-	_add_game(game_entry1)
-	_add_game(game_entry2)
-	_add_game(game_entry3)
-	_add_game(game_entry4)
+#	_add_game(game_entry1)
+#	_add_game(game_entry2)
+#	_add_game(game_entry3)
+#	_add_game(game_entry4)
 	
 #	_remove_row(1)
 
@@ -96,7 +96,7 @@ func _time_int_to_string(int_time):
 	return string_time
 	
 func _time_string_to_int(string_time):
-	print(string_time)
+#	print(string_time)
 	var parts = string_time.split(":")
 	var minutes = int(parts[0])
 	var seconds = int(parts[1])

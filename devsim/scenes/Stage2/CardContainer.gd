@@ -10,7 +10,7 @@ func move_card_to_top(card):
 	
 func add_card(card):
 	add_child(card)
-	card.connect("gui_input", self, "input")
+	card.connect("my_gui_input", self, "input")
 	#move_card_to_top(card)
 
 func drag_started(card):

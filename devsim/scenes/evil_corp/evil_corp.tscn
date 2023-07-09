@@ -38,9 +38,9 @@ margin_right = 941.0
 margin_bottom = 305.0
 
 [node name="ResourceAllocation" parent="." instance=ExtResource( 5 )]
-margin_left = 88.0
+margin_left = 17.0
 margin_top = 63.0
-margin_right = 240.0
+margin_right = 169.0
 margin_bottom = 235.0
 
 [node name="Game Portfolio" parent="." instance=ExtResource( 6 )]
@@ -71,3 +71,38 @@ margin_top = 18.0
 margin_right = 1010.0
 margin_bottom = 32.0
 custom_styles/fg = SubResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 298.0
+margin_top = 89.0
+margin_right = 460.0
+margin_bottom = 177.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 155.0
+margin_bottom = 81.0
+
+[node name="InnovationPoints" type="Label" parent="PanelContainer/VBoxContainer"]
+margin_right = 148.0
+margin_bottom = 14.0
+text = "Innovation points"
+
+[node name="NumEmployees" type="Label" parent="PanelContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 148.0
+margin_bottom = 32.0
+text = "E"
+
+[node name="AdvertisingEffectiveness" type="Label" parent="PanelContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 148.0
+margin_bottom = 50.0
+text = "E"
+
+[node name="EmployeeHappiness" type="Label" parent="PanelContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 148.0
+margin_bottom = 68.0
+text = "E"
