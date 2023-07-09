@@ -14,7 +14,7 @@ var colors = {
 }
 
 var font = preload("res://assets/UIFont.tres")
-var debug = true
+var debug = false
 onready var legend_container
 
 func _ready():
@@ -75,19 +75,19 @@ func update_pie_chart():
 	data["Company3"] = rand_range(1, 50)
 	update()
 	
-var i = 0
-func _on_Timer_timeout():
-	if debug == true:
-		if (i % 2) == 0:
-			data["Company1"] = rand_range(1, 50)
-			data["Company2"] = rand_range(1, 50)
-			data["Company3"] = rand_range(1, 50)
-			data.erase("Company4")
-		else:
-			data["Company1"] = rand_range(1, 50)
-			data["Company2"] = rand_range(1, 50)
-			data["Company3"] = rand_range(1, 50)
-			data["Company4"] = rand_range(1, 50)
-		i += 1
-		update()
+#var i = 0
+#func _on_Timer_timeout():
+#	if debug == true:
+#		if (i % 2) == 0:
+#			data["Company1"] = rand_range(1, 50)
+#			data["Company2"] = rand_range(1, 50)
+#			data["Company3"] = rand_range(1, 50)
+#			data.erase("Company4")
+#		else:
+#			data["Company1"] = rand_range(1, 50)
+#			data["Company2"] = rand_range(1, 50)
+#			data["Company3"] = rand_range(1, 50)
+#			data["Company4"] = rand_range(1, 50)
+#		i += 1
+#		update()
 
