@@ -77,9 +77,9 @@ var games_made_counter = 0
 var games_sold = 0
 var marketing_bonus = 0
 
-var artist_hired = true
-var musician_hired = true
-var dev_hired = true
+var artist_hired = false
+var musician_hired = false
+var dev_hired = false
 
 onready var art_progress = $VSplitContainer/H/v1/Art
 onready var music_progress = $VSplitContainer/H/v2/Music
@@ -89,7 +89,7 @@ onready var game_progress = $VSplitContainer/GameProgress/Percent
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	$VSplitContainer/login_itch.hide()
 	$VSplitContainer/GameProgress/GameCompletion2.hide()
 	$VSplitContainer/GameProgress/Percent.hide()
 	$VSplitContainer/H/v1.hide()
@@ -119,9 +119,9 @@ func _ready():
 	sleeping = false
 	
 	$VSplitContainer/Status.text = personal_status
-	main.announce("Wake up....")
-	main.announce("Another day of videogames!.")
-	main.announce("The newest game jam just ended, so many things to play!.")
+	main.announce("Wake up...")
+	main.announce("Another day of videogames!")
+	main.announce("The newest game jam just ended, so many things to play!")
 	# :D
 	# TODO add happy face here (or happy stat)
 	
@@ -168,7 +168,7 @@ func _process(delta):
 		code_progress.value = 0
 		games_made_counter += 1
 	if $VSplitContainer/HSplitContainer/EnergyMeter.value == 0:
-		$VSplitContainer/Status.text = "I really need a nap"
+		#$VSplitContainer/Status.text = "I really need a nap"
 		tired = true
 	else:
 		tired = false
@@ -313,7 +313,7 @@ func _on_WalkDesk_pressed():
 func _on_Boot_Computer_pressed():
 	main.announce("Today, you will MAKE the game, others will play")
 	if sleeping == true:
-		main.announce("zzzzz.....")
+		main.announce("zzzzz....")
 		return
 	$VSplitContainer/BootComputer.hide()
 	# TODO play animation of bootup
@@ -353,7 +353,7 @@ func _on_HelloWorld_gui_input(_event):
 
 
 func _on_SleepButton_pressed():
-	main.announce("zzzz....")
+	main.announce("zzzz...")
 	$VSplitContainer/Status.text = "zzzzzz..."
 	sleeping = true
 	coffee_penalty = 0
@@ -380,7 +380,7 @@ func _on_Study_pressed():
 var code_counter = 0
 func _on_Code_pressed():
 	if sleeping == true:
-		main.announce("zzzz....")
+		main.announce("zzzz...")
 		return
 	if code_counter < 10:
 		if code_counter == 0:
@@ -438,11 +438,13 @@ func _on_StartFlow_pressed():
 		# set a timer to sleep here so you have to wait
 
 	elif start_flow == 3:
-		main.announce("Booting....")
+		main.announce("Booting...")
 		main.announce("Boot complete")
+		$VSplitContainer/login_itch.show()
 		$VSplitContainer/StartFlow.text = "Login to itch.io"
 		
 	elif start_flow == 4:
+		main.player_name = $VSplitContainer/login_itch/LineEdit.text
 		main.announce("Username: ctrl-alt-delicious")
 		main.announce("Password: xxxxxxxxxxxxxxxxx")
 		# happy effect goes here
@@ -451,28 +453,28 @@ func _on_StartFlow_pressed():
 		
 	elif start_flow == 5:
 		#$VSplitContainer/StartFlow.text = ""
-		main.announce("Loading....")
-		main.announce("Error!, Couldn't load game.")
+		main.announce("Loading...")
+		main.announce("Error!, Couldn't load game")
 		
 	elif start_flow == 6:
 		#$VSplitContainer/StartFlow.text = ""
-		main.announce("Loading....")
-		main.announce("Error!, Couldn't load game.")
+		main.announce("Loading...")
+		main.announce("Error!, Couldn't load game")
 		
 	elif start_flow == 7:
 		#$VSplitContainer/StartFlow.text = ""
-		main.announce("Loading....")
-		main.announce("Error!, Couldn't load game.")
-		main.announce("Error!, Couldn't load.")
-		main.announce("Error!, Couldn't lo.")
-		main.announce("Error!.")
+		main.announce("Loading...")
+		main.announce("Error!, Couldn't load game")
+		main.announce("Error!, Couldn't load")
+		main.announce("Error!, Couldn't lo")
+		main.announce("Error!")
 		$VSplitContainer/StartFlow.text = "Game"
 
 	elif start_flow == 8:
 		$VSplitContainer/StartFlow.text = "Make Game"
-		main.announce("Uhhh....")
-		main.announce("What !?!?!.")
-		main.announce("$#*^$#@@.")
+		main.announce("Uhhh...")
+		main.announce("What !?!?!")
+		main.announce("$#*^$#@@")
 
 	elif start_flow == 9:
 		main.announce("Fine.")
@@ -480,7 +482,7 @@ func _on_StartFlow_pressed():
 		$VSplitContainer/StartFlow.text = "Install Godot"
 
 	elif start_flow == 10:
-		main.announce("Installing.")
+		main.announce("Installing...")
 		# beach ball animation or spinning godot logo
 		main.announce("Install complete.")
 		$VSplitContainer/StartFlow.hide()
