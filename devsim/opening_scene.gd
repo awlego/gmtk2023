@@ -14,7 +14,7 @@ var music_skill = 0.1
 var main
 var first_sleep_appear = false
 var sleeping = true
-var tired = true
+var tired = false
 var programming_skill = 0
 var coffee_penalty = 0
 var coffee_phrases = [
@@ -73,6 +73,7 @@ var sound_idx = 0
 var music_note_idx = 0
 var music_note_list = []
 
+var games_made_counter = 0
 
 onready var art_progress = $VSplitContainer/H/v1/Art
 onready var music_progress = $VSplitContainer/H/v2/Music
@@ -85,10 +86,13 @@ func _ready():
 	
 	$VSplitContainer/GameProgress/GameCompletion2.hide()
 	$VSplitContainer/GameProgress/Percent.hide()
-	$VSplitContainer/H.hide()
+	$VSplitContainer/H/v1.hide()
+	$VSplitContainer/H/v2.hide()
+	$VSplitContainer/H/v3.hide()
 	$VSplitContainer/HSplitContainer/EnergyMeter.hide()
 	$VSplitContainer/HSplitContainer/Label.hide()
-	$VSplitContainer/DrinkCoffee.hide()
+	$VSplitContainer/CoffeeSleepBox/DrinkCoffee.hide()
+	$VSplitContainer/CoffeeSleepBox/Sleep.hide()
 	$VSplitContainer/BootComputer.hide()
 	$VSplitContainer/HSplitContainer2/Label.hide()
 	$VSplitContainer/HSplitContainer2/HelloWorld.hide()
@@ -101,10 +105,10 @@ func _ready():
 	$VSplitContainer/HBoxContainer2/Music.hide()
 	$VSplitContainer/HBoxContainer2/MusicNotes.hide()
 	$VSplitContainer/HBoxContainer2/TextureRect.hide()
-	$VSplitContainer/HBoxContainer2/Code.hide()
-	$VSplitContainer/HBoxContainer/Sleep.hide()
+	$VSplitContainer/HBoxContainer2/Coding/Code.hide()
+	$VSplitContainer/HBoxContainer2/Coding/Study.hide()
 	$VSplitContainer/HBoxContainer/Eat.hide()
-	$VSplitContainer/HBoxContainer/Study.hide()
+
 	$VSplitContainer/HBoxContainer/Socialize.hide()
 	sleeping = false
 	
@@ -119,26 +123,43 @@ func _ready():
 	music_note_list += (notes_holder.get_children())
 	music_note_list[music_note_idx].set("custom_colors/font_color", Color(0,1,0))
 	$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_plain.png")
-	print(music_note_list)
+	#print(music_note_list)
 	music_note_list.pop_front()
-	print(music_note_list)
+	#print(music_note_list)
 	#$HSplitContainer/EnergyMeter.value = 100
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if $VSplitContainer/GameProgress/Percent.value == 300:
+		if games_made_counter == 0:
+			$VSplitContainer/Status.text = "First game complete!!! \n Behold, Dwarven Dungeon!"
+			$VSplitContainer/GameProgress/GameCompletion2.text = "Next Game: Progress Percent"
+			# TODO add a total games made counter
+			# also change your title to published developer
+			# TODO show copies sold, trigger a new visual setup? (show dd and play music)
+			# add a buyable factory with stuff like textbooks and other stuff
+		$VSplitContainer/GameProgress/Percent.value = 0
+		art_progress.value = 0
+		music_progress.value = 0
+		code_progress.value = 0
+		games_made_counter += 1
+	if $VSplitContainer/HSplitContainer/EnergyMeter.value == 0:
+		$VSplitContainer/Status.text = "I really need a nap"
+		tired = true
+	else:
+		tired = false
+
 
 func _on_Timer_timeout():
 	$VSplitContainer/HSplitContainer/EnergyMeter.value -= 1
 	var _val = $VSplitContainer/HSplitContainer/EnergyMeter.value
-	if $VSplitContainer/HSplitContainer/EnergyMeter.value < 50:
+	if $VSplitContainer/HSplitContainer/EnergyMeter.value == 0:
 		if first_sleep_appear == false:
 			first_sleep_appear = true
-			$VSplitContainer/HBoxContainer/Sleep.show()
-			$VSplitContainer/HBoxContainer/Eat.show()
-			$VSplitContainer/HBoxContainer/Study.show()
-			$VSplitContainer/HBoxContainer/Socialize.show()
+			$VSplitContainer/CoffeeSleepBox/Sleep.show()
+			#$VSplitContainer/HBoxContainer/Eat.show()
+			#$VSplitContainer/HBoxContainer/Socialize.show()
 		#$VSplitContainer/HSplitContainer/EnergyMeter.get("custom_styles/fg").set_bg_color(Color(
 		#	1.0 if val<50 else (2 - 2*(val/100)),
 		#	1.0 if val>50 else (2*(val/100)),
@@ -168,10 +189,7 @@ func _on_Timer_timeout():
 	#	pf.generateProject("Bug " + str(count))
 	#	count += 1
 	
-	if $VSplitContainer/HSplitContainer/EnergyMeter.value == 0:
-		$VSplitContainer/Status.text = "I really need a nap"
-		music_note_list[music_note_idx].set("custom_colors/font_color", Color(1,0,0))
-		tired = true
+		#music_note_list[music_note_idx].set("custom_colors/font_color", Color(1,0,0))
 
 		
 	#$scenes/ProjectFactory.generateProject("Testing " + str(count))
@@ -191,7 +209,13 @@ func _input(event):
 				asm.play("res://assets/sounds/" + str(sound_idx) + ".mp3")
 				music_progress.value += music_skill
 				game_progress.value = art_progress.value + music_progress.value + code_progress.value
-				music_skill += 0.01
+				if $VSplitContainer/GameProgress/Percent.value > 15:
+					if !$VSplitContainer/H/v1.visible:
+						$VSplitContainer/H/v1.show()
+						$VSplitContainer/HBoxContainer2/TextureRect.show()
+						$VSplitContainer/GameProgress/GameCompletion2.show()
+						$VSplitContainer/GameProgress/Percent.show()
+				music_skill += (0.0175 * (games_made_counter +1))
 				music_note_list[music_note_idx].set("custom_colors/font_color", Color(1,1,1))
 				music_note_idx = (music_note_idx + 1) % 7
 				#MyImage.texture = load("res://Graphics/image.png")
@@ -208,11 +232,13 @@ var coffee_sounds = [
 ]
 
 func _on_Drink_Coffee_pressed():
-	var which = rand_range(0, len(coffee_sounds))
-	var coffee_noise = coffee_sounds[which]
-	
-	asm.play("res://assets/sounds/" + coffee_noise)
-	# Play coffee drinking sound
+	# Play coffee drinking sound 40% of the time
+	if rand_range(0,10) > 6:
+		var which = rand_range(0, len(coffee_sounds))
+		var coffee_noise = coffee_sounds[which]
+		#asm.play("res://assets/sounds/" + coffee_noise)
+		
+
 	var coffee_text = coffee_phrases[rand_range(0,len(coffee_phrases))]
 	#Coffee with good friends is one of life's true delights
 	$VSplitContainer/Status.text = coffee_text
@@ -225,9 +251,9 @@ func _on_Drink_Coffee_pressed():
 	main.update_money(-5)
 	$VSplitContainer/HSplitContainer/EnergyMeter.value = 100 - coffee_penalty
 	if coffee_penalty == 0:
-		coffee_penalty += 5
+		coffee_penalty += 6
 	else:
-		coffee_penalty += 2
+		coffee_penalty += 3
 	$VSplitContainer/HSplitContainer/EnergyMeter.show()
 	$VSplitContainer/HSplitContainer/Label.show()
 	$Timer.start()
@@ -250,28 +276,29 @@ func _on_WalkDesk_pressed():
 	if sleeping == true:
 		return
 	$VSplitContainer/WalkDesk.hide()
-	$VSplitContainer/DrinkCoffee.show()
+	$VSplitContainer/CoffeeSleepBox/DrinkCoffee.show()
 
 
 func _on_Boot_Computer_pressed():
-	$VSplitContainer/Status.text = "Today, you will MAKE the game, others will play"
+	main.announce("Today, you will MAKE the game, others will play")
 	if sleeping == true:
+		main.announce("zzzzz.....")
 		return
 	$VSplitContainer/BootComputer.hide()
 	# TODO play animation of bootup
 	# text fade in
-	$VSplitContainer/GameProgress/GameCompletion2.show()
-	$VSplitContainer/GameProgress/Percent.show()
+	$VSplitContainer/HBoxContainer2/Coding/Code.show()
+	
+	return
+
 	$VSplitContainer/H.show()
-	$VSplitContainer/HBoxContainer2/Art.show()
-	$VSplitContainer/HBoxContainer2/Music.show()
-	$VSplitContainer/HBoxContainer2/Code.show()
+	#$VSplitContainer/HBoxContainer2/Art.show()
+	#$VSplitContainer/HBoxContainer2/Music.show()
+
 	#$VSplitContainer/HSplitContainer2/Label.show()
 	#$VSplitContainer/HSplitContainer2/HelloWorld.show()
+	
 	$VSplitContainer/HBoxContainer2/MusicNotes.show()
-	#print("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
-	$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
-	#$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture.set_scale(Vector2(0.2, 0.2))
 	$VSplitContainer/HBoxContainer2/TextureRect.show()
 	# TODO this is where I lay out the rest of the primary round 1 properties and things to track
 	# trigger game progress and bugs as well
@@ -295,9 +322,9 @@ func _on_HelloWorld_gui_input(_event):
 
 
 func _on_SleepButton_pressed():
+	main.announce("zzzz....")
 	$VSplitContainer/Status.text = "zzzzzz..."
 	sleeping = true
-	tired = false
 	coffee_penalty = 0
 	$SleepTimer.start()
 
@@ -305,20 +332,33 @@ func _on_SleepButton_pressed():
 func _on_SleepTimer_timeout():
 	$VSplitContainer/Status.text = "I'm up, I'm up"
 	sleeping = false
+	tired = false
 	$VSplitContainer/HSplitContainer/EnergyMeter.value = 100
 	
-
 
 func _on_Study_pressed():
 	$VSplitContainer/Status.text = "Ugh, this is brutal"
 	if tired == true:
+		main.announce("Yaaaawwwwwnnnn")
 		if rand_range(1, 100) > 10:
+			programming_skill -= 0.005
 			return
 	$VSplitContainer/HSplitContainer/EnergyMeter.value -= rand_range(0,5)
 	programming_skill += 0.001
 
-
+var code_counter = 0
 func _on_Code_pressed():
+	if sleeping == true:
+		main.announce("zzzz....")
+		return
+	if code_counter < 10:
+		if code_counter == 0:
+			$VSplitContainer/H/v3.show()
+		code_counter += 1
+	if code_counter == 10:
+		code_counter += 1
+		$VSplitContainer/HBoxContainer2/Coding/Study.show()
+	
 	$VSplitContainer/Status.text = "Clickety clack"
 	if tired == true:
 		if rand_range(1, 100) > 5:
@@ -328,19 +368,23 @@ func _on_Code_pressed():
 	if (rand_range(0,1) * len(pf.project_list)) > 20:
 		print("BUG! Nothing got done")
 		return
-	#$VSplitContainer/GameProgress/Percent.value += 1*programming_skill
-	code_progress.value += 1*programming_skill
-	game_progress.value = art_progress.value + music_progress.value + code_progress.value
-	
-	if $VSplitContainer/GameProgress/Percent.value == 100:
-		$VSplitContainer/Status.text = "First game complete!!! \n Behold, Dwarven Dungeon!"
-		$VSplitContainer/GameProgress/GameCompletion2.text = "Second Game: Progress Percent"
-		$VSplitContainer/GameProgress/Percent.value = 0
-		# TODO show copies sold, trigger a new visual setup? (show dd and play music)
-		# add a buyable factory with stuff like textbooks and other stuff
 
-	programming_skill += 0.0001
-	if rand_range(1, 100) < 5 + $VSplitContainer/GameProgress/Percent.value*.5:
+	code_progress.value += programming_skill
+	if code_progress.value > 5:
+		if !$VSplitContainer/H/v2.visible:
+			$VSplitContainer/H/v2.show()
+			$VSplitContainer/HBoxContainer2/MusicNotes.show()
+			$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
+	game_progress.value = art_progress.value + music_progress.value + code_progress.value
+	if $VSplitContainer/GameProgress/Percent.value > 15:
+		if !$VSplitContainer/H/v1.visible:
+			$VSplitContainer/H/v1.show()
+			$VSplitContainer/HBoxContainer2/TextureRect.show()
+			$VSplitContainer/GameProgress/GameCompletion2.show()
+			$VSplitContainer/GameProgress/Percent.show()
+
+	programming_skill += (0.0001 * (games_made_counter+1))
+	if rand_range(1, 100) < 5 + code_progress.value*.5:
 		pf.generateProject("Bug " + str(count))
 		count += 1
 
@@ -354,7 +398,7 @@ func _on_StartFlow_pressed():
 		# effect (sound and animation for coffee)
 	elif start_flow == 1:
 		#sound of coffee brew
-		asm.play("res://assets/sounds/full_percolate.mp3")
+		asm.play("res://assets/sounds/short_percolate.mp3")
 		$VSplitContainer/StartFlow.text = "Walk over to desk"
 
 	elif start_flow == 2:
@@ -409,7 +453,7 @@ func _on_StartFlow_pressed():
 		# beach ball animation or spinning godot logo
 		main.announce("Install complete.")
 		$VSplitContainer/StartFlow.hide()
-		$VSplitContainer/DrinkCoffee.show()
+		$VSplitContainer/CoffeeSleepBox/DrinkCoffee.show()
 		
 	start_flow += 1
 		
