@@ -19,11 +19,12 @@ var money = 1000
 var title_node
 var money_node
 var enjoy_node
+var INFO_TEXT_MAX_LINES = 5
 
 onready var info_text = get_node("v0/TopBar/MarginContainer/Info")
 onready var typing_speed_timer = get_node("v0/TopBar/MarginContainer/Info/TypingSpeed")
-var text = "This is some text that will be typed out letter by letter."
-var textIndex = 0
+var announcement_window_text = "This is some text that will be typed out letter by letter."
+var announcement_index = 0
 	
 func click():
 	clicks += 1
@@ -100,11 +101,33 @@ func warpS3():
 func warpOpener():
 	set_stage(stage_opener)
 	
+func announce(new_line):
+	# Ensure the new_line ends with a newline character
+	if not new_line.ends_with("\n"):
+		new_line += "\n"
+
+#	var bbcode_text = rich_text_label.get_bbcode()
+	var lines = announcement_window_text.split("\n")  # Splits the BBCode text by line
+
+	lines.append(new_line.strip_edges())  # Adds the new line to the end
+
+	# If there are more than 5 lines, removes the first one
+	if lines.size() > INFO_TEXT_MAX_LINES:
+		var num_chars = len(lines[0])
+		announcement_index -= num_chars
+		announcement_index -= len(new_line)
+		lines.remove(0)
+
+	# Joins the lines back together with newline characters and updates the label's BBCode text
+	announcement_window_text = lines.join("\n")
+
+	
 func _on_TypingSpeed_timeout():	
-	if textIndex < len(text):
+	if announcement_index < len(announcement_window_text):
 		# Append the next character to the label's text
-		info_text.bbcode_text += text[textIndex]
+		info_text.bbcode_text = announcement_window_text.substr(0, announcement_index)
 		info_text.percent_visible = 1.0  # Ensure the label is fully visible
-		textIndex += 1
+		announcement_index += 1
 	else:
-		typing_speed_timer.stop()
+		announce("Another announcement!")
+#		typing_speed_timer.stop()
