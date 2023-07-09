@@ -260,7 +260,7 @@ rect_min_size = Vector2( 150, 20 )
 [node name="HBoxContainer2" type="HBoxContainer" parent="VSplitContainer"]
 margin_top = 264.0
 margin_right = 1024.0
-margin_bottom = 576.0
+margin_bottom = 582.0
 
 [node name="Art" type="Button" parent="VSplitContainer/HBoxContainer2"]
 visible = false
@@ -276,7 +276,7 @@ text = "Music"
 
 [node name="Coding" type="VSplitContainer" parent="VSplitContainer/HBoxContainer2"]
 margin_right = 150.0
-margin_bottom = 312.0
+margin_bottom = 318.0
 
 [node name="Code" type="Button" parent="VSplitContainer/HBoxContainer2/Coding"]
 margin_right = 150.0
@@ -296,11 +296,23 @@ text = "Study"
 [node name="MusicNotes" type="HBoxContainer" parent="VSplitContainer/HBoxContainer2"]
 margin_left = 154.0
 margin_right = 454.0
-margin_bottom = 312.0
+margin_bottom = 318.0
 
-[node name="Keys" type="TextureRect" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
+[node name="Holder" type="VBoxContainer" parent="VSplitContainer/HBoxContainer2/MusicNotes"]
 margin_right = 300.0
-margin_bottom = 312.0
+margin_bottom = 318.0
+
+[node name="Label" type="Label" parent="VSplitContainer/HBoxContainer2/MusicNotes/Holder"]
+margin_right = 300.0
+margin_bottom = 14.0
+text = "Play your keyboard"
+align = 1
+valign = 1
+
+[node name="Keys" type="TextureRect" parent="VSplitContainer/HBoxContainer2/MusicNotes/Holder"]
+margin_top = 18.0
+margin_right = 300.0
+margin_bottom = 318.0
 rect_min_size = Vector2( 300, 300 )
 texture = ExtResource( 4 )
 expand = true
@@ -364,10 +376,17 @@ text = "g"
 [node name="TextureRect" type="TextureRect" parent="VSplitContainer/HBoxContainer2"]
 margin_left = 458.0
 margin_right = 758.0
-margin_bottom = 312.0
+margin_bottom = 318.0
 rect_min_size = Vector2( 300, 300 )
 texture = ExtResource( 6 )
 expand = true
+
+[node name="Label" type="Label" parent="VSplitContainer/HBoxContainer2/TextureRect"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Please color inside the lines"
+align = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="VSplitContainer/HBoxContainer2/TextureRect"]
 

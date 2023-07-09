@@ -49,7 +49,7 @@ func draw_lin():
 		for i in range(point_count - 1):
 			var rect = self.get_parent().get_parent().get_global_rect()
 			if rect.has_point(points[i]) and rect.has_point(points[i+1]):
-				draw_line(points[i], points[i + 1], brush_color, 5.0)
+				draw_line(points[i], points[i + 1], brush_color, 5.0 + (scene.games_made_counter*2))
 				did_draw = true
 
 		if did_draw == true:

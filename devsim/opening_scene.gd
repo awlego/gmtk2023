@@ -128,7 +128,7 @@ func _ready():
 	var notes_holder = $VSplitContainer/HBoxContainer2/MusicNotes
 	music_note_list += (notes_holder.get_children())
 	music_note_list[music_note_idx].set("custom_colors/font_color", Color(0,1,0))
-	$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_plain.png")
+	$VSplitContainer/HBoxContainer2/MusicNotes/Holder/Keys.texture = load("res://assets/backgrounds/key_plain.png")
 	#print(music_note_list)
 	music_note_list.pop_front()
 	#print(music_note_list)
@@ -144,8 +144,10 @@ func _ready():
 func _process(delta):
 	if $VSplitContainer/GameProgress/Percent.value == 300:
 		if games_made_counter == 0:
-			$VSplitContainer/Status.text = "First game complete!!! \n Behold, Dwarven Dungeon!"
+			$VSplitContainer/Status.text = "Published Developer"
 			$VSplitContainer/GameProgress/GameCompletion2.text = "Next Game: Progress Percent"
+			main.announce("First game complete!!! \n Behold, Dwarven Dungeon!")
+			
 		elif games_made_counter == 1:
 			main.update_money(5000)
 		elif games_made_counter == 2:
@@ -238,7 +240,7 @@ func _input(event):
 		if event.pressed and event.unicode != 0:
 			var typed_character = char(event.unicode)
 			if typed_character == music_note_list[music_note_idx].text:
-				$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_green_" + str(music_note_idx) + ".png")
+				$VSplitContainer/HBoxContainer2/MusicNotes/Holder/Keys.texture = load("res://assets/backgrounds/key_green_" + str(music_note_idx) + ".png")
 				asm.play("res://assets/sounds/" + str(sound_idx) + ".mp3")
 				music_progress.value += music_skill
 				game_progress.value = art_progress.value + music_progress.value + code_progress.value
@@ -252,7 +254,7 @@ func _input(event):
 				music_note_list[music_note_idx].set("custom_colors/font_color", Color(1,1,1))
 				music_note_idx = (music_note_idx + 1) % 7
 				#MyImage.texture = load("res://Graphics/image.png")
-				$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png") 
+				$VSplitContainer/HBoxContainer2/MusicNotes/Holder/Keys.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png") 
 				sound_idx = (sound_idx + 1) % 56
 				music_note_list[music_note_idx].set("custom_colors/font_color", Color(0,1,0))
 
@@ -274,7 +276,8 @@ func _on_Drink_Coffee_pressed():
 
 	var coffee_text = coffee_phrases[rand_range(0,len(coffee_phrases))]
 	#Coffee with good friends is one of life's true delights
-	$VSplitContainer/Status.text = coffee_text
+	main.announce(coffee_text)
+	#$VSplitContainer/Status.text = coffee_text
 	#$VSplitContainer/Status.text = "Sipping on that lovely coffee"
 	# generate a list of coffee comments and rng them
 	tired = false
@@ -356,23 +359,26 @@ func _on_HelloWorld_gui_input(_event):
 
 func _on_SleepButton_pressed():
 	main.announce("zzzz...")
-	$VSplitContainer/Status.text = "zzzzzz..."
+	#$VSplitContainer/Status.text = "zzzzzz..."
 	sleeping = true
 	coffee_penalty = 0
 	$SleepTimer.start()
 
 
 func _on_SleepTimer_timeout():
-	$VSplitContainer/Status.text = "I'm up, I'm up"
+	main.announce("I'm up! I'm up!")
+	#$VSplitContainer/Status.text = "I'm up, I'm up"
 	sleeping = false
 	tired = false
 	$VSplitContainer/HSplitContainer/EnergyMeter.value = 100
 	
 
 func _on_Study_pressed():
-	$VSplitContainer/Status.text = "Ugh, this is brutal"
+	#$VSplitContainer/Status.text = "Ugh, this is brutal"
+	if rand_range(1, 100) > 80:
+		main.announce("This textbook is the worst")
 	if tired == true:
-		main.announce("Yaaaawwwwwnnnn")
+		main.announce("Yaaaawwwwwnnnn, so tired")
 		if rand_range(1, 100) > 10:
 			programming_skill -= 0.005
 			return
@@ -392,7 +398,9 @@ func _on_Code_pressed():
 		code_counter += 1
 		$VSplitContainer/HBoxContainer2/Coding/Study.show()
 	
-	$VSplitContainer/Status.text = "Clickety clack"
+	if rand_range(1, 100) > 80:
+		main.announce("Clickety clack")
+	
 	if tired == true:
 		if rand_range(1, 100) > 5:
 			pf.generateProject("Bug " + str(count))
@@ -407,7 +415,7 @@ func _on_Code_pressed():
 		if !$VSplitContainer/H/v2.visible:
 			$VSplitContainer/H/v2.show()
 			$VSplitContainer/HBoxContainer2/MusicNotes.show()
-			$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
+			$VSplitContainer/HBoxContainer2/MusicNotes/Holder/Keys.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
 	game_progress.value = art_progress.value + music_progress.value + code_progress.value
 	if $VSplitContainer/GameProgress/Percent.value > 15:
 		if !$VSplitContainer/H/v1.visible:
@@ -449,8 +457,10 @@ func _on_StartFlow_pressed():
 		if len($VSplitContainer/login_itch/LineEdit.text) <1:
 			main.announce("Can't log into itch without my username")
 			return
+		$VSplitContainer/login_itch.hide()
 		main.player_name = $VSplitContainer/login_itch/LineEdit.text
-		main.announce("Username: ctrl-alt-delicious")
+		main.announce("Game Jam, sponsored by ctrl-alt-delicious")
+		main.announce("Username: " + main.player_name)
 		main.announce("Password: mmmmmmmmmmmmmmmmmm")
 		# happy effect goes here
 		$VSplitContainer/Status.text = "Title: Player"
@@ -513,6 +523,7 @@ func _on_HireCode_pressed():
 		main.update_money(-40000)
 		dev_hired = true
 		$HireCode.hide()
+		$VSplitContainer/Status.text = "Lead Developer"
 
 
 func _on_SetStudio_pressed():
@@ -527,6 +538,7 @@ func _on_Stage2Jump_pressed():
 	if len($Company/LineEdit.text) <1:
 		main.announce("This new game studio definitely needs a name")
 		return
+	$VSplitContainer/Status.text = "Indie Developer"
 	main.company_name = $Company/LineEdit.text
 	main.update_title($Company/LineEdit.text)
 	$Company.hide()
