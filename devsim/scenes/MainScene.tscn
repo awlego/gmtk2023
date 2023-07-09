@@ -12,7 +12,7 @@ script = ExtResource( 1 )
 
 [node name="v0" type="VSplitContainer" parent="."]
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 768.0
 split_offset = 50
 
 [node name="TopBar" type="HBoxContainer" parent="v0"]
@@ -83,7 +83,7 @@ text = "Money: $1000"
 [node name="Stage0" type="GridContainer" parent="v0"]
 margin_top = 117.0
 margin_right = 1024.0
-margin_bottom = 600.0
+margin_bottom = 768.0
 
 [node name="Button" type="Button" parent="v0/Stage0"]
 margin_right = 122.0
