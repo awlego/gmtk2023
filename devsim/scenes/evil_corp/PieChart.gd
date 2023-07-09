@@ -1,4 +1,4 @@
-extends Control
+extends PanelContainer
 
 var data = {
 	"Company1": 30,
@@ -9,18 +9,16 @@ var data = {
 var colors = {
 	"Company1": Color(1, 0, 0, 1),  # red
 	"Company2": Color(0, 1, 0, 1),  # green
-	"Company3": Color(0, 0, 1, 1),   # blue
+	"Company3": Color(0, 0, 1, 1),  # blue
 	"Company4": Color(0, 1, 1, 1)   # cyan
 }
 
 var font = preload("res://assets/UIFont.tres")
 var debug = true
 onready var legend_container
-onready var legend_background
 
 func _ready():
-	legend_container = get_node("Container/LegendContainer")
-	legend_background = get_node("Container/ColorRect")
+	legend_container = get_node("VBoxContainer/HBoxContainer/LegendContainer")
 	update_pie_chart()
 
 func update_legend():
@@ -34,15 +32,7 @@ func update_legend():
 		label.text = company
 		label.add_color_override("font_color", colors[company])
 		legend_container.add_child(label)
-	
-	# Define the margin
-	var margin = Vector2(10, 10)  # 10 pixel margin on all sides
-	
-#	legend_container.rect_min_size += 2 * margin
-#	legend_container.rect_position += margin
-#
-	legend_background.color = Color(0.5, 0.5, 0.5, 0.5)  # semi-transparent black
-	legend_background.rect_min_size = Vector2(100, 300)
+	#
 
 func _draw():
 	var total_value = 0

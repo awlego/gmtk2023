@@ -10,7 +10,7 @@ var removed = false
 #onready var removable = get_node("$VSplitContainer/HSplitContainer2/HelloWorld")
 var pf
 var asm
-var music_skill = 0.001
+var music_skill = 0.1
 var main
 var first_sleep_appear = false
 var sleeping = true
@@ -73,11 +73,19 @@ var sound_idx = 0
 var music_note_idx = 0
 var music_note_list = []
 
+
+onready var art_progress = $VSplitContainer/H/v1/Art
+onready var music_progress = $VSplitContainer/H/v2/Music
+onready var code_progress = $VSplitContainer/H/v3/Code
+onready var game_progress = $VSplitContainer/GameProgress/Percent
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
 	$VSplitContainer/GameProgress/GameCompletion2.hide()
 	$VSplitContainer/GameProgress/Percent.hide()
+	$VSplitContainer/H.hide()
 	$VSplitContainer/HSplitContainer/EnergyMeter.hide()
 	$VSplitContainer/HSplitContainer/Label.hide()
 	$VSplitContainer/DrinkCoffee.hide()
@@ -92,6 +100,7 @@ func _ready():
 	$VSplitContainer/HBoxContainer2/Art.hide()
 	$VSplitContainer/HBoxContainer2/Music.hide()
 	$VSplitContainer/HBoxContainer2/MusicNotes.hide()
+	$VSplitContainer/HBoxContainer2/TextureRect.hide()
 	$VSplitContainer/HBoxContainer2/Code.hide()
 	$VSplitContainer/HBoxContainer/Sleep.hide()
 	$VSplitContainer/HBoxContainer/Eat.hide()
@@ -104,7 +113,7 @@ func _ready():
 	var notes_holder = $VSplitContainer/HBoxContainer2/MusicNotes
 	music_note_list += (notes_holder.get_children())
 	music_note_list[music_note_idx].set("custom_colors/font_color", Color(0,1,0))
-	$VSplitContainer/HBoxContainer2/MusicNotes/TextureRect.texture = load("res://assets/backgrounds/key_plain.png")
+	$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_plain.png")
 	print(music_note_list)
 	music_note_list.pop_front()
 	print(music_note_list)
@@ -172,17 +181,17 @@ func _input(event):
 		if tired == true:
 			return
 		if event.pressed and event.unicode != 0:
-
 			var typed_character = char(event.unicode)
 			if typed_character == music_note_list[music_note_idx].text:
-				$VSplitContainer/HBoxContainer2/MusicNotes/TextureRect.texture = load("res://assets/backgrounds/key_green_" + str(music_note_idx) + ".png")
+				$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_green_" + str(music_note_idx) + ".png")
 				asm.play("res://assets/sounds/" + str(sound_idx) + ".mp3")
-				$VSplitContainer/GameProgress/Percent.value += music_skill
-				music_skill += 0.0001
+				music_progress.value += music_skill
+				game_progress.value = art_progress.value + music_progress.value + code_progress.value
+				music_skill += 0.01
 				music_note_list[music_note_idx].set("custom_colors/font_color", Color(1,1,1))
 				music_note_idx = (music_note_idx + 1) % 7
 				#MyImage.texture = load("res://Graphics/image.png")
-				$VSplitContainer/HBoxContainer2/MusicNotes/TextureRect.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png") 
+				$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png") 
 				sound_idx = (sound_idx + 1) % 56
 				music_note_list[music_note_idx].set("custom_colors/font_color", Color(0,1,0))
 
@@ -238,15 +247,17 @@ func _on_Boot_Computer_pressed():
 	# text fade in
 	$VSplitContainer/GameProgress/GameCompletion2.show()
 	$VSplitContainer/GameProgress/Percent.show()
+	$VSplitContainer/H.show()
 	$VSplitContainer/HBoxContainer2/Art.show()
 	$VSplitContainer/HBoxContainer2/Music.show()
 	$VSplitContainer/HBoxContainer2/Code.show()
 	#$VSplitContainer/HSplitContainer2/Label.show()
 	#$VSplitContainer/HSplitContainer2/HelloWorld.show()
 	$VSplitContainer/HBoxContainer2/MusicNotes.show()
-	print("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
-	$VSplitContainer/HBoxContainer2/MusicNotes/TextureRect.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
-	
+	#print("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
+	$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture = load("res://assets/backgrounds/key_yellow_" + str(music_note_idx) + ".png")
+	#$VSplitContainer/HBoxContainer2/MusicNotes/Keys.texture.set_scale(Vector2(0.2, 0.2))
+	$VSplitContainer/HBoxContainer2/TextureRect.show()
 	# TODO this is where I lay out the rest of the primary round 1 properties and things to track
 	# trigger game progress and bugs as well
 
@@ -302,7 +313,9 @@ func _on_Code_pressed():
 	if (rand_range(0,1) * len(pf.project_list)) > 20:
 		print("BUG! Nothing got done")
 		return
-	$VSplitContainer/GameProgress/Percent.value += 1*programming_skill
+	#$VSplitContainer/GameProgress/Percent.value += 1*programming_skill
+	code_progress.value += 1*programming_skill
+	game_progress.value = art_progress.value + music_progress.value + code_progress.value
 	
 	if $VSplitContainer/GameProgress/Percent.value == 100:
 		$VSplitContainer/Status.text = "First game complete!!! \n Behold, Dwarven Dungeon!"
