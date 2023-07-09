@@ -28,7 +28,7 @@ func play(sound_path):
 	queue.append(sound_path)
 
 
-func _process(delta):
+func _process(_delta):
 	if !p.is_playing():
 		#print("we are not playing so maybe play")
 		# Play a queued sound if any players are available.
