@@ -44,9 +44,14 @@ func _process(delta):
 	
 func _per_second():
 	occupants = {"CardContainer": 0, "CoffeeRoom": 0, "Training": 0, "SocialRoom": 0}
+	var cjs = coffee_jockeys
 	for e in employees:
-		e.tick()
 		var room = e.get_parent().name
+		if cjs > 0 && room != "CoffeeRoom" && e.needs[0] > 0:
+			cjs -= 1
+			e.needs[0] -= 1
+			pay_for_coffee(20)
+		e.tick()
 		if room == "CardContainer":
 			progress[e.job] += (e.skill * e.happiness) * 0.0001
 			occupants["CardContainer"] += 1
@@ -60,7 +65,6 @@ func _per_second():
 			occupants["SocialRoom"] += 1
 		main.update_money(-1 * e.salary / 365)
 		
-	print(occupants)
 	if progress.min() >= 100:
 		main.update_money(100000)
 		progress = [0,0,0]
@@ -98,6 +102,14 @@ func get_relative_reno(d, rb):
 func get_relative_pos_topright(descendant):
 	return get_relative_pos_topleft(descendant) + Vector2(descendant.rect_size.x, 0)
 
+func create_button(button, fr, frargs, offset, text, target_node, target_func):
+	button.connect("pressed", target_node, target_func)
+	button.text = text
+	button.rect_position = fr.call_funcv(frargs) + offset
+	popups[button] = [fr, frargs, offset]
+	add_child(button)
+	return button
+
 func popup_grim_button(on_descendant, pos_on_desc, text, target_node, target_func):
 	var button = GrimButton.new()
 	button.connect("pressed", target_node, target_func)
@@ -112,19 +124,11 @@ func popup_grim_button(on_descendant, pos_on_desc, text, target_node, target_fun
 	return button
 
 func create_renovate_button():
-	var button = Button.new()
-	var on_descendant = cardContainer.get_node("v/h2/FIRE")
-	var offset = Vector2(-30, 20)
-	button.text = "Renovate the office"
-	button.rect_position = get_relative_pos_topleft(on_descendant) + offset
-	button.grow_horizontal = Control.GROW_DIRECTION_BEGIN
-	button.connect("pressed", self, "renovate")
 	var fr = FuncRef.new()
 	fr.set_instance(self)
 	fr.set_function("get_relative_reno")
-	popups[button] = [fr, [on_descendant, button], offset]
-	add_child(button)
-	return button
+	var button = Button.new()
+	return create_button(button, fr, [cardContainer.get_node("v/h2/FIRE"), button], Vector2(-30,20), "Renovate the office", self, "renovate")
 	
 func cleanup_popup(popup):
 	popups.erase(popup)
@@ -134,11 +138,28 @@ func renovate():
 	for e in employees:
 		e.needs[1] = 0
 		e.update_info()
-		
+
+# COFFEE!!
 var dollars_coffee = 0
+var coffee_jockey_unlock = false
+const COFFEE_JOCKEY_UNLOCK = 2000
+var coffee_jockeys = 0
+
 func pay_for_coffee(dollars):
 	dollars_coffee += dollars
 	main.update_money(0-dollars)
+	if !coffee_jockey_unlock && dollars_coffee >= COFFEE_JOCKEY_UNLOCK:
+		var cj = Button.new()
+		var fr0 = FuncRef.new()
+		fr0.set_instance(self)
+		fr0.set_function("get_relative_pos_topleft")
+		create_button(cj, fr0, [cardContainer.get_node("v/h/CoffeeRoom")], Vector2(20, 30), "Hire Coffee Jockey", self, "hire_coffee_jockey")
+		
+
+func hire_coffee_jockey():
+	pass
+	
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
