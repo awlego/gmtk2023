@@ -128,7 +128,7 @@ func _ready():
 	}
 	
 	money_projects_dict = {
-		1: Project.new("Repurpose Roombas", "", false, 0, 0, 2, 3, self, "_dummy_callback", []),
+		1: Project.new("Repurpose Roombas", "", false, 0, 0, 2, 3, self, "_roombas", []),
 	}
 	
 	acquire_projects_dict = {
@@ -145,6 +145,12 @@ func _ready():
 #	projectsNode.add_money_project(acquire_projects_dict[3])
 #	projectsNode.add_money_project(acquire_projects_dict[4])
 
+func _roombas():
+	for child in main.get_children():
+		if child.name == "Roombox":
+			main.remove_child(child)
+			child.queue_free()
+	
 func _dummy_callback():
 	pass
 	
