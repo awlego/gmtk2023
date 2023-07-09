@@ -3,6 +3,7 @@ extends Control
 const Employee = preload("res://scenes/Stage2/Employee.tscn")
 const GrimButton = preload("res://GrimButton.gd")
 const EnjoyTimer = preload("res://scenes/EnjoyTimer.gd")
+const Roomba = preload("res://scenes/Stage2/Roomba.gd")
 
 var main
 
@@ -38,7 +39,7 @@ func _ready():
 	popup_grim_button(coffeeRoom, Vector2(50, 50), "HELLO", self, "hire_code")
 	create_renovate_button()
 	
-func _process(delta):
+func _process(_delta):
 	for popup in popups.keys():
 		var arr = popups[popup]
 		var fnc = arr[0]
@@ -51,7 +52,7 @@ func _per_second():
 	var cjs = coffee_jockeys
 	var roos = roomba
 	var randaccess = range(employees.size())
-	for i in range(employees.size()):
+	for _i in range(employees.size()):
 		var ii = randi() % randaccess.size()
 		var e = employees[randaccess[ii]]
 		randaccess.remove(ii)
@@ -217,11 +218,15 @@ func create_roomba_btn():
 	fr.set_function("get_relative_pos_botleft")
 	create_button(roomba_btn, fr, [renovate_btn], Vector2(0, 5), "Roomba?", self, "buy_roomba")
 	roomba_btn.rect_size = renovate_btn.rect_size
+	var roombox = Node.new()
+	roombox.name = "Roombox"
+	main.add_child(roombox)
 
 func buy_roomba():
 	roomba += 1
 	main.update_money(0-roomba_cost)
 	roomba_cost = int(roomba_cost * 1.1)
+	main.get_node("Roombox").add_child(Roomba.new())
 	update_roomba_btn()
 
 func update_roomba_btn():
@@ -253,7 +258,7 @@ func hire_coffee_jockey():
 	cj_cost = min(1000000, int(cj_cost * 1.08))
 	cj_button.text = "Coffee Jockey (" + str(coffee_jockeys) + "): $" + str(cj_cost)
 
-		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+# Company Phones
+const PHONES_UNLOCK = 2*1000*1000
+var phone_toggle
