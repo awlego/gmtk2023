@@ -38,8 +38,11 @@ func _per_second():
 			progress[e.job] += (e.skill * e.happiness) * 0.0001
 		elif room == "CoffeeRoom":
 			main.update_money(-10)
+			$Animations/CoffeeSprite1/AnimationPlayer1.play("InCoffeeRoom")
 		elif room == "Training":
 			main.update_money(-100)
+			$Animations/AnimatedSprite.show()
+			$Animations/AnimatedSprite.play("flip")
 		main.update_money(-1 * e.salary / 365)
 		
 		
