@@ -12,6 +12,14 @@ const names = [
 	"Gabriel", "Lily", "Caleb", "Victoria", "Isaac", "Hannah", "Nathan", "Avery", "Liam", "Scarlett",
    # Continue adding more names...
 ]
+const boss_phrases = [
+	" thinks 'delegating' means 'avoiding work'.",
+	"'s management style is 'confuse and conquer'.",
+	"'s decision-making process involves a magic 8-ball.",
+	"'s coffee addiction is their only reliable source of energy.",
+	"'s management technique involves excessive 'whistling'.",
+	"'s office plants are better taken care of than the employees."
+]
 func get_random_name():
 	return names[randi() % names.size()]
 func rand100():
