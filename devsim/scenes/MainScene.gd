@@ -128,6 +128,4 @@ func _on_TypingSpeed_timeout():
 		info_text.bbcode_text = announcement_window_text.substr(0, announcement_index)
 		info_text.percent_visible = 1.0  # Ensure the label is fully visible
 		announcement_index += 1
-	else:
-		announce("Another announcement!")
-#		typing_speed_timer.stop()
+	
