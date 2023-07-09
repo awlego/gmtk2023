@@ -52,11 +52,14 @@ func _per_second():
 	var cjs = coffee_jockeys
 	var roos = roomba
 	var randaccess = range(employees.size())
+	var totalskill = 0
 	for _i in range(employees.size()):
 		var ii = randi() % randaccess.size()
 		var e = employees[randaccess[ii]]
 		randaccess.remove(ii)
 		var room = e.get_parent().name
+		e.tick()
+		totalskill += e.skill
 		if (cjs > 0) && (room != "CoffeeRoom") && (e.needs[0] > 0):
 			cjs -= 1
 			e.needs[0] -= 1
@@ -64,7 +67,8 @@ func _per_second():
 		if (roos > 0) && (e.needs[1] > 0):
 			roos -= 1
 			e.needs[1] -= 1
-		e.tick()
+		if slack_pro:
+			e.needs[2] -= 1
 		if room == "CardContainer":
 			progress[e.job] += (e.skill * e.happiness) * 0.0001
 			occupants["CardContainer"] += 1
@@ -77,6 +81,12 @@ func _per_second():
 		elif room == "SocialRoom":
 			occupants["SocialRoom"] += 1
 		main.update_money(-1 * e.salary / 365)
+	
+	if !(slack_pro_toggle) && main.hours_enjoyed > SLACK_UNLOCK:
+		create_slack_toggle()
+	
+	if slack_pro:
+		main.update_money(-25 * employees.size())
 	
 	#controlling animations based on room dictionary.
 	if occupants["CoffeeRoom"] > 0:
@@ -106,10 +116,18 @@ func _per_second():
 		socialRoom.get_node("WordBubble3").hide()
 		
 	if progress.min() >= 100:
-		main.update_money(80000 + randi() % 40000)
-		add_child(EnjoyTimer.new(160000 + randi() % 40000, main))
+		var multi = max(1000, totalskill) / 1000.0
+		main.update_money(int((120000 + randi() % 40000) * multi))
+		add_child(EnjoyTimer.new(int((240000 + randi() % 40000) * multi), main))
 		progress = [0,0,0]
 	
+	if main.money > IPO_SHOW && !(ipo_btn):
+		create_ipo_btn()
+	if main.money > IPO_ENABLE && ipo_btn:
+		ipo_btn.disabled = false
+	
+#	main.money += 1000000
+#	print("ADDING MONEY")
 	art_progress.value = progress[0]
 	music_progress.value = progress[1]
 	code_progress.value = progress[2]
@@ -122,7 +140,7 @@ func fire_employee(c):
 
 func hire_employee(jobi):
 	if main.money < 0 && employees.size() > 10:
-		pass
+		return
 	var newbie = Employee.instance()
 	newbie.init_job(jobi)
 	employees.append(newbie)
@@ -259,6 +277,40 @@ func hire_coffee_jockey():
 	cj_button.text = "Coffee Jockey (" + str(coffee_jockeys) + "): $" + str(cj_cost)
 
 
-# Company Phones
-const PHONES_UNLOCK = 2*1000*1000
-var phone_toggle
+# Company Slack
+const SLACK_UNLOCK = 2*1000*1000
+var slack_pro_toggle
+var slack_pro = false
+
+func create_slack_toggle():
+	slack_pro_toggle = CheckButton.new()
+	slack_pro_toggle.toggle_mode = true
+	var fr = FuncRef.new()
+	fr.set_instance(self)
+	fr.set_function("get_relative_pos_topleft")
+	create_button(slack_pro_toggle, fr, [cardContainer.get_node("v/h/SocialRoom")], Vector2(20, 20), "Slack Pro", self, "toggle_slack")
+	
+func toggle_slack():
+	slack_pro = slack_pro_toggle.pressed
+	#slack_pro_toggle.toggle_mode = slack_pro
+
+
+# IPO
+const IPO_SHOW = 1000 * 1000
+const IPO_ENABLE = 10 * IPO_SHOW
+var ipo_btn
+
+func create_ipo_btn():
+	ipo_btn = Button.new()
+#	ipo_btn.text = "IPO ($10M)"
+#	ipo_btn.connect("pressed", self, "ipo")
+#	ipo_btn.rect_position = Vector2(20, 0)
+	var fr = FuncRef.new()
+	fr.set_instance(self)
+	fr.set_function("get_relative_pos_topleft")
+	ipo_btn.disabled = true
+#	add_child(ipo_btn)
+	create_button(ipo_btn, fr, [cardContainer], Vector2(20, 20), "IPO ($10M)", self, "ipo")
+
+func ipo():
+	main.set_stage(main.stage3)
